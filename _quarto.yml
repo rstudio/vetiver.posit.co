@@ -31,6 +31,25 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: python/index.qmd
+        text: Python
+
+  sidebar:
+    - id: python
+      title: "python"
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
+      - python/index.qmd
+      - href: python/get-started.ipynb
+        text: Get started in python
+      - href: python/vetiver-model.qmd
+        text: VetiverModel
+      - href: python/vetiver-api.ipynb
+        text: VetiverAPI
+      - href: python/examples.qmd
+        text: Examples
 
 format:
   html:
