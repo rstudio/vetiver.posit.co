@@ -1,5 +1,54 @@
 [
   {
+    "objectID": "python/examples.html",
+    "href": "python/examples.html",
+    "title": "Examples",
+    "section": "",
+    "text": "If you’re looking for more vetiver content, check out this repo of examples."
+  },
+  {
+    "objectID": "python/get-started.html#installation",
+    "href": "python/get-started.html#installation",
+    "title": "Get started",
+    "section": "Installation",
+    "text": "Installation\nvetiver can be installed via pip with PyPI.\npip install vetiver\nYou can also install the development version from GitHub.\npip install git+https://github.com/isabelizimm/vetiver"
+  },
+  {
+    "objectID": "python/get-started.html#get-started",
+    "href": "python/get-started.html#get-started",
+    "title": "Get started",
+    "section": "Get started",
+    "text": "Get started\nVetiver focuses on two main objects: VetiverModel() and VetiverAPI(). A VetiverModel collects all the information needed for deploying a trained model, while a VetiverAPI deploys the model to a REST endpoint. The example below shows a minimal deployment of an arbitrary model.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model, save_ptype= True, ptype_data=X)\n\nmy_api = VetiverAPI(v)\nmy_api.run()\n\n(This script is complete, it should run “as is”)"
+  },
+  {
+    "objectID": "python/index.html",
+    "href": "python/index.html",
+    "title": "Vetiver",
+    "section": "",
+    "text": "The goal of vetiver is to give data scientists and other model-builders the tools to deploy their model to a remote endpoint. It is the Python counterpart to the R package vetiver.\nKey features include:\n\nSimple: designed to fit into a data scientist’s natural workflow\nRobust: ability to check input data types to minimize type failures in a model\nAdvanced support: easily deploy multiple endpoints to handle pre- and post- processing\nBased on FastAPI, using OpenAPI\n\nSource code available on GitHub."
+  },
+  {
+    "objectID": "python/vetiver-model.html",
+    "href": "python/vetiver-model.html",
+    "title": "VetiverModel",
+    "section": "",
+    "text": "This tutorial shows you how to use VetiverModel() with its core features, step by step.\nUsers will start with any trained model. Currently, Vetiver supports scikit-learn models, with other model support on its way.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model, save_ptype = True, ptype_data = X)\n\nThe save_ptype and ptype_data arguments refer to an input data prototype, or ptype. This ptype is an automatically created Pydantic BaseModel that stores the types of the data that the API can expect when deployed. To enable this feature, set save_ptype = True and set ptype_data equal to training data. You can turn this feature off by setting save_ptype = False and not passing in any ptype_data."
+  },
+  {
+    "objectID": "python/vetiver-api.html#minimal-deployment",
+    "href": "python/vetiver-api.html#minimal-deployment",
+    "title": "VetiverAPI",
+    "section": "Minimal deployment",
+    "text": "Minimal deployment\nThe simplest VetiverAPI deployment includes a trained model with a predict method, inside a VetiverModel.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model = model, save_ptype = True, ptype_data = X)\n\nmy_api = VetiverAPI(v)\nmy_api.run()\n\n(This script is complete, it should run “as is”)\n!!! note\nIn this example, Vetiver is invoking a data prototype, or `ptype`, which requires sample data to create. This is an optional configuration, but it creates more verbose documentation within the API, as well as allows for some basic type-checking within the API itself. To turn this off, set `save_ptype = False`.\nIn the output, there will be a line with something similar to:\nINFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)\nFollow the link to the API at http://127.0.0.1:8000. You will be redirected to the automatic API documentation provided by Rapidoc. From there, you can send requests to your model, see example curl commands, and interact with your API."
+  },
+  {
+    "objectID": "python/vetiver-api.html#multiple-endpoints",
+    "href": "python/vetiver-api.html#multiple-endpoints",
+    "title": "VetiverAPI",
+    "section": "Multiple endpoints",
+    "text": "Multiple endpoints\nMore advanced use cases may require multiple endpoints to be created for pre-processing or post-processing data. You can use vetiver_post() to create a new POST endpoint that implements a custom function. In the example below, the endpoint “new_endpoint” sums all the input data.\n!!! note\nThe method `vetiver_post()` currently handles all data as a [Series](https://pandas.pydata.org/docs/reference/api/pandas.Series.html) type.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model = model, save_ptype = True, ptype_data = X)\n\nmy_api = VetiverAPI(v)\n\n# new endpoint\ndef sum_numbers(x):\n    return x.sum()\n\nmy_api.vetiver_post(endpoint_fx = sum_numbers, endpoint_name = \"new_endpoint\")\n\nmy_api.run()\n\n(This script is complete, it should run “as is”)"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "vetiver.dev",
