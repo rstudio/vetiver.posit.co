@@ -51,9 +51,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "vetiver.dev",
+    "title": "MLOps with vetiver",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "The vetiver framework is for MLOps tasks in Python and R.\n\nVetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.\n\nThe goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint.\n\n\n\n\n\n\n\n\n\n\n\nData scientists have effective tools that they ❤️ to:\n\n\n\n\ncollect data\nprepare, manipulate, refine data\ntrain models\n\n\n\n\n\n\n\n\n\nThere is a lack 😩 of effective tools to:\n\n\n\n\nput models into production\nmonitor model performance\ntrigger retraining\n\n\n\nYou can use vetiver for deploying and handling your trained models.\n\nRPython\n\n\n\nlibrary(vetiver)\ncars_lm <- lm(mpg ~ ., data = mtcars)\nvetiver_model(cars_lm, \"cars_linear\")\n\n\n── cars_linear ─ <butchered_lm> model for deployment \nAn OLS linear regression model using 10 features\n\n\n\n\n\n1 + 1\n\n2"
   },
   {
     "objectID": "about.html",
@@ -68,5 +68,26 @@
     "title": "MIT License",
     "section": "",
     "text": "Copyright (c) 2022 RStudio\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+  },
+  {
+    "objectID": "about.html#what-are-different-ways-you-can-contribute",
+    "href": "about.html#what-are-different-ways-you-can-contribute",
+    "title": "About vetiver",
+    "section": "What are different ways you can contribute?",
+    "text": "What are different ways you can contribute?\n\nAnswer questions\nYou can help others use and learn vetiver by answering questions on the RStudio community site, Stack Overflow, and Twitter. Many people asking for help with vetiver don’t know what a reproducible example or “reprex” is, or how to craft one. Acknowledging an individual’s problem, showing them how to build a reprex, and pointing them to helpful resources are all enormously beneficial, even if you don’t immediately solve their problem.\nRemember that while you might have seen a problem a hundred times before, it’s new to the person asking it. Be patient, polite, and empathetic.\n\n\nFile issues\nIf you’ve found a bug, first create a minimal reproducible example. Spend some time working to make it as minimal as possible; the more time you spend doing this, the easier it is to fix the bug. When your reprex is ready, file it on the GitHub repo of the appropriate package, either Python or R.\nThe vetiver team often focuses on one package at a time to reduce context switching and be more efficient. We may not address each issue right away, but we will use the reproducible example you create to understand your problem when it is time to focus on that package."
+  },
+  {
+    "objectID": "about.html#contribute-documentation",
+    "href": "about.html#contribute-documentation",
+    "title": "About vetiver",
+    "section": "Contribute documentation",
+    "text": "Contribute documentation\nDocumentation is a high priority for vetiver, and pull requests to correct or improve documentation are welcome."
+  },
+  {
+    "objectID": "about.html#contribute-code",
+    "href": "about.html#contribute-code",
+    "title": "About vetiver",
+    "section": "Contribute code",
+    "text": "Contribute code\nIf you are a more experienced R or Python programmer, you may have the inclination, interest, and ability to contribute directly to package development. Before you submit a pull request to vetiver, always file an issue and confirm the vetiver team agrees with your idea and is happy with your basic proposal.\nWe use the tidyverse style guide for R and the ??? style guide for Python. Using a style guide keeps your new code and documentation matching the existing style, and makes the review process much smoother."
   }
 ]

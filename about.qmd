@@ -1,9 +1,30 @@
 ---
-title: "About"
+title: "About vetiver"
+subtitle: "MLOps for R and Python"
 ---
 
-About this site
+Development of vetiver is sponsored by [RStudio, PBC](https://www.rstudio.com).
 
-```{r}
-1 + 1
-```
+## What are different ways you can contribute?
+
+### Answer questions
+
+You can help others use and learn vetiver by answering questions on the [RStudio community site](https://community.rstudio.com/), [Stack Overflow](https://stackoverflow.com/questions/tagged/vetiver?sort=newest), and [Twitter](https://twitter.com/search?q=%23vetiver&f=live). Many people asking for help with vetiver don't know what a reproducible example or ["reprex"](https://www.tidyverse.org/help#reprex) is, or how to craft one. Acknowledging an individual's problem, showing them how to build a reprex, and pointing them to helpful resources are all enormously beneficial, even if you don't immediately solve their problem.
+
+Remember that while you might have seen a problem a hundred times before, it's new to the person asking it. Be patient, polite, and empathetic.
+
+### File issues
+
+If you've found a bug, first create a minimal reproducible example. Spend some time working to make it as minimal as possible; the more time you spend doing this, the easier it is to fix the bug. When your reprex is ready, file it on the GitHub repo of the appropriate package, either [Python](https://github.com/tidymodels/vetiver-python) or [R](https://github.com/tidymodels/vetiver-r).
+
+The vetiver team often focuses on one package at a time to reduce context switching and be more efficient. We may not address each issue right away, but we will use the reproducible example you create to understand your problem when it is time to focus on that package.
+
+## Contribute documentation
+
+Documentation is a high priority for vetiver, and pull requests to correct or improve documentation are welcome.
+
+## Contribute code
+
+If you are a more experienced R or Python programmer, you may have the inclination, interest, and ability to contribute directly to package development. Before you submit a pull request to vetiver, always file an issue and confirm the vetiver team agrees with your idea and is happy with your basic proposal.
+
+We use the [tidyverse style guide](https://style.tidyverse.org/) for R and the ??? style guide for Python. Using a style guide keeps your new code and documentation matching the existing style, and makes the review process much smoother.

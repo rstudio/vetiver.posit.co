@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://vetiver.dev/index.html</loc>
-    <lastmod>2022-03-04T19:42:45.272Z</lastmod>
+    <lastmod>2022-04-15T19:08:42.355Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.dev/about.html</loc>
@@ -31,5 +31,13 @@
   <url>
     <loc>https://vetiver.dev/license.html</loc>
     <lastmod>2022-03-04T19:42:46.378Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/index.html</loc>
+    <lastmod>2022-04-15T20:18:01.460Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/about.html</loc>
+    <lastmod>2022-04-15T19:32:42.770Z</lastmod>
   </url>
 </urlset>

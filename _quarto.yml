@@ -6,8 +6,8 @@ website:
   title: "MLOps with vetiver"
   open-graph: true
   twitter-card: true
-  site-url: https://vetiver.dev
-  repo-url: https://github.com/tidymodels/vetiver.dev
+  site-url: https://vetiver.rstudio.com
+  repo-url: https://github.com/tidymodels/vetiver.rstudio.com
   repo-actions: [edit, issue]
   page-navigation: true
   page-footer:
@@ -21,39 +21,24 @@ website:
         href: license.qmd
     right:
       - icon: github
-        href: https://github.com/tidymodels/vetiver
+        href: https://github.com/tidymodels/vetiver-r
       - icon: github
-        href: https://github.com/isabelizimm/vetiver-python
+        href: https://github.com/tidymodels/vetiver-python
 
   navbar:
     background: primary
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-      - href: python/index.qmd
-        text: Python
+      - href: https://tidymodels.github.io/vetiver-python
+        text: Python Function Reference
+      - href: https://vetiver.tidymodels.org/
+        text: R Function Reference
 
-  sidebar:
-    - id: python
-      title: "python"
-      style: "floating"
-      collapse-level: 2
-      align: left
-      contents:
-      - python/index.qmd
-      - href: python/get-started.ipynb
-        text: Get started in python
-      - href: python/vetiver-model.qmd
-        text: VetiverModel
-      - href: python/vetiver-api.ipynb
-        text: VetiverAPI
-      - href: python/examples.qmd
-        text: Examples
 
 format:
   html:
-    theme: cosmo
+    theme: sandstone
     css: styles.css
 
 editor: visual
