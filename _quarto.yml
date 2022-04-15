@@ -24,12 +24,12 @@ website:
         href: license.qmd
     right:
       - icon: github
-        href: https://github.com/tidymodels/vetiver-r
-      - icon: github
-        href: https://github.com/tidymodels/vetiver-python
+        href: https://github.com/tidymodels/vetiver.rstudio.com
 
   navbar:
     background: primary
+    pinned: true
+    logo: "images/logo_small.png"
     left:
       - href: index.qmd
         text: Home
