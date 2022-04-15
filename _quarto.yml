@@ -11,7 +11,6 @@ website:
   repo-url: https://github.com/tidymodels/vetiver.rstudio.com
   repo-actions: [edit, issue]
   page-navigation: true
-  reader-mode: true
   favicon: "images/favicon.ico"
   page-footer:
     left: |
@@ -35,7 +34,7 @@ website:
         text: Home
       - href: https://tidymodels.github.io/vetiver-python
         text: Python Function Reference
-      - href: https://vetiver.tidymodels.org/
+      - href: https://vetiver.tidymodels.org/reference/
         text: R Function Reference
 
 
