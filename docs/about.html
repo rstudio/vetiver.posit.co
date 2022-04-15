@@ -14,12 +14,12 @@
   </style>
 
   <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-  <script src="site_libs/quarto-nav/headroom.min.js"></script>
   <script src="site_libs/clipboard/clipboard.min.js"></script>
   <meta name="quarto:offset" content="./">
   <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
   <script src="site_libs/quarto-search/fuse.min.js"></script>
   <script src="site_libs/quarto-search/quarto-search.js"></script>
+  <link href="./images/favicon.ico" rel="icon">
   <script src="site_libs/quarto-html/quarto.js"></script>
   <script src="site_libs/quarto-html/popper.min.js"></script>
   <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -63,6 +63,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <a class="navbar-brand" href="./index.html">
+    <img src="./images/logo_small.png" alt="">
     <span class="navbar-title">MLOps with vetiver</span>
   </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -74,16 +75,10 @@
     <a class="nav-link" href="./index.html">Home</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page">About vetiver</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./python/index.html">Python</a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="https://tidymodels.github.io/vetiver-python">Python Function Reference</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://vetiver.tidymodels.org/">R Function Reference</a>
+    <a class="nav-link" href="https://vetiver.tidymodels.org/reference/">R Function Reference</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -102,7 +97,14 @@
 
 
 <div class="quarto-title"><h1 class="title display-7">About vetiver</h1><p class="subtitle lead">MLOps for R and Python</p></div></header>
+<section id="who-is-developing-vetiver" class="level2">
+<h2 class="anchored" data-anchor-id="who-is-developing-vetiver">Who is developing vetiver?</h2>
 <p>Development of vetiver is sponsored by <a href="https://www.rstudio.com">RStudio, PBC</a>.</p>
+</section>
+<section id="is-vetiver-open-source" class="level2">
+<h2 class="anchored" data-anchor-id="is-vetiver-open-source">Is vetiver open source?</h2>
+<p>The vetiver <a href="https://github.com/tidymodels/vetiver-python">Python</a> and <a href="https://github.com/tidymodels/vetiver-r">R</a> packages are released under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+</section>
 <section id="what-are-different-ways-you-can-contribute" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-different-ways-you-can-contribute">What are different ways you can contribute?</h2>
 <section id="answer-questions" class="level3">
@@ -115,17 +117,17 @@
 <p>If you’ve found a bug, first create a minimal reproducible example. Spend some time working to make it as minimal as possible; the more time you spend doing this, the easier it is to fix the bug. When your reprex is ready, file it on the GitHub repo of the appropriate package, either <a href="https://github.com/tidymodels/vetiver-python">Python</a> or <a href="https://github.com/tidymodels/vetiver-r">R</a>.</p>
 <p>The vetiver team often focuses on one package at a time to reduce context switching and be more efficient. We may not address each issue right away, but we will use the reproducible example you create to understand your problem when it is time to focus on that package.</p>
 </section>
-</section>
-<section id="contribute-documentation" class="level2">
-<h2 class="anchored" data-anchor-id="contribute-documentation">Contribute documentation</h2>
+<section id="contribute-documentation" class="level3">
+<h3 class="anchored" data-anchor-id="contribute-documentation">Contribute documentation</h3>
 <p>Documentation is a high priority for vetiver, and pull requests to correct or improve documentation are welcome.</p>
 </section>
-<section id="contribute-code" class="level2">
-<h2 class="anchored" data-anchor-id="contribute-code">Contribute code</h2>
+<section id="contribute-code" class="level3">
+<h3 class="anchored" data-anchor-id="contribute-code">Contribute code</h3>
 <p>If you are a more experienced R or Python programmer, you may have the inclination, interest, and ability to contribute directly to package development. Before you submit a pull request to vetiver, always file an issue and confirm the vetiver team agrees with your idea and is happy with your basic proposal.</p>
 <p>We use the <a href="https://style.tidyverse.org/">tidyverse style guide</a> for R and the ??? style guide for Python. Using a style guide keeps your new code and documentation matching the existing style, and makes the review process much smoother.</p>
 
 
+</section>
 </section>
 </main> <!-- /main -->
 <script type="application/javascript">
@@ -211,23 +213,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       <div class="nav-footer-center">
         <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="./about.html">About</a>
-  </li>  
-    <li class="nav-item">
-    <a class="nav-link" href="./license.html">License</a>
+    <a class="nav-link active" href="./about.html" aria-current="page">About</a>
   </li>  
 </ul>
       </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/tidymodels/vetiver-r">
-      <i class="bi bi-github" role="img">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/tidymodels/vetiver-python">
+    <a class="nav-link" href="https://github.com/tidymodels/vetiver.rstudio.com">
       <i class="bi bi-github" role="img">
 </i> 
     </a>

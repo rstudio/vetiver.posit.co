@@ -19,8 +19,6 @@ website:
     center:
       - text: "About"
         href: about.qmd
-      - text: "License"
-        href: license.qmd
     right:
       - icon: github
         href: https://github.com/tidymodels/vetiver.rstudio.com
