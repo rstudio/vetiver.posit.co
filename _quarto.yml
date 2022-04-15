@@ -4,12 +4,15 @@ project:
 
 website:
   title: "MLOps with vetiver"
+  description: "Version, share, deploy, and monitor your R and Python models"
   open-graph: true
   twitter-card: true
   site-url: https://vetiver.rstudio.com
   repo-url: https://github.com/tidymodels/vetiver.rstudio.com
   repo-actions: [edit, issue]
   page-navigation: true
+  reader-mode: true
+  favicon: "images/favicon.ico"
   page-footer:
     left: |
       Proudly supported by
