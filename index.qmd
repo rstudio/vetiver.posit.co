@@ -8,21 +8,20 @@ The vetiver framework is for MLOps tasks in Python and R.
 
 > *Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.*
 
-The goal of vetiver is to provide fluent tooling to **version**, **share**, **deploy**, and **monitor** a trained model. Functions handle both recording and checking the model's input data prototype, and predicting from a remote API endpoint.
+The goal of vetiver is to provide fluent tooling to **version**, **share**, **deploy**, and **monitor** a trained model.
+Functions handle both recording and checking the model's input data prototype, and predicting from a remote API endpoint.
 
 ![](images/ml_ops_cycle.png){fig-align="center"}
 
-
-:::{.callout-tip}
+::: callout-tip
 ## Data scientists have effective tools that they ❤️ to:
 
 -   collect data
 -   prepare, manipulate, refine data
 -   train models
-
 :::
 
-:::{.callout-warning}
+::: callout-warning
 ## There is a lack 😩 of effective tools to:
 
 -   put models into production
@@ -30,12 +29,9 @@ The goal of vetiver is to provide fluent tooling to **version**, **share**, **de
 -   trigger retraining
 :::
 
-
-
 You can use vetiver for deploying and handling your trained models.
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ## R
 
 ```{r}
@@ -49,6 +45,4 @@ vetiver_model(cars_lm, "cars_linear")
 ```{python}
 1 + 1
 ```
-
 :::
-
