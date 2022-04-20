@@ -68,6 +68,7 @@ You can interact with your vetiver API locally and debug it. FastAPI and Plumber
 ## R 
 
 ```{r}
+#| eval: false
 vetiver_write_plumber(model_board, "hotel_rf")
 ```
 

@@ -200,6 +200,7 @@
 <h2 id="toc-title">On this page</h2>
 <ul>
 <li><a href="#deploy-your-model" class="nav-link active" data-scroll-target="#deploy-your-model">Deploy your model</a></li>
+<li><a href="#generate-a-dockerfile" class="nav-link" data-scroll-target="#generate-a-dockerfile">Generate a Dockerfile</a></li>
 <li><a href="#predict-from-your-model-endpoint" class="nav-link" data-scroll-target="#predict-from-your-model-endpoint">Predict from your model endpoint</a></li>
 </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/tidymodels/vetiver.rstudio.com/edit/main/get-started/deploy.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/tidymodels/vetiver.rstudio.com/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -270,7 +271,7 @@ if (FALSE) {
     library(recipes)
     library(workflows)
 }
-b &lt;- board_folder(path = "/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/RtmpkjiCdG/pins-16213956f569")
+b &lt;- board_folder(path = "/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/Rtmp2owjFW/pins-164dd5d975891")
 v &lt;- vetiver_pin_read(b, "hotel_rf")
 
 #* @plumber
@@ -279,6 +280,7 @@ function(pr) {
 }</code></pre>
 </div>
 </div>
+<p>For RStudio Connect, you can streamline this deployment process even more by using <code>vetiver_deploy_rsconnect(model_board, "hotel_rf)</code>.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-2-tab">
 <div class="cell">
@@ -304,6 +306,9 @@ Tip
 <p>Notice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected.</p>
 </div>
 </div>
+</section>
+<section id="generate-a-dockerfile" class="level2">
+<h2 class="anchored" data-anchor-id="generate-a-dockerfile">Generate a Dockerfile</h2>
 </section>
 <section id="predict-from-your-model-endpoint" class="level2">
 <h2 class="anchored" data-anchor-id="predict-from-your-model-endpoint">Predict from your model endpoint</h2>
