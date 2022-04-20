@@ -218,10 +218,12 @@ An OLS linear regression model using 10 features</code></pre>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-1-2-tab">
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
-<pre><code>2</code></pre>
-</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> mock, VetiverModel</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> mock.get_mock_data()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> mock.get_mock_model().fit(X, y)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(model, model_name <span class="op">=</span> <span class="st">"cars_linear"</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> X)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>v.description</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -313,9 +315,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <ul class="footer-items list-unstyled">
     <li class="nav-item">
     <a class="nav-link" href="./about.html">About</a>
-  </li>  
-    <li class="nav-item">
-    <a class="nav-link" href="./license.html">License</a>
   </li>  
 </ul>
       </div>

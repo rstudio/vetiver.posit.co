@@ -1,43 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vetiver.dev/python/examples.html</loc>
-    <lastmod>2022-03-04T19:42:38.956Z</lastmod>
+    <loc>https://vetiver.rstudio.com/python/index.html</loc>
+    <lastmod>2022-04-20T22:03:42.740Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.dev/python/get-started.html</loc>
-    <lastmod>2022-03-04T19:42:39.302Z</lastmod>
+    <loc>https://vetiver.rstudio.com/python/vetiver-model.html</loc>
+    <lastmod>2022-04-20T22:03:45.411Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.dev/python/index.html</loc>
-    <lastmod>2022-03-04T19:42:41.595Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.dev/python/vetiver-model.html</loc>
-    <lastmod>2022-03-04T19:42:43.908Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.dev/python/vetiver-api.html</loc>
-    <lastmod>2022-03-04T19:42:44.440Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.dev/index.html</loc>
-    <lastmod>2022-04-15T19:08:42.355Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.dev/about.html</loc>
-    <lastmod>2022-03-04T19:42:46.100Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.dev/license.html</loc>
-    <lastmod>2022-03-04T19:42:46.378Z</lastmod>
+    <loc>https://vetiver.rstudio.com/python/vetiver-api.html</loc>
+    <lastmod>2022-04-20T22:03:45.946Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/index.html</loc>
-    <lastmod>2022-04-15T20:56:18.782Z</lastmod>
+    <lastmod>2022-04-20T22:06:42.365Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/about.html</loc>
-    <lastmod>2022-04-15T21:11:07.748Z</lastmod>
+    <lastmod>2022-04-20T22:03:46.741Z</lastmod>
   </url>
 </urlset>

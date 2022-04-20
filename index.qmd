@@ -43,6 +43,11 @@ vetiver_model(cars_lm, "cars_linear")
 ## Python
 
 ```{python}
-1 + 1
+from vetiver import mock, VetiverModel
+X, y = mock.get_mock_data()
+model = mock.get_mock_model().fit(X, y)
+v = VetiverModel(model, model_name = "cars_linear", 
+                 save_ptype = True, ptype_data = X)
+v.description
 ```
 :::
