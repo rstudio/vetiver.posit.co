@@ -1,0 +1,149 @@
+---
+title: "Version"
+format:
+  html:
+    toc: true
+---
+
+## Create a vetiver model
+
+For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not.
+
+::: panel-tabset
+
+## R
+
+Let’s consider one kind of model supported by vetiver, a [tidymodels](https://www.tidymodels.org/) workflow that encompasses both feature engineering and model estimation.
+
+```{r message = FALSE}
+library(tidyverse)
+library(tidymodels)
+
+hotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv')
+
+set.seed(123)
+hotel_split <- initial_split(hotels, strata = children)
+hotel_train <- training(hotel_split)
+hotel_test  <- testing(hotel_split)
+
+rf_recipe <- 
+  recipe(children ~ ., data = hotel_train) %>% 
+  step_date(arrival_date) %>% 
+  step_holiday(arrival_date, keep_original_cols = FALSE)
+rf_spec <- rand_forest(mode = "classification")
+
+set.seed(234)
+rf_fit <-
+    workflow(rf_recipe, rf_spec) %>%
+    fit(sample_frac(hotel_train, 0.5))
+```
+
+
+## Python
+
+```{python}
+1 + 1
+```
+
+:::
+
+This `rf_fit` object is a fitted model, with both feature engineering and model parameters estimated using some of the training data `hotel_train`. We can create a `vetiver_model()` in R or `VetiverModel()` in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.
+
+::: panel-tabset
+
+## R 
+
+```{r}
+#| message: false
+library(vetiver)
+v <- vetiver_model(rf_fit, "hotel_rf")
+v
+```
+
+
+## Python
+
+```{python}
+1 + 1
+```
+
+:::
+
+Think of this vetiver model as a deployable model object.
+
+## Store and version your model
+
+You can store and version your model by choosing a [pins](https://pins.rstudio.com/) "board" for it, including a local folder, RStudio Connect, Amazon S3, and more.  When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.
+
+::: callout-note
+We'll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.
+:::
+
+::: panel-tabset
+
+## R 
+
+Most pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.
+
+```{r}
+#| message: false
+library(pins)
+model_board <- board_temp(versioned = TRUE)
+model_board %>% vetiver_pin_write(v)
+```
+
+## Python
+
+```{python}
+1 + 1
+```
+
+:::
+
+Let’s train our model again with a new version of the dataset and write it once more to our board.
+
+::: panel-tabset
+
+## R 
+
+```{r}
+rf_fit <-
+    workflow(rf_recipe, rf_spec) %>%
+    fit(sample_frac(hotel_train, 0.5))
+
+v <- vetiver_model(rf_fit, "hotel_rf")
+
+model_board %>% vetiver_pin_write(v)
+```
+
+## Python
+
+```{python}
+1 + 1
+```
+
+
+:::
+
+
+Both versions are stored, and we have access to both.
+
+::: panel-tabset
+
+## R 
+
+```{r}
+model_board %>% pin_versions("hotel_rf")
+```
+
+## Python
+
+```{python}
+1 + 1
+```
+
+
+:::
+
+The primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned vetiver model can be shareable with your collaborators.
+

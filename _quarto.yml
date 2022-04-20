@@ -30,10 +30,34 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - text: Get Started
+        href: get-started/index.qmd
+      - text: Go Further
+        href: learn-more/model-card.qmd
       - href: https://tidymodels.github.io/vetiver-python
         text: Python Function Reference
       - href: https://vetiver.tidymodels.org/reference/
         text: R Function Reference
+
+  sidebar:
+    - id: get-started
+      title: Get Started
+      collapse-level: 2
+      style: "floating"
+      align: left
+      contents:
+        - href: get-started/index.qmd
+        - href: get-started/version.qmd
+        - href: get-started/deploy.qmd
+        - href: get-started/monitor.qmd
+
+    - id: learn-more
+      title: Learn More
+      collapse-level: 3
+      align: left
+      contents:
+        - text:
+          href: learn-more/model-card.qmd
 
 
 format:

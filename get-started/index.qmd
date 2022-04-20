@@ -1,0 +1,57 @@
+---
+title: "Install"
+format:
+  html:
+    toc: true
+execute:
+  eval: false
+---
+
+The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both. It is built to be extensible, with methods that can support many kinds of models.
+
+::: panel-tabset
+
+## Python
+
+You can use vetiver with:
+
+- [scikit-learn](https://scikit-learn.org/)
+- [PyTorch](https://pytorch.org/)
+
+You can install the released version of vetiver from [PyPI](https://pypi.org/project/vetiver/):
+
+```{python}
+pip install vetiver
+```
+
+And the development version from [GitHub](https://github.com/tidymodels/vetiver-python) with:
+
+```{python}
+python -m pip install git+https://github.com/tidymodels/vetiver-python
+```
+
+## R
+
+You can use vetiver with:
+
+- a [tidymodels](https://www.tidymodels.org/) workflow
+- [caret](https://topepo.github.io/caret/)
+- [mlr3](https://mlr3.mlr-org.com/)
+- [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
+- [ranger](https://cran.r-project.org/package=ranger)
+- [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html) and [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
+
+You can install the released version of vetiver from [CRAN](https://cran.r-project.org/package=vetiver):
+
+```{r}
+install.packages("vetiver")
+```
+
+And the development version from [GitHub](https://github.com/tidymodels/vetiver-r) with:
+
+```{r}
+# install.packages("devtools")
+devtools::install_github("tidymodels/vetiver-r")
+```
+
+:::
