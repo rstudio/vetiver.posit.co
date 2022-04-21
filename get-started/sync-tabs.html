@@ -15,7 +15,7 @@ function syncSelectors(lang) {
     selectIfMatches(item, lang);
   });
 }
-​
+
 document.querySelectorAll("[id^='tabset-']").forEach((item) => {
   item.addEventListener("click", (event) => {
     // this will target the tab itself, also need to expose the content
@@ -23,7 +23,7 @@ document.querySelectorAll("[id^='tabset-']").forEach((item) => {
     syncSelectors(item.innerHTML); // this should log R or Python
   });
 });
-​
+
 window.document.addEventListener("DOMContentLoaded", (event) => {
   if (localStorage.getItem("lang")) {
     syncSelectors(localStorage.getItem("lang"));
