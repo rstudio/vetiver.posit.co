@@ -1,0 +1,32 @@
+<script>
+function syncSelectors(lang) {
+  let targets = [];
+  function selectIfMatches(item, lang) {
+    if (item.innerHTML === lang) {
+      item.classList.add("active");
+      targets.push(item.getAttribute("aria-controls"));
+    } else if (targets.includes(item.getAttribute("id"))) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  }
+  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
+    selectIfMatches(item, lang);
+  });
+}
+​
+document.querySelectorAll("[id^='tabset-']").forEach((item) => {
+  item.addEventListener("click", (event) => {
+    // this will target the tab itself, also need to expose the content
+    localStorage.setItem("lang", item.innerHTML);
+    syncSelectors(item.innerHTML); // this should log R or Python
+  });
+});
+​
+window.addEventListener("DOMContentLoaded", (event) => {
+  if (localStorage.getItem("lang")) {
+    syncSelectors(localStorage.getItem("lang"));
+  }
+});
+</script>

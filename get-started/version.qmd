@@ -3,6 +3,8 @@ title: "Version"
 format:
   html:
     toc: true
+    include-after-body:
+      - sync-tabs.html
 ---
 
 ```{r}
