@@ -281,7 +281,7 @@ Note
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20220421T174104Z-d0fc2'
+<pre><code>Creating new version '20220421T180246Z-d0fc2'
 Writing to pin 'hotel_rf'</code></pre>
 </div>
 </div>
@@ -307,8 +307,8 @@ Writing to pin 'hotel_rf'</code></pre>
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20220421T174056Z-237c5 2022-04-21 11:40:00 237c5
-2 20220421T174104Z-d0fc2 2022-04-21 11:41:00 d0fc2</code></pre>
+1 20220421T180237Z-237c5 2022-04-21 12:02:00 237c5
+2 20220421T180246Z-d0fc2 2022-04-21 12:02:00 d0fc2</code></pre>
 </div>
 </div>
 </div>
@@ -328,7 +328,7 @@ Writing to pin 'hotel_rf'</code></pre>
 </section>
 
 </main> <!-- /main -->
-<script>
+<script type="application/javascript">
 function syncSelectors(lang) {
   let targets = [];
   function selectIfMatches(item, lang) {
@@ -345,7 +345,7 @@ function syncSelectors(lang) {
     selectIfMatches(item, lang);
   });
 }
-​
+
 document.querySelectorAll("[id^='tabset-']").forEach((item) => {
   item.addEventListener("click", (event) => {
     // this will target the tab itself, also need to expose the content
@@ -353,8 +353,8 @@ document.querySelectorAll("[id^='tabset-']").forEach((item) => {
     syncSelectors(item.innerHTML); // this should log R or Python
   });
 });
-​
-window.addEventListener("DOMContentLoaded", (event) => {
+
+window.document.addEventListener("DOMContentLoaded", (event) => {
   if (localStorage.getItem("lang")) {
     syncSelectors(localStorage.getItem("lang"));
   }
