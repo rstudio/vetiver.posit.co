@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://vetiver.rstudio.com/python/examples.html</loc>
+    <lastmod>2022-04-20T23:58:58.073Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/python/get-started.html</loc>
+    <lastmod>2022-04-20T23:58:58.450Z</lastmod>
+  </url>
+  <url>
     <loc>https://vetiver.rstudio.com/python/index.html</loc>
-    <lastmod>2022-04-20T22:03:42.740Z</lastmod>
+    <lastmod>2022-04-20T23:59:00.946Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/python/vetiver-model.html</loc>
-    <lastmod>2022-04-20T22:03:45.411Z</lastmod>
+    <lastmod>2022-04-20T23:59:03.299Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/python/vetiver-api.html</loc>
-    <lastmod>2022-04-20T22:03:45.946Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/index.html</loc>
-    <lastmod>2022-04-20T22:06:42.365Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/about.html</loc>
-    <lastmod>2022-04-20T22:03:46.741Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/get-started/index.html</loc>
-    <lastmod>2022-04-20T23:19:32.241Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/get-started/monitor.html</loc>
-    <lastmod>2022-04-20T22:33:24.127Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/get-started/deploy.html</loc>
-    <lastmod>2022-04-20T23:55:28.687Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/get-started/version.html</loc>
-    <lastmod>2022-04-20T23:44:30.588Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/go-further/model-card.html</loc>
-    <lastmod>2022-04-20T23:29:34.763Z</lastmod>
+    <lastmod>2022-04-20T23:59:03.774Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/learn-more/model-card.html</loc>
-    <lastmod>2022-04-20T23:34:02.647Z</lastmod>
+    <lastmod>2022-04-20T23:59:04.941Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/index.html</loc>
+    <lastmod>2022-04-20T23:59:09.407Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/about.html</loc>
+    <lastmod>2022-04-20T23:59:09.702Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/get-started/deploy.html</loc>
+    <lastmod>2022-04-20T23:59:20.613Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/get-started/index.html</loc>
+    <lastmod>2022-04-20T23:59:22.007Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/get-started/version.html</loc>
+    <lastmod>2022-04-20T23:59:37.807Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/get-started/monitor.html</loc>
+    <lastmod>2022-04-20T23:59:38.129Z</lastmod>
   </url>
 </urlset>

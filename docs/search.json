@@ -1,5 +1,26 @@
 [
   {
+    "objectID": "python/examples.html",
+    "href": "python/examples.html",
+    "title": "Examples",
+    "section": "",
+    "text": "If you’re looking for more vetiver content, check out this repo of examples."
+  },
+  {
+    "objectID": "python/get-started.html#installation",
+    "href": "python/get-started.html#installation",
+    "title": "Get started",
+    "section": "Installation",
+    "text": "Installation\nvetiver can be installed via pip with PyPI.\npip install vetiver\nYou can also install the development version from GitHub.\npip install git+https://github.com/isabelizimm/vetiver"
+  },
+  {
+    "objectID": "python/get-started.html#get-started",
+    "href": "python/get-started.html#get-started",
+    "title": "Get started",
+    "section": "Get started",
+    "text": "Get started\nVetiver focuses on two main objects: VetiverModel() and VetiverAPI(). A VetiverModel collects all the information needed for deploying a trained model, while a VetiverAPI deploys the model to a REST endpoint. The example below shows a minimal deployment of an arbitrary model.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model, save_ptype= True, ptype_data=X)\n\nmy_api = VetiverAPI(v)\nmy_api.run()\n\n(This script is complete, it should run “as is”)"
+  },
+  {
     "objectID": "python/index.html",
     "href": "python/index.html",
     "title": "Vetiver",
@@ -26,6 +47,34 @@
     "title": "VetiverAPI",
     "section": "Multiple endpoints",
     "text": "Multiple endpoints\nMore advanced use cases may require multiple endpoints to be created for pre-processing or post-processing data. You can use vetiver_post() to create a new POST endpoint that implements a custom function. In the example below, the endpoint “new_endpoint” sums all the input data.\n!!! note\nThe method `vetiver_post()` currently handles all data as a [Series](https://pandas.pydata.org/docs/reference/api/pandas.Series.html) type.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model = model, save_ptype = True, ptype_data = X)\n\nmy_api = VetiverAPI(v)\n\n# new endpoint\ndef sum_numbers(x):\n    return x.sum()\n\nmy_api.vetiver_post(endpoint_fx = sum_numbers, endpoint_name = \"new_endpoint\")\n\nmy_api.run()\n\n(This script is complete, it should run “as is”)"
+  },
+  {
+    "objectID": "learn-more/model-card.html#what-is-a-model-card",
+    "href": "learn-more/model-card.html#what-is-a-model-card",
+    "title": "Model cards for transparent, responsible reporting",
+    "section": "What is a “Model Card”?",
+    "text": "What is a “Model Card”?\nGood documentation helps us make sense of software, know when and how to use it, and understand its purpose. The same can be true of documentation or reporting for a deployed model, but it can be hard to know where to start. The paper “Model Cards for Model Reporting” (Mitchell et al. 2019) provides a suggested framework for organizing and presenting the essential facts about a deployed machine learning model. The vetiver package provides an R Markdown template for creating a “Model Card” for a published vetiver model. The template automates extracting some information from the model object, and provides structure for the model developer where automation is not possible.\nModel developers see a nudge to create a model card when they publish a model; we recommend that you create a model card when you deploy a model for the first time and refresh that model card as needed when new versions are deployed.\n\nlibrary(vetiver)\nlibrary(pins)\nmodel_board <- board_temp()\n\ncars_lm <- lm(mpg ~ ., data = mtcars)\nv <- vetiver_model(cars_lm, \"cars_linear\")\nvetiver_pin_write(model_board, v)\n\nCreating new version '20220420T235904Z-522c5'\nWriting to pin 'cars_linear'\n\nCreate a Model Card for your published model\n• Model Cards provide a framework for transparent, responsible reporting\n• Use the vetiver `.Rmd` template as a place to start\n\n\n(Learn more about silencing messages like this if desired.)"
+  },
+  {
+    "objectID": "learn-more/model-card.html#accessing-the-template",
+    "href": "learn-more/model-card.html#accessing-the-template",
+    "title": "Model cards for transparent, responsible reporting",
+    "section": "Accessing the template",
+    "text": "Accessing the template\n\n\n\n\n\n\nWarning\n\n\n\nAs of this writing, the model card template is only available for R Markdown.\n\n\nTo use the vetiver model card template from RStudio, access through File -> New File -> R Markdown. This will open the dialog box where you can select from one of the available templates:\n\nIf you are not using RStudio, you’ll also need to install Pandoc. Then, use the rmarkdown::draft() function to create the model card:\nrmarkdown::draft(\n    \"my_model_card.Rmd\", \n    template = \"vetiver_model_card\", \n    package = \"vetiver\"\n)"
+  },
+  {
+    "objectID": "learn-more/model-card.html#model-card-outline",
+    "href": "learn-more/model-card.html#model-card-outline",
+    "title": "Model cards for transparent, responsible reporting",
+    "section": "Model card outline",
+    "text": "Model card outline\nThere are several sections in the model card framework used here.\n\nModel details: Some details about your model can be determined from the model object itself, but some (like who developed the model and license or citation information) need to be provided by you.\nIntended use: Outline the intended use and users of the model, and perhaps also what types of use would be out of scope.\nImportant aspects/factors: What are the demographic, environmental, technical, or other aspects that are relevant to the context of the model?\nPerformance metrics: Communicate which metrics are being used to evaluate the model, and why these are a good fit for the model’s context and domain.\nTraining data & evaluation data: Some specific dataset was used to train the model, so be sure to share basic details about its characteristics. (Some information about the training data can be extracted from the model object itself.) Some (probably different) specific dataset is used to evaluate the model in the context of the model card, so also explain what the evaluation data is like.\nQuantitative analyses: Provide the results of evaluating the model using your chosen metrics and the evaluation data. Be sure to present both overall results (for the dataset as a whole) and disaggregated results, especially with any aspects (demographic, environmental, or other) in mind that have been identified as important for this model. You can use both tables and visualization to present these quantitative analyses.\nEthical considerations: Share ethical considerations and any possible solutions considered. Some specific aspects to note are any sensitive data used, impact on human life, possible risks and harms, and important use cases.\nCaveats & recommendations: As the model developer, you likely have the most domain knowledge of what the model can and cannot do. This section is a good place to share any additional thoughts, perhaps including how your own identity may or may not come into play in the model’s context."
+  },
+  {
+    "objectID": "learn-more/model-card.html#cant-i-just-delete-the-section-on-ethical-considerations",
+    "href": "learn-more/model-card.html#cant-i-just-delete-the-section-on-ethical-considerations",
+    "title": "Model cards for transparent, responsible reporting",
+    "section": "Can’t I just delete the section on ethical considerations?",
+    "text": "Can’t I just delete the section on ethical considerations?\nIt’s possible that a given machine learning model may not have obvious caveats, ethical challenges, or demographic aspects, or that they are largely unknown. However, we strongly advise that instead of deleting any such section because you have incomplete or imprecise information, you note your own process and considerations. Also, consider the possibility of gathering feedback from those impacted by the machine learning system, especially those with marginalized identities.\nThe process of documenting the extent and limits of a machine learning system is part of transparent, responsible reporting. A model card framework such as this is a helpful tool and some parts of a model card can be automated, but ultimately the extent of its value depends on you. From Mitchell et al. (2019):\n\nTherefore the usefulness and accuracy of a model card relies on the integrity of the creator(s) of the card itself."
   },
   {
     "objectID": "index.html",
@@ -56,123 +105,18 @@
     "text": "What are different ways you can contribute?\n\nAnswer questions\nYou can help others use and learn vetiver by answering questions on the RStudio community site, Stack Overflow, and Twitter. Many people asking for help with vetiver don’t know what a reproducible example or “reprex” is, or how to craft one. Acknowledging an individual’s problem, showing them how to build a reprex, and pointing them to helpful resources are all enormously beneficial, even if you don’t immediately solve their problem.\nRemember that while you might have seen a problem a hundred times before, it’s new to the person asking it. Be patient, polite, and empathetic.\n\n\nFile issues\nIf you’ve found a bug, first create a minimal reproducible example. Spend some time working to make it as minimal as possible; the more time you spend doing this, the easier it is to fix the bug. When your reprex is ready, file it on the GitHub repo of the appropriate package, either Python or R.\nThe vetiver team often focuses on one package at a time to reduce context switching and be more efficient. We may not address each issue right away, but we will use the reproducible example you create to understand your problem when it is time to focus on that package.\n\n\nContribute documentation\nDocumentation is a high priority for vetiver, and pull requests to correct or improve documentation are welcome.\n\n\nContribute code\nIf you are a more experienced R or Python programmer, you may have the inclination, interest, and ability to contribute directly to package development. Before you submit a pull request to vetiver, always file an issue and confirm the vetiver team agrees with your idea and is happy with your basic proposal.\nWe use the tidyverse style guide for R and the ??? style guide for Python. Using a style guide keeps your new code and documentation matching the existing style, and makes the review process much smoother."
   },
   {
-    "objectID": "get-started/index.html#install-the-package",
-    "href": "get-started/index.html#install-the-package",
-    "title": "Install",
-    "section": "Install the package",
-    "text": "Install the package\nThe vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both.\n\nPythonR\n\n\nYou can use vetiver with:\n\nscikit-learn\nPyTorch\n\nYou can install the released version of vetiver from PyPI:\n\npip install vetiver\n\nAnd the development version from GitHub with:\n\npython -m pip install git+https://github.com/tidymodels/vetiver-python\n\n\n\nYou can use vetiver with:\n\na tidymodels workflow\ncaret\nmlr3\nXGBoost\nranger\nlm() and glm()\n\nYou can install the released version of vetiver from CRAN:\n\ninstall.packages(\"vetiver\")\n\nAnd the development version from GitHub with:\n\n# install.packages(\"devtools\")\ndevtools::install_github(\"tidymodels/vetiver-r\")"
-  },
-  {
-    "objectID": "get-started/monitor.html",
-    "href": "get-started/monitor.html",
-    "title": "Monitor",
-    "section": "",
-    "text": "🚧 TBA 🚧"
-  },
-  {
-    "objectID": "get-started/version.html#create-a-vetiver-model",
-    "href": "get-started/version.html#create-a-vetiver-model",
-    "title": "Version",
-    "section": "Create a vetiver model",
-    "text": "Create a vetiver model\nFor this example, let’s work with data on hotel bookings to predict which hotel stays included children and which did not.\n\nRPython\n\n\nLet’s consider one kind of model supported by vetiver, a tidymodels workflow that encompasses both feature engineering and model estimation.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\n\nhotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv')\n\nset.seed(123)\nhotel_split <- initial_split(hotels, strata = children)\nhotel_train <- training(hotel_split)\nhotel_test  <- testing(hotel_split)\n\nrf_recipe <- \n  recipe(children ~ ., data = hotel_train) %>% \n  step_date(arrival_date) %>% \n  step_holiday(arrival_date, keep_original_cols = FALSE)\nrf_spec <- rand_forest(mode = \"classification\")\n\nset.seed(234)\nrf_fit <-\n    workflow(rf_recipe, rf_spec) %>%\n    fit(sample_frac(hotel_train, 0.5))\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThis rf_fit object is a fitted model, with both feature engineering and model parameters estimated using some of the training data hotel_train. We can create a vetiver_model() in R or VetiverModel() in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.\n\nRPython\n\n\n\nlibrary(vetiver)\nv <- vetiver_model(rf_fit, \"hotel_rf\")\nv\n\n\n── hotel_rf ─ <butchered_workflow> model for deployment \nA ranger classification modeling workflow using 22 features\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThink of this vetiver model as a deployable model object."
-  },
-  {
-    "objectID": "get-started/version.html#python-1",
-    "href": "get-started/version.html#python-1",
-    "title": "Version",
-    "section": "Python",
-    "text": "Python\n\n1 + 1\n\n2\n\n\n:::"
-  },
-  {
-    "objectID": "get-started/version.html#store-and-version-your-model",
-    "href": "get-started/version.html#store-and-version-your-model",
-    "title": "Version",
-    "section": "Store and version your model",
-    "text": "Store and version your model\nYou can store and version your model by choosing a pins “board” for it, including a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.\n\n\n\n\n\n\nNote\n\n\n\nWe’ll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.\n\n\n\nRPython\n\n\nMost pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.\n\nlibrary(pins)\nmodel_board <- board_temp(versioned = TRUE)\nmodel_board %>% vetiver_pin_write(v)\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nLet’s train our model again with a new version of the dataset and write it once more to our board.\n\nRPython\n\n\n\nrf_fit <-\n    workflow(rf_recipe, rf_spec) %>%\n    fit(sample_frac(hotel_train, 0.5))\n\nv <- vetiver_model(rf_fit, \"hotel_rf\")\n\nmodel_board %>% vetiver_pin_write(v)\n\nCreating new version '20220420T234429Z-d0fc2'\nWriting to pin 'hotel_rf'\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nBoth versions are stored, and we have access to both.\n\nRPython\n\n\n\nmodel_board %>% pin_versions(\"hotel_rf\")\n\n# A tibble: 2 × 3\n  version                created             hash \n  <chr>                  <dttm>              <chr>\n1 20220420T234424Z-237c5 2022-04-20 17:44:00 237c5\n2 20220420T234429Z-d0fc2 2022-04-20 17:44:00 d0fc2\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThe primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned vetiver model can be shareable with your collaborators."
-  },
-  {
-    "objectID": "get-started/version.html#r-4",
-    "href": "get-started/version.html#r-4",
-    "title": "Version",
-    "section": "R",
-    "text": "R\n\nmodel_board %>% pin_versions(\"hotel_rf\")\n\n# A tibble: 2 × 3\n  version                created             hash \n  <chr>                  <dttm>              <chr>\n1 20220420T231432Z-237c5 2022-04-20 17:14:00 237c5\n2 20220420T231438Z-d0fc2 2022-04-20 17:14:00 d0fc2"
-  },
-  {
-    "objectID": "get-started/version.html#python-4",
-    "href": "get-started/version.html#python-4",
-    "title": "Version",
-    "section": "Python",
-    "text": "Python\n\n1 + 1\n\n2\n\n\n:::\nThe primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned vetiver model can be shareable with your collaborators."
-  },
-  {
-    "objectID": "get-started/index.html",
-    "href": "get-started/index.html",
-    "title": "Install",
-    "section": "",
-    "text": "The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both. It is built to be extensible, with methods that can support many kinds of models.\n\nPythonR\n\n\nYou can use vetiver with:\n\nscikit-learn\nPyTorch\n\nYou can install the released version of vetiver from PyPI:\n\npip install vetiver\n\nAnd the development version from GitHub with:\n\npython -m pip install git+https://github.com/tidymodels/vetiver-python\n\n\n\nYou can use vetiver with:\n\na tidymodels workflow\ncaret\nmlr3\nXGBoost\nranger\nlm() and glm()\n\nYou can install the released version of vetiver from CRAN:\n\ninstall.packages(\"vetiver\")\n\nAnd the development version from GitHub with:\n\n# install.packages(\"devtools\")\ndevtools::install_github(\"tidymodels/vetiver-r\")"
-  },
-  {
-    "objectID": "go-further/model-card.html#what-is-a-model-card",
-    "href": "go-further/model-card.html#what-is-a-model-card",
-    "title": "Model cards for transparent, responsible reporting",
-    "section": "What is a “Model Card”?",
-    "text": "What is a “Model Card”?\nGood documentation helps us make sense of software, know when and how to use it, and understand its purpose. The same can be true of documentation or reporting for a deployed model, but it can be hard to know where to start. The paper “Model Cards for Model Reporting” (Mitchell et al. 2019) provides a suggested framework for organizing and presenting the essential facts about a deployed machine learning model. The vetiver package provides an R Markdown template for creating a “Model Card” for a published vetiver model. The template automates extracting some information from the model object, and provides structure for the model developer where automation is not possible.\nModel developers see a nudge to create a model card when they publish a model; we recommend that you create a model card when you deploy a model for the first time and refresh that model card as needed when new versions are deployed.\n\nlibrary(vetiver)\nlibrary(pins)\nmodel_board <- board_temp()\n\ncars_lm <- lm(mpg ~ ., data = mtcars)\nv <- vetiver_model(cars_lm, \"cars_linear\")\nvetiver_pin_write(model_board, v)\n\nCreating new version '20220420T232933Z-522c5'\nWriting to pin 'cars_linear'\n\nCreate a Model Card for your published model\n• Model Cards provide a framework for transparent, responsible reporting\n• Use the vetiver `.Rmd` template as a place to start\n\n\n(Learn more about silencing messages like this if desired.)"
-  },
-  {
-    "objectID": "go-further/model-card.html#accessing-the-template",
-    "href": "go-further/model-card.html#accessing-the-template",
-    "title": "Model cards for transparent, responsible reporting",
-    "section": "Accessing the template",
-    "text": "Accessing the template\n\n\n\n\n\n\nWarning\n\n\n\nAs of this writing, the model card template is only available for R Markdown.\n\n\nTo use the vetiver model card template from RStudio, access through File -> New File -> R Markdown. This will open the dialog box where you can select from one of the available templates:\n\nIf you are not using RStudio, you’ll also need to install Pandoc. Then, use the rmarkdown::draft() function to create the model card:\nrmarkdown::draft(\n    \"my_model_card.Rmd\", \n    template = \"vetiver_model_card\", \n    package = \"vetiver\"\n)"
-  },
-  {
-    "objectID": "go-further/model-card.html#model-card-outline",
-    "href": "go-further/model-card.html#model-card-outline",
-    "title": "Model cards for transparent, responsible reporting",
-    "section": "Model card outline",
-    "text": "Model card outline\nThere are several sections in the model card framework used here.\n\nModel details: Some details about your model can be determined from the model object itself, but some (like who developed the model and license or citation information) need to be provided by you.\nIntended use: Outline the intended use and users of the model, and perhaps also what types of use would be out of scope.\nImportant aspects/factors: What are the demographic, environmental, technical, or other aspects that are relevant to the context of the model?\nPerformance metrics: Communicate which metrics are being used to evaluate the model, and why these are a good fit for the model’s context and domain.\nTraining data & evaluation data: Some specific dataset was used to train the model, so be sure to share basic details about its characteristics. (Some information about the training data can be extracted from the model object itself.) Some (probably different) specific dataset is used to evaluate the model in the context of the model card, so also explain what the evaluation data is like.\nQuantitative analyses: Provide the results of evaluating the model using your chosen metrics and the evaluation data. Be sure to present both overall results (for the dataset as a whole) and disaggregated results, especially with any aspects (demographic, environmental, or other) in mind that have been identified as important for this model. You can use both tables and visualization to present these quantitative analyses.\nEthical considerations: Share ethical considerations and any possible solutions considered. Some specific aspects to note are any sensitive data used, impact on human life, possible risks and harms, and important use cases.\nCaveats & recommendations: As the model developer, you likely have the most domain knowledge of what the model can and cannot do. This section is a good place to share any additional thoughts, perhaps including how your own identity may or may not come into play in the model’s context."
-  },
-  {
-    "objectID": "go-further/model-card.html#cant-i-just-delete-the-section-on-ethical-considerations",
-    "href": "go-further/model-card.html#cant-i-just-delete-the-section-on-ethical-considerations",
-    "title": "Model cards for transparent, responsible reporting",
-    "section": "Can’t I just delete the section on ethical considerations?",
-    "text": "Can’t I just delete the section on ethical considerations?\nIt’s possible that a given machine learning model may not have obvious caveats, ethical challenges, or demographic aspects, or that they are largely unknown. However, we strongly advise that instead of deleting any such section because you have incomplete or imprecise information, you note your own process and considerations. Also, consider the possibility of gathering feedback from those impacted by the machine learning system, especially those with marginalized identities.\nThe process of documenting the extent and limits of a machine learning system is part of transparent, responsible reporting. A model card framework such as this is a helpful tool and some parts of a model card can be automated, but ultimately the extent of its value depends on you. From Mitchell et al. (2019):\n\nTherefore the usefulness and accuracy of a model card relies on the integrity of the creator(s) of the card itself."
-  },
-  {
-    "objectID": "learn-more/model-card.html#what-is-a-model-card",
-    "href": "learn-more/model-card.html#what-is-a-model-card",
-    "title": "Model cards for transparent, responsible reporting",
-    "section": "What is a “Model Card”?",
-    "text": "What is a “Model Card”?\nGood documentation helps us make sense of software, know when and how to use it, and understand its purpose. The same can be true of documentation or reporting for a deployed model, but it can be hard to know where to start. The paper “Model Cards for Model Reporting” (Mitchell et al. 2019) provides a suggested framework for organizing and presenting the essential facts about a deployed machine learning model. The vetiver package provides an R Markdown template for creating a “Model Card” for a published vetiver model. The template automates extracting some information from the model object, and provides structure for the model developer where automation is not possible.\nModel developers see a nudge to create a model card when they publish a model; we recommend that you create a model card when you deploy a model for the first time and refresh that model card as needed when new versions are deployed.\n\nlibrary(vetiver)\nlibrary(pins)\nmodel_board <- board_temp()\n\ncars_lm <- lm(mpg ~ ., data = mtcars)\nv <- vetiver_model(cars_lm, \"cars_linear\")\nvetiver_pin_write(model_board, v)\n\nCreating new version '20220420T233401Z-522c5'\nWriting to pin 'cars_linear'\n\nCreate a Model Card for your published model\n• Model Cards provide a framework for transparent, responsible reporting\n• Use the vetiver `.Rmd` template as a place to start\n\n\n(Learn more about silencing messages like this if desired.)"
-  },
-  {
-    "objectID": "learn-more/model-card.html#accessing-the-template",
-    "href": "learn-more/model-card.html#accessing-the-template",
-    "title": "Model cards for transparent, responsible reporting",
-    "section": "Accessing the template",
-    "text": "Accessing the template\n\n\n\n\n\n\nWarning\n\n\n\nAs of this writing, the model card template is only available for R Markdown.\n\n\nTo use the vetiver model card template from RStudio, access through File -> New File -> R Markdown. This will open the dialog box where you can select from one of the available templates:\n\nIf you are not using RStudio, you’ll also need to install Pandoc. Then, use the rmarkdown::draft() function to create the model card:\nrmarkdown::draft(\n    \"my_model_card.Rmd\", \n    template = \"vetiver_model_card\", \n    package = \"vetiver\"\n)"
-  },
-  {
-    "objectID": "learn-more/model-card.html#model-card-outline",
-    "href": "learn-more/model-card.html#model-card-outline",
-    "title": "Model cards for transparent, responsible reporting",
-    "section": "Model card outline",
-    "text": "Model card outline\nThere are several sections in the model card framework used here.\n\nModel details: Some details about your model can be determined from the model object itself, but some (like who developed the model and license or citation information) need to be provided by you.\nIntended use: Outline the intended use and users of the model, and perhaps also what types of use would be out of scope.\nImportant aspects/factors: What are the demographic, environmental, technical, or other aspects that are relevant to the context of the model?\nPerformance metrics: Communicate which metrics are being used to evaluate the model, and why these are a good fit for the model’s context and domain.\nTraining data & evaluation data: Some specific dataset was used to train the model, so be sure to share basic details about its characteristics. (Some information about the training data can be extracted from the model object itself.) Some (probably different) specific dataset is used to evaluate the model in the context of the model card, so also explain what the evaluation data is like.\nQuantitative analyses: Provide the results of evaluating the model using your chosen metrics and the evaluation data. Be sure to present both overall results (for the dataset as a whole) and disaggregated results, especially with any aspects (demographic, environmental, or other) in mind that have been identified as important for this model. You can use both tables and visualization to present these quantitative analyses.\nEthical considerations: Share ethical considerations and any possible solutions considered. Some specific aspects to note are any sensitive data used, impact on human life, possible risks and harms, and important use cases.\nCaveats & recommendations: As the model developer, you likely have the most domain knowledge of what the model can and cannot do. This section is a good place to share any additional thoughts, perhaps including how your own identity may or may not come into play in the model’s context."
-  },
-  {
-    "objectID": "learn-more/model-card.html#cant-i-just-delete-the-section-on-ethical-considerations",
-    "href": "learn-more/model-card.html#cant-i-just-delete-the-section-on-ethical-considerations",
-    "title": "Model cards for transparent, responsible reporting",
-    "section": "Can’t I just delete the section on ethical considerations?",
-    "text": "Can’t I just delete the section on ethical considerations?\nIt’s possible that a given machine learning model may not have obvious caveats, ethical challenges, or demographic aspects, or that they are largely unknown. However, we strongly advise that instead of deleting any such section because you have incomplete or imprecise information, you note your own process and considerations. Also, consider the possibility of gathering feedback from those impacted by the machine learning system, especially those with marginalized identities.\nThe process of documenting the extent and limits of a machine learning system is part of transparent, responsible reporting. A model card framework such as this is a helpful tool and some parts of a model card can be automated, but ultimately the extent of its value depends on you. From Mitchell et al. (2019):\n\nTherefore the usefulness and accuracy of a model card relies on the integrity of the creator(s) of the card itself."
-  },
-  {
     "objectID": "get-started/deploy.html#deploy-your-model",
     "href": "get-started/deploy.html#deploy-your-model",
     "title": "Deploy",
     "section": "Deploy your model",
-    "text": "Deploy your model\nYou can deploy your model by creating a special Plumber router in R or a FastAPI router in Python, and adding a POST endpoint for making predictions.\n\nRPython\n\n\n\nlibrary(plumber)\npr() %>%\n  vetiver_api(v)\n\n# Plumber router with 2 endpoints, 4 filters, and 1 sub-router.\n# Use `pr_run()` on this object to start the API.\n├──[queryString]\n├──[body]\n├──[cookieParser]\n├──[sharedSecret]\n├──/logo\n│  │ # Plumber static router serving from directory: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/vetiver\n├──/ping (GET)\n└──/predict (POST)\n\n\nTo start a server using this object, pipe (%>%) to pr_run(port = 8088) or your port of choice.\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nYou can interact with your vetiver API locally and debug it. FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for RStudio Connect.\n\nRPython\n\n\n\nvetiver_write_plumber(model_board, \"hotel_rf\")\n\n\n\n# Generated by the vetiver package; edit with care\n\nlibrary(pins)\nlibrary(plumber)\nlibrary(rapidoc)\nlibrary(vetiver)\n\n# Packages needed to generate model predictions\nif (FALSE) {\n    library(parsnip)\n    library(ranger)\n    library(recipes)\n    library(workflows)\n}\nb <- board_folder(path = \"/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/Rtmp2owjFW/pins-164dd5d975891\")\nv <- vetiver_pin_read(b, \"hotel_rf\")\n\n#* @plumber\nfunction(pr) {\n    pr %>% vetiver_api(v)\n}\n\n\nFor RStudio Connect, you can streamline this deployment process even more by using vetiver_deploy_rsconnect(model_board, \"hotel_rf).\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nIn a real-world situation, you would see something like b <- board_rsconnect() or b <- board_s3() here instead of our temporary demo board.\n\n\n\n\n\n\nTip\n\n\n\nNotice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected."
+    "text": "Deploy your model\nYou can deploy your model by creating a special Plumber router in R or a FastAPI router in Python, and adding a POST endpoint for making predictions.\n\nRPython\n\n\n\nlibrary(plumber)\npr() %>%\n  vetiver_api(v)\n\n# Plumber router with 2 endpoints, 4 filters, and 1 sub-router.\n# Use `pr_run()` on this object to start the API.\n├──[queryString]\n├──[body]\n├──[cookieParser]\n├──[sharedSecret]\n├──/logo\n│  │ # Plumber static router serving from directory: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/vetiver\n├──/ping (GET)\n└──/predict (POST)\n\n\nTo start a server using this object, pipe (%>%) to pr_run(port = 8088) or your port of choice.\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nYou can interact with your vetiver API locally and debug it. FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for RStudio Connect.\n\nRPython\n\n\n\nvetiver_write_plumber(model_board, \"hotel_rf\")\n\n\n\n# Generated by the vetiver package; edit with care\n\nlibrary(pins)\nlibrary(plumber)\nlibrary(rapidoc)\nlibrary(vetiver)\n\n# Packages needed to generate model predictions\nif (FALSE) {\n    library(parsnip)\n    library(ranger)\n    library(recipes)\n    library(workflows)\n}\nb <- board_folder(path = \"/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/Rtmp56xYvK/pins-167be6aa14ee6\")\nv <- vetiver_pin_read(b, \"hotel_rf\")\n\n#* @plumber\nfunction(pr) {\n    pr %>% vetiver_api(v)\n}\n\n\nFor RStudio Connect, you can streamline this deployment process even more by using vetiver_deploy_rsconnect(model_board, \"hotel_rf).\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nIn a real-world situation, you would see something like b <- board_rsconnect() or b <- board_s3() here instead of our temporary demo board.\n\n\n\n\n\n\nTip\n\n\n\nNotice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected."
+  },
+  {
+    "objectID": "get-started/deploy.html#generate-a-dockerfile",
+    "href": "get-started/deploy.html#generate-a-dockerfile",
+    "title": "Deploy",
+    "section": "Generate a Dockerfile",
+    "text": "Generate a Dockerfile"
   },
   {
     "objectID": "get-started/deploy.html#predict-from-your-model-endpoint",
@@ -182,10 +126,31 @@
     "text": "Predict from your model endpoint"
   },
   {
-    "objectID": "get-started/deploy.html#generate-a-dockerfile",
-    "href": "get-started/deploy.html#generate-a-dockerfile",
-    "title": "Deploy",
-    "section": "Generate a Dockerfile",
-    "text": "Generate a Dockerfile"
+    "objectID": "get-started/index.html",
+    "href": "get-started/index.html",
+    "title": "Install",
+    "section": "",
+    "text": "The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both. It is built to be extensible, with methods that can support many kinds of models.\n\nPythonR\n\n\nYou can use vetiver with:\n\nscikit-learn\nPyTorch\n\nYou can install the released version of vetiver from PyPI:\n\npip install vetiver\n\nAnd the development version from GitHub with:\n\npython -m pip install git+https://github.com/tidymodels/vetiver-python\n\n\n\nYou can use vetiver with:\n\na tidymodels workflow\ncaret\nmlr3\nXGBoost\nranger\nlm() and glm()\n\nYou can install the released version of vetiver from CRAN:\n\ninstall.packages(\"vetiver\")\n\nAnd the development version from GitHub with:\n\n# install.packages(\"devtools\")\ndevtools::install_github(\"tidymodels/vetiver-r\")"
+  },
+  {
+    "objectID": "get-started/version.html#create-a-vetiver-model",
+    "href": "get-started/version.html#create-a-vetiver-model",
+    "title": "Version",
+    "section": "Create a vetiver model",
+    "text": "Create a vetiver model\nFor this example, let’s work with data on hotel bookings to predict which hotel stays included children and which did not.\n\nRPython\n\n\nLet’s consider one kind of model supported by vetiver, a tidymodels workflow that encompasses both feature engineering and model estimation.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\n\nhotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv')\n\nset.seed(123)\nhotel_split <- initial_split(hotels, strata = children)\nhotel_train <- training(hotel_split)\nhotel_test  <- testing(hotel_split)\n\nrf_recipe <- \n  recipe(children ~ ., data = hotel_train) %>% \n  step_date(arrival_date) %>% \n  step_holiday(arrival_date, keep_original_cols = FALSE)\nrf_spec <- rand_forest(mode = \"classification\")\n\nset.seed(234)\nrf_fit <-\n    workflow(rf_recipe, rf_spec) %>%\n    fit(sample_frac(hotel_train, 0.5))\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThis rf_fit object is a fitted model, with both feature engineering and model parameters estimated using some of the training data hotel_train. We can create a vetiver_model() in R or VetiverModel() in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.\n\nRPython\n\n\n\nlibrary(vetiver)\nv <- vetiver_model(rf_fit, \"hotel_rf\")\nv\n\n\n── hotel_rf ─ <butchered_workflow> model for deployment \nA ranger classification modeling workflow using 22 features\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThink of this vetiver model as a deployable model object."
+  },
+  {
+    "objectID": "get-started/version.html#store-and-version-your-model",
+    "href": "get-started/version.html#store-and-version-your-model",
+    "title": "Version",
+    "section": "Store and version your model",
+    "text": "Store and version your model\nYou can store and version your model by choosing a pins “board” for it, including a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.\n\n\n\n\n\n\nNote\n\n\n\nWe’ll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.\n\n\n\nRPython\n\n\nMost pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.\n\nlibrary(pins)\nmodel_board <- board_temp(versioned = TRUE)\nmodel_board %>% vetiver_pin_write(v)\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nLet’s train our model again with a new version of the dataset and write it once more to our board.\n\nRPython\n\n\n\nrf_fit <-\n    workflow(rf_recipe, rf_spec) %>%\n    fit(sample_frac(hotel_train, 0.5))\n\nv <- vetiver_model(rf_fit, \"hotel_rf\")\n\nmodel_board %>% vetiver_pin_write(v)\n\nCreating new version '20220420T235936Z-d0fc2'\nWriting to pin 'hotel_rf'\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nBoth versions are stored, and we have access to both.\n\nRPython\n\n\n\nmodel_board %>% pin_versions(\"hotel_rf\")\n\n# A tibble: 2 × 3\n  version                created             hash \n  <chr>                  <dttm>              <chr>\n1 20220420T235931Z-237c5 2022-04-20 17:59:00 237c5\n2 20220420T235936Z-d0fc2 2022-04-20 17:59:00 d0fc2\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThe primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned vetiver model can be shareable with your collaborators."
+  },
+  {
+    "objectID": "get-started/monitor.html",
+    "href": "get-started/monitor.html",
+    "title": "Monitor",
+    "section": "",
+    "text": "🚧 TBA 🚧"
   }
 ]
