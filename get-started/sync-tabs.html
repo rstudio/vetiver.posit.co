@@ -1,4 +1,4 @@
-<script>
+<script type="application/javascript">
 function syncSelectors(lang) {
   let targets = [];
   function selectIfMatches(item, lang) {
@@ -24,7 +24,7 @@ document.querySelectorAll("[id^='tabset-']").forEach((item) => {
   });
 });
 ​
-window.addEventListener("DOMContentLoaded", (event) => {
+window.document.addEventListener("DOMContentLoaded", (event) => {
   if (localStorage.getItem("lang")) {
     syncSelectors(localStorage.getItem("lang"));
   }
