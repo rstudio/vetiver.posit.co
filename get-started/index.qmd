@@ -1,13 +1,13 @@
 ---
-title: "Install"
+title: "Get started with vetiver"
 format:
   html:
     toc: true
-execute:
-  eval: false
 ---
 
 The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both. It is built to be extensible, with methods that can support many kinds of models.
+
+## Installation
 
 ::: panel-tabset
 
@@ -21,12 +21,14 @@ You can use vetiver with:
 You can install the released version of vetiver from [PyPI](https://pypi.org/project/vetiver/):
 
 ```{python}
+#| eval: false
 pip install vetiver
 ```
 
 And the development version from [GitHub](https://github.com/tidymodels/vetiver-python) with:
 
 ```{python}
+#| eval: false
 python -m pip install git+https://github.com/tidymodels/vetiver-python
 ```
 
@@ -44,14 +46,83 @@ You can use vetiver with:
 You can install the released version of vetiver from [CRAN](https://cran.r-project.org/package=vetiver):
 
 ```{r}
+#| eval: false
 install.packages("vetiver")
 ```
 
 And the development version from [GitHub](https://github.com/tidymodels/vetiver-r) with:
 
 ```{r}
+#| eval: false
 # install.packages("devtools")
 devtools::install_github("tidymodels/vetiver-r")
 ```
 
 :::
+
+## Create a vetiver model
+
+For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not.
+
+::: panel-tabset
+
+## R
+
+Let’s consider one kind of model supported by vetiver, a [tidymodels](https://www.tidymodels.org/) workflow that encompasses both feature engineering and model estimation.
+
+```{r message = FALSE}
+library(tidyverse)
+library(tidymodels)
+
+hotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv')
+
+set.seed(123)
+hotel_split <- initial_split(hotels, strata = children)
+hotel_train <- training(hotel_split)
+hotel_test  <- testing(hotel_split)
+
+rf_recipe <- 
+  recipe(children ~ ., data = hotel_train) %>% 
+  step_date(arrival_date) %>% 
+  step_holiday(arrival_date, keep_original_cols = FALSE)
+rf_spec <- rand_forest(mode = "classification")
+
+set.seed(234)
+rf_fit <-
+    workflow(rf_recipe, rf_spec) %>%
+    fit(sample_frac(hotel_train, 0.5))
+```
+
+
+## Python
+
+```{python}
+1 + 1
+```
+
+:::
+
+This `rf_fit` object is a fitted model, with both feature engineering and model parameters estimated using some of the training data `hotel_train`. We can create a `vetiver_model()` in R or `VetiverModel()` in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.
+
+::: panel-tabset
+
+## R 
+
+```{r}
+#| message: false
+library(vetiver)
+v <- vetiver_model(rf_fit, "hotel_rf")
+v
+```
+
+
+## Python
+
+```{python}
+1 + 1
+```
+
+:::
+
+Think of this vetiver model as a deployable model object.
+

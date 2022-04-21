@@ -5,20 +5,14 @@ format:
     toc: true
 ---
 
-## Create a vetiver model
+```{r}
+#| include: false
+#| message: false
 
-For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not.
-
-::: panel-tabset
-
-## R
-
-Let’s consider one kind of model supported by vetiver, a [tidymodels](https://www.tidymodels.org/) workflow that encompasses both feature engineering and model estimation.
-
-```{r message = FALSE}
 library(tidyverse)
 library(tidymodels)
-
+library(vetiver)
+library(pins)
 hotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv')
 
 set.seed(123)
@@ -36,40 +30,10 @@ set.seed(234)
 rf_fit <-
     workflow(rf_recipe, rf_spec) %>%
     fit(sample_frac(hotel_train, 0.5))
-```
 
-
-## Python
-
-```{python}
-1 + 1
-```
-
-:::
-
-This `rf_fit` object is a fitted model, with both feature engineering and model parameters estimated using some of the training data `hotel_train`. We can create a `vetiver_model()` in R or `VetiverModel()` in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.
-
-::: panel-tabset
-
-## R 
-
-```{r}
-#| message: false
-library(vetiver)
 v <- vetiver_model(rf_fit, "hotel_rf")
-v
 ```
 
-
-## Python
-
-```{python}
-1 + 1
-```
-
-:::
-
-Think of this vetiver model as a deployable model object.
 
 ## Store and version your model
 
