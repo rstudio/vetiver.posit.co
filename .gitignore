@@ -5,3 +5,5 @@
 .Ruserdata
 
 /.quarto/
+Dockerfile
+get-started/hotel_rf/

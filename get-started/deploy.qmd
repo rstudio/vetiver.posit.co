@@ -34,7 +34,7 @@ rf_fit <-
     fit(sample_frac(hotel_train, 0.5))
 
 v <- vetiver_model(rf_fit, "hotel_rf")
-model_board <- board_temp()
+model_board <- board_folder(".")
 model_board %>% vetiver_pin_write(v)
 ```
 
@@ -53,7 +53,7 @@ pr() %>%
   vetiver_api(v)
 ```
 
-To start a server using this object, pipe (`%>%`) to `pr_run(port = 8088)` or your port of choice.
+To start a server using this object, pipe (`%>%`) to `pr_run(port = 8080)` or your port of choice.
 
 ## Python
 
@@ -77,12 +77,13 @@ vetiver_write_plumber(model_board, "hotel_rf")
 ```{r}
 #| echo: false
 #| comment: ""
-tmp <- tempfile()
-vetiver_write_plumber(model_board, "hotel_rf", file = tmp)
-cat(readr::read_lines(tmp), sep = "\n")
+docker_dir <- fs::path_real(tempdir())
+tmp_plumber <- fs::path(docker_dir, "plumber.R")
+vetiver_write_plumber(model_board, "hotel_rf", file = tmp_plumber)
+cat(readr::read_lines(tmp_plumber), sep = "\n")
 ```
 
-For RStudio Connect, you can streamline this deployment process even more by using `vetiver_deploy_rsconnect(model_board, "hotel_rf)`.
+For RStudio Connect, you can streamline this deployment process even more by using `vetiver_deploy_rsconnect(model_board, "hotel_rf")`.
 
 ## Python
 
@@ -92,12 +93,58 @@ For RStudio Connect, you can streamline this deployment process even more by usi
 
 :::
 
-In a real-world situation, you would see something like `b <- board_rsconnect()` or `b <- board_s3()` here instead of our temporary demo board. 
+In a real-world situation, you would see something like `board_rsconnect()` or `board_s3()` here instead of our temporary demo board. 
 
 ::: callout-tip
 Notice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected.
 :::
 
 ## Generate a Dockerfile
+
+For deploying a vetiver API to infrastructure other than RStudio Connect, such as [Google Cloud Run](https://cloud.google.com/run/docs/deploying),  [AWS](https://docs.aws.amazon.com/AmazonECS/latest/userguide/create-container-image.html), or [Azure](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-quickstart), you likely will want to build a Docker container. 
+
+::: callout-note
+You can use any pins board with Docker, like `board_folder()` or `board_rsconnect()`, as long as your Docker container can authenticate to your pins board.
+:::
+
+
+::: panel-tabset
+
+## R 
+
+```{r}
+#| eval: false
+vetiver_write_docker(v)
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| comment: ""
+options(renv.verbose = FALSE)
+vetiver_write_docker(v, tmp_plumber, docker_dir)
+docker_contents <- readr::read_lines(fs::path(docker_dir, "Dockerfile"))
+rel_dir <- fs::path_rel(docker_dir)
+docker_contents <- gsub(paste0(rel_dir, "/"), "", docker_contents, fixed = TRUE)
+docker_contents <- gsub(paste0(docker_dir, "/"), "", docker_contents, fixed = TRUE)
+cat(docker_contents, sep = "\n")
+```
+
+When you run `vetiver_write_docker()`, you generate _two_ files: the Dockerfile itself and [the `renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html) to capture your model dependencies.
+
+## Python
+
+```{python}
+1 + 1
+```
+
+:::
+
+::: callout-tip
+- When you build such a Docker container [with `docker build`](https://docs.docker.com/engine/reference/commandline/build/), all the packages needed to make a prediction with your model are installed into the container.
+
+
+- When you run the Docker container, you can pass in environment variables (for authentication to your pins board, for example) with `docker run --env-file .Renviron`.
+:::
 
 ## Predict from your model endpoint
