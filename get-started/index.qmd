@@ -3,6 +3,8 @@ title: "Get started with vetiver"
 format:
   html:
     toc: true
+    include-after-body:
+      - sync-tabs.html
 ---
 
 The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both. It is built to be extensible, with methods that can support many kinds of models.

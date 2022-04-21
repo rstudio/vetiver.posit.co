@@ -7,6 +7,13 @@
     "text": "If you’re looking for more vetiver content, check out this repo of examples."
   },
   {
+    "objectID": "python/get-started.html",
+    "href": "python/get-started.html",
+    "title": "Get started",
+    "section": "",
+    "text": "vetiver is an MLOps framework intended to extend a data science workflow to deployment after a model has been created."
+  },
+  {
     "objectID": "python/get-started.html#installation",
     "href": "python/get-started.html#installation",
     "title": "Get started",
@@ -25,14 +32,21 @@
     "href": "python/index.html",
     "title": "Vetiver",
     "section": "",
-    "text": "The goal of vetiver is to give data scientists and other model-builders the tools to deploy their model to a remote endpoint. It is the Python counterpart to the R package vetiver.\nKey features include:\n\nSimple: designed to fit into a data scientist’s natural workflow\nRobust: ability to check input data types to minimize type failures in a model\nAdvanced support: easily deploy multiple endpoints to handle pre- and post- processing\nBased on FastAPI, using OpenAPI\n\nSource code available on GitHub."
+    "text": "Key features include:\n\nSimple: designed to fit into a data scientist’s natural workflow\nRobust: ability to check input data types to minimize type failures in a model\nAdvanced support: easily deploy multiple endpoints to handle pre- and post- processing\nBased on FastAPI, using OpenAPI\n\nSource code available on GitHub."
   },
   {
     "objectID": "python/vetiver-model.html",
     "href": "python/vetiver-model.html",
     "title": "VetiverModel",
     "section": "",
-    "text": "This tutorial shows you how to use VetiverModel() with its core features, step by step.\nUsers will start with any trained model. Currently, Vetiver supports scikit-learn models, with other model support on its way.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model, save_ptype = True, ptype_data = X)\n\nThe save_ptype and ptype_data arguments refer to an input data prototype, or ptype. This ptype is an automatically created Pydantic BaseModel that stores the types of the data that the API can expect when deployed. To enable this feature, set save_ptype = True and set ptype_data equal to training data. You can turn this feature off by setting save_ptype = False and not passing in any ptype_data."
+    "text": "Users will start with any trained model. Currently, Vetiver supports scikit-learn models, with other model support on its way.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model, save_ptype = True, ptype_data = X)\n\nThe save_ptype and ptype_data arguments refer to an input data prototype, or ptype. This ptype is an automatically created Pydantic BaseModel that stores the types of the data that the API can expect when deployed. To enable this feature, set save_ptype = True and set ptype_data equal to training data. You can turn this feature off by setting save_ptype = False and not passing in any ptype_data."
+  },
+  {
+    "objectID": "python/vetiver-api.html",
+    "href": "python/vetiver-api.html",
+    "title": "VetiverAPI",
+    "section": "",
+    "text": "This tutorial shows you how to use VetiverAPI() with its core features, step by step."
   },
   {
     "objectID": "python/vetiver-api.html#minimal-deployment",
@@ -49,11 +63,11 @@
     "text": "Multiple endpoints\nMore advanced use cases may require multiple endpoints to be created for pre-processing or post-processing data. You can use vetiver_post() to create a new POST endpoint that implements a custom function. In the example below, the endpoint “new_endpoint” sums all the input data.\n!!! note\nThe method `vetiver_post()` currently handles all data as a [Series](https://pandas.pydata.org/docs/reference/api/pandas.Series.html) type.\n\nfrom vetiver import mock, VetiverModel, VetiverAPI\n\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\n\nv = VetiverModel(model = model, save_ptype = True, ptype_data = X)\n\nmy_api = VetiverAPI(v)\n\n# new endpoint\ndef sum_numbers(x):\n    return x.sum()\n\nmy_api.vetiver_post(endpoint_fx = sum_numbers, endpoint_name = \"new_endpoint\")\n\nmy_api.run()\n\n(This script is complete, it should run “as is”)"
   },
   {
-    "objectID": "learn-more/model-card.html#what-is-a-model-card",
-    "href": "learn-more/model-card.html#what-is-a-model-card",
+    "objectID": "learn-more/model-card.html",
+    "href": "learn-more/model-card.html",
     "title": "Model cards for transparent, responsible reporting",
-    "section": "What is a “Model Card”?",
-    "text": "What is a “Model Card”?\nGood documentation helps us make sense of software, know when and how to use it, and understand its purpose. The same can be true of documentation or reporting for a deployed model, but it can be hard to know where to start. The paper “Model Cards for Model Reporting” (Mitchell et al. 2019) provides a suggested framework for organizing and presenting the essential facts about a deployed machine learning model. The vetiver package provides an R Markdown template for creating a “Model Card” for a published vetiver model. The template automates extracting some information from the model object, and provides structure for the model developer where automation is not possible.\nModel developers see a nudge to create a model card when they publish a model; we recommend that you create a model card when you deploy a model for the first time and refresh that model card as needed when new versions are deployed.\n\nlibrary(vetiver)\nlibrary(pins)\nmodel_board <- board_temp()\n\ncars_lm <- lm(mpg ~ ., data = mtcars)\nv <- vetiver_model(cars_lm, \"cars_linear\")\nvetiver_pin_write(model_board, v)\n\nCreating new version '20220421T022627Z-522c5'\nWriting to pin 'cars_linear'\n\nCreate a Model Card for your published model\n• Model Cards provide a framework for transparent, responsible reporting\n• Use the vetiver `.Rmd` template as a place to start\n\n\n(Learn more about silencing messages like this if desired.)"
+    "section": "",
+    "text": "Good documentation helps us make sense of software, know when and how to use it, and understand its purpose. The same can be true of documentation or reporting for a deployed model, but it can be hard to know where to start. The paper “Model Cards for Model Reporting” (Mitchell et al. 2019) provides a suggested framework for organizing and presenting the essential facts about a deployed machine learning model. The vetiver package provides an R Markdown template for creating a “Model Card” for a published vetiver model. The template automates extracting some information from the model object, and provides structure for the model developer where automation is not possible.\nModel developers see a nudge to create a model card when they publish a model; we recommend that you create a model card when you deploy a model for the first time and refresh that model card as needed when new versions are deployed.\n\nlibrary(vetiver)\nlibrary(pins)\nmodel_board <- board_temp()\n\ncars_lm <- lm(mpg ~ ., data = mtcars)\nv <- vetiver_model(cars_lm, \"cars_linear\")\nvetiver_pin_write(model_board, v)\n\nCreating new version '20220421T180956Z-522c5'\nWriting to pin 'cars_linear'\n\nCreate a Model Card for your published model\n• Model Cards provide a framework for transparent, responsible reporting\n• Use the vetiver `.Rmd` template as a place to start\n\n\n(Learn more about silencing messages like this if desired.)"
   },
   {
     "objectID": "learn-more/model-card.html#accessing-the-template",
@@ -81,14 +95,14 @@
     "href": "index.html",
     "title": "MLOps with vetiver",
     "section": "",
-    "text": "The vetiver framework is for MLOps tasks in Python and R.\n\nVetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.\n\nThe goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint.\n\n\n\n\n\n\n\n\n\n\n\nData scientists have effective tools that they ❤️ to:\n\n\n\n\ncollect data\nprepare, manipulate, refine data\ntrain models\n\n\n\n\n\n\n\n\n\nThere is a lack 😩 of effective tools to:\n\n\n\n\nput models into production\nmonitor model performance\ntrigger retraining\n\n\n\nYou can use vetiver for deploying and handling your trained models.\n\nRPython\n\n\n\nlibrary(vetiver)\ncars_lm <- lm(mpg ~ ., data = mtcars)\nvetiver_model(cars_lm, \"cars_linear\")\n\n\n── cars_linear ─ <butchered_lm> model for deployment \nAn OLS linear regression model using 10 features\n\n\n\n\n\nfrom vetiver import mock, VetiverModel\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\nv = VetiverModel(model, model_name = \"cars_linear\", \n                 save_ptype = True, ptype_data = X)\nv.description"
+    "text": "Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.\n\nThe goal of vetiver is to provide fluent tooling to version, share, deploy, and monitor a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint.\n\n\n\n\n\n\n\n\n\n\n\nData scientists have effective tools that they ❤️ to:\n\n\n\n\ncollect data\nprepare, manipulate, refine data\ntrain models\n\n\n\n\n\n\n\n\n\nThere is a lack 😩 of effective tools to:\n\n\n\n\nput models into production\nmonitor model performance\ntrigger retraining\n\n\n\nYou can use vetiver for deploying and handling your trained models.\n\nRPython\n\n\n\nlibrary(vetiver)\ncars_lm <- lm(mpg ~ ., data = mtcars)\nvetiver_model(cars_lm, \"cars_linear\")\n\n\n── cars_linear ─ <butchered_lm> model for deployment \nAn OLS linear regression model using 10 features\n\n\n\n\n\nfrom vetiver import mock, VetiverModel\nX, y = mock.get_mock_data()\nmodel = mock.get_mock_model().fit(X, y)\nv = VetiverModel(model, model_name = \"cars_linear\", \n                 save_ptype = True, ptype_data = X)\nv.description"
   },
   {
-    "objectID": "about.html#who-is-developing-vetiver",
-    "href": "about.html#who-is-developing-vetiver",
+    "objectID": "about.html",
+    "href": "about.html",
     "title": "About vetiver",
-    "section": "Who is developing vetiver?",
-    "text": "Who is developing vetiver?\nDevelopment of vetiver is sponsored by RStudio, PBC."
+    "section": "",
+    "text": "Development of vetiver is sponsored by RStudio, PBC."
   },
   {
     "objectID": "about.html#is-vetiver-open-source",
@@ -105,11 +119,11 @@
     "text": "What are different ways you can contribute?\n\nAnswer questions\nYou can help others use and learn vetiver by answering questions on the RStudio community site, Stack Overflow, and Twitter. Many people asking for help with vetiver don’t know what a reproducible example or “reprex” is, or how to craft one. Acknowledging an individual’s problem, showing them how to build a reprex, and pointing them to helpful resources are all enormously beneficial, even if you don’t immediately solve their problem.\nRemember that while you might have seen a problem a hundred times before, it’s new to the person asking it. Be patient, polite, and empathetic.\n\n\nFile issues\nIf you’ve found a bug, first create a minimal reproducible example. Spend some time working to make it as minimal as possible; the more time you spend doing this, the easier it is to fix the bug. When your reprex is ready, file it on the GitHub repo of the appropriate package, either Python or R.\nThe vetiver team often focuses on one package at a time to reduce context switching and be more efficient. We may not address each issue right away, but we will use the reproducible example you create to understand your problem when it is time to focus on that package.\n\n\nContribute documentation\nDocumentation is a high priority for vetiver, and pull requests to correct or improve documentation are welcome.\n\n\nContribute code\nIf you are a more experienced R or Python programmer, you may have the inclination, interest, and ability to contribute directly to package development. Before you submit a pull request to vetiver, always file an issue and confirm the vetiver team agrees with your idea and is happy with your basic proposal.\nWe use the tidyverse style guide for R and the ??? style guide for Python. Using a style guide keeps your new code and documentation matching the existing style, and makes the review process much smoother."
   },
   {
-    "objectID": "get-started/deploy.html#deploy-your-model",
-    "href": "get-started/deploy.html#deploy-your-model",
+    "objectID": "get-started/deploy.html",
+    "href": "get-started/deploy.html",
     "title": "Deploy",
-    "section": "Deploy your model",
-    "text": "Deploy your model\nYou can deploy your model by creating a special Plumber router in R or a FastAPI router in Python, and adding a POST endpoint for making predictions.\n\nRPython\n\n\n\nlibrary(plumber)\npr() %>%\n  vetiver_api(v)\n\n# Plumber router with 2 endpoints, 4 filters, and 1 sub-router.\n# Use `pr_run()` on this object to start the API.\n├──[queryString]\n├──[body]\n├──[cookieParser]\n├──[sharedSecret]\n├──/logo\n│  │ # Plumber static router serving from directory: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/vetiver\n├──/ping (GET)\n└──/predict (POST)\n\n\nTo start a server using this object, pipe (%>%) to pr_run(port = 8088) or your port of choice.\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nYou can interact with your vetiver API locally and debug it. FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for RStudio Connect.\n\nRPython\n\n\n\nvetiver_write_plumber(model_board, \"hotel_rf\")\n\n\n\n# Generated by the vetiver package; edit with care\n\nlibrary(pins)\nlibrary(plumber)\nlibrary(rapidoc)\nlibrary(vetiver)\n\n# Packages needed to generate model predictions\nif (FALSE) {\n    library(parsnip)\n    library(ranger)\n    library(recipes)\n    library(workflows)\n}\nb <- board_folder(path = \"/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/RtmpDpSVxx/pins-178cc19bcc561\")\nv <- vetiver_pin_read(b, \"hotel_rf\")\n\n#* @plumber\nfunction(pr) {\n    pr %>% vetiver_api(v)\n}\n\n\nFor RStudio Connect, you can streamline this deployment process even more by using vetiver_deploy_rsconnect(model_board, \"hotel_rf).\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nIn a real-world situation, you would see something like b <- board_rsconnect() or b <- board_s3() here instead of our temporary demo board.\n\n\n\n\n\n\nTip\n\n\n\nNotice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected."
+    "section": "",
+    "text": "You can deploy your model by creating a special Plumber router in R or a FastAPI router in Python, and adding a POST endpoint for making predictions.\n\nRPython\n\n\n\nlibrary(plumber)\npr() %>%\n  vetiver_api(v)\n\n# Plumber router with 2 endpoints, 4 filters, and 1 sub-router.\n# Use `pr_run()` on this object to start the API.\n├──[queryString]\n├──[body]\n├──[cookieParser]\n├──[sharedSecret]\n├──/logo\n│  │ # Plumber static router serving from directory: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/vetiver\n├──/ping (GET)\n└──/predict (POST)\n\n\nTo start a server using this object, pipe (%>%) to pr_run(port = 8088) or your port of choice.\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nYou can interact with your vetiver API locally and debug it. FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for RStudio Connect.\n\nRPython\n\n\n\nvetiver_write_plumber(model_board, \"hotel_rf\")\n\n\n\n# Generated by the vetiver package; edit with care\n\nlibrary(pins)\nlibrary(plumber)\nlibrary(rapidoc)\nlibrary(vetiver)\n\n# Packages needed to generate model predictions\nif (FALSE) {\n    library(parsnip)\n    library(ranger)\n    library(recipes)\n    library(workflows)\n}\nb <- board_folder(path = \"/var/folders/hv/hzsmmyk9393_m7q3nscx1slc0000gn/T/RtmpnsH5S2/pins-422b2383c914\")\nv <- vetiver_pin_read(b, \"hotel_rf\")\n\n#* @plumber\nfunction(pr) {\n    pr %>% vetiver_api(v)\n}\n\n\nFor RStudio Connect, you can streamline this deployment process even more by using vetiver_deploy_rsconnect(model_board, \"hotel_rf).\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nIn a real-world situation, you would see something like b <- board_rsconnect() or b <- board_s3() here instead of our temporary demo board.\n\n\n\n\n\n\nTip\n\n\n\nNotice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected."
   },
   {
     "objectID": "get-started/deploy.html#generate-a-dockerfile",
@@ -126,6 +140,13 @@
     "text": "Predict from your model endpoint"
   },
   {
+    "objectID": "get-started/index.html",
+    "href": "get-started/index.html",
+    "title": "Get started with vetiver",
+    "section": "",
+    "text": "The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both. It is built to be extensible, with methods that can support many kinds of models."
+  },
+  {
     "objectID": "get-started/index.html#installation",
     "href": "get-started/index.html#installation",
     "title": "Get started with vetiver",
@@ -140,17 +161,17 @@
     "text": "Create a vetiver model\nFor this example, let’s work with data on hotel bookings to predict which hotel stays included children and which did not.\n\nRPython\n\n\nLet’s consider one kind of model supported by vetiver, a tidymodels workflow that encompasses both feature engineering and model estimation.\n\nlibrary(tidyverse)\nlibrary(tidymodels)\n\nhotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv')\n\nset.seed(123)\nhotel_split <- initial_split(hotels, strata = children)\nhotel_train <- training(hotel_split)\nhotel_test  <- testing(hotel_split)\n\nrf_recipe <- \n  recipe(children ~ ., data = hotel_train) %>% \n  step_date(arrival_date) %>% \n  step_holiday(arrival_date, keep_original_cols = FALSE)\nrf_spec <- rand_forest(mode = \"classification\")\n\nset.seed(234)\nrf_fit <-\n    workflow(rf_recipe, rf_spec) %>%\n    fit(sample_frac(hotel_train, 0.5))\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThis rf_fit object is a fitted model, with both feature engineering and model parameters estimated using some of the training data hotel_train. We can create a vetiver_model() in R or VetiverModel() in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.\n\nRPython\n\n\n\nlibrary(vetiver)\nv <- vetiver_model(rf_fit, \"hotel_rf\")\nv\n\n\n── hotel_rf ─ <butchered_workflow> model for deployment \nA ranger classification modeling workflow using 22 features\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThink of this vetiver model as a deployable model object."
   },
   {
-    "objectID": "get-started/version.html#store-and-version-your-model",
-    "href": "get-started/version.html#store-and-version-your-model",
+    "objectID": "get-started/version.html",
+    "href": "get-started/version.html",
     "title": "Version",
-    "section": "Store and version your model",
-    "text": "Store and version your model\nYou can store and version your model by choosing a pins “board” for it, including a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.\n\n\n\n\n\n\nNote\n\n\n\nWe’ll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.\n\n\n\nRPython\n\n\nMost pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.\n\nlibrary(pins)\nmodel_board <- board_temp(versioned = TRUE)\nmodel_board %>% vetiver_pin_write(v)\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nLet’s train our model again with a new version of the dataset and write it once more to our board.\n\nRPython\n\n\n\nrf_fit <-\n    workflow(rf_recipe, rf_spec) %>%\n    fit(sample_frac(hotel_train, 0.5))\n\nv <- vetiver_model(rf_fit, \"hotel_rf\")\n\nmodel_board %>% vetiver_pin_write(v)\n\nCreating new version '20220421T022710Z-d0fc2'\nWriting to pin 'hotel_rf'\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nBoth versions are stored, and we have access to both.\n\nRPython\n\n\n\nmodel_board %>% pin_versions(\"hotel_rf\")\n\n# A tibble: 2 × 3\n  version                created             hash \n  <chr>                  <dttm>              <chr>\n1 20220421T022702Z-237c5 2022-04-20 20:27:00 237c5\n2 20220421T022710Z-d0fc2 2022-04-20 20:27:00 d0fc2\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThe primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned vetiver model can be shareable with your collaborators."
+    "section": "",
+    "text": "You can store and version your model by choosing a pins “board” for it, including a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.\n\n\n\n\n\n\nNote\n\n\n\nWe’ll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.\n\n\n\nRPython\n\n\nMost pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.\n\nlibrary(pins)\nmodel_board <- board_temp(versioned = TRUE)\nmodel_board %>% vetiver_pin_write(v)\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nLet’s train our model again with a new version of the dataset and write it once more to our board.\n\nRPython\n\n\n\nrf_fit <-\n    workflow(rf_recipe, rf_spec) %>%\n    fit(sample_frac(hotel_train, 0.5))\n\nv <- vetiver_model(rf_fit, \"hotel_rf\")\n\nmodel_board %>% vetiver_pin_write(v)\n\nCreating new version '20220421T181037Z-d0fc2'\nWriting to pin 'hotel_rf'\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nBoth versions are stored, and we have access to both.\n\nRPython\n\n\n\nmodel_board %>% pin_versions(\"hotel_rf\")\n\n# A tibble: 2 × 3\n  version                created             hash \n  <chr>                  <dttm>              <chr>\n1 20220421T181030Z-237c5 2022-04-21 12:10:00 237c5\n2 20220421T181037Z-d0fc2 2022-04-21 12:10:00 d0fc2\n\n\n\n\n\n1 + 1\n\n2\n\n\n\n\n\nThe primary purpose of pins is to make it easy to share data artifacts, so depending on the board you choose, your pinned vetiver model can be shareable with your collaborators."
   },
   {
     "objectID": "get-started/monitor.html",
     "href": "get-started/monitor.html",
     "title": "Monitor",
     "section": "",
-    "text": "🚧 TBA 🚧"
+    "text": "🚧 COMING SOON 🚧"
   }
 ]

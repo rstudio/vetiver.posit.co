@@ -1,64 +1,69 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.87">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>MLOps with vetiver - Monitor</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-  </style>
 
-  <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-  <script src="../site_libs/clipboard/clipboard.min.js"></script>
-  <meta name="quarto:offset" content="../">
-  <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-  <script src="../site_libs/quarto-search/fuse.min.js"></script>
-  <script src="../site_libs/quarto-search/quarto-search.js"></script>
-  <link href="../get-started/deploy.html" rel="prev">
-  <link href="../images/favicon.ico" rel="icon">
-  <script src="../site_libs/quarto-html/quarto.js"></script>
-  <script src="../site_libs/quarto-html/popper.min.js"></script>
-  <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="../site_libs/quarto-html/anchor.min.js"></script>
-  <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-  <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <script id="quarto-search-options" type="application/json">{
-    "location": "navbar",
-    "copy-button": false,
-    "collapse-after": 2,
-    "panel-placement": "end",
-    "type": "overlay",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
-  }</script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-  <link rel="stylesheet" href="../styles.css">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.293">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MLOps with vetiver - Monitor</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../get-started/deploy.html" rel="prev">
+<link href="../images/favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="MLOps with vetiver - Monitor">
 <meta property="og:site-name" content="MLOps with vetiver">
 <meta name="twitter:title" content="MLOps with vetiver - Monitor">
 <meta name="twitter:card" content="summary">
 </head>
-<body class="floating fullcontent">
+
+<body class="floating nav-fixed">
+
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -95,7 +100,7 @@
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title">Monitor</h1>
-      <button type="button" class="quarto-btn-toggle btn">
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
@@ -131,16 +136,67 @@
     </div>
 </nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-<header id="title-block-header" class="quarto-title-block default">
 
-<div class="quarto-title"><h1 class="title d-none d-lg-block display-7">Monitor</h1></div></header>
-<p>🚧 TBA 🚧</p>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Monitor</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>🚧 COMING SOON 🚧</p>
+
 
 
 </main> <!-- /main -->
+<script type="application/javascript">
+function syncSelectors(lang) {
+  let targets = [];
+  function selectIfMatches(item, lang) {
+    if (item.innerHTML === lang) {
+      item.classList.add("active");
+      targets.push(item.getAttribute("aria-controls"));
+    } else if (targets.includes(item.getAttribute("id"))) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  }
+  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
+    selectIfMatches(item, lang);
+  });
+}
+
+document.querySelectorAll("[id^='tabset-']").forEach((item) => {
+  item.addEventListener("click", (event) => {
+    // this will target the tab itself, also need to expose the content
+    localStorage.setItem("lang", item.innerHTML);
+    syncSelectors(item.innerHTML); // this should log R or Python
+  });
+});
+
+window.document.addEventListener("DOMContentLoaded", (event) => {
+  if (localStorage.getItem("lang")) {
+    syncSelectors(localStorage.getItem("lang"));
+  }
+});
+</script>
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
@@ -162,7 +218,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
     setTimeout(function() {
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -249,6 +308,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 </body></html>

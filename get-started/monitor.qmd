@@ -3,8 +3,8 @@ title: "Monitor"
 format:
   html:
     toc: true
-execute:
-  eval: false
+    include-after-body:
+      - sync-tabs.html
 ---
 
-🚧 TBA 🚧
+🚧 COMING SOON 🚧
