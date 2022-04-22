@@ -34,7 +34,7 @@ rf_fit <-
     fit(sample_frac(hotel_train, 0.5))
 
 v <- vetiver_model(rf_fit, "hotel_rf")
-model_board <- board_folder(".")
+model_board <- board_folder(".", versioned = TRUE)
 model_board %>% vetiver_pin_write(v)
 ```
 
@@ -95,7 +95,7 @@ For RStudio Connect, you can streamline this deployment process even more by usi
 
 In a real-world situation, you would see something like `board_rsconnect()` or `board_s3()` here instead of our temporary demo board. 
 
-::: callout-tip
+::: callout-important
 Notice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected.
 :::
 
@@ -148,3 +148,62 @@ When you run `vetiver_write_docker()`, you generate _two_ files: the Dockerfile 
 :::
 
 ## Predict from your model endpoint
+
+A model deployed via vetiver can be treated as a special `vetiver_endpoint()` object.
+
+::: panel-tabset
+
+## R 
+
+```{r}
+endpoint <- vetiver_endpoint("http://127.0.0.1:8080/predict")
+endpoint
+```
+
+## Python
+
+```{python}
+1 + 1
+```
+
+:::
+
+If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via [a background job in the RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make predictions with that deployed model and new data in another, separate process.
+
+::: panel-tabset
+
+## R 
+
+
+```{r}
+#| eval: false
+predict(endpoint, slice_sample(hotel_test, n = 10))
+```
+
+```
+# A tibble: 10 × 1
+   .pred_class
+   <chr>      
+ 1 none       
+ 2 none       
+ 3 children       
+ 4 none       
+ 5 none       
+ 6 none       
+ 7 none       
+ 8 none       
+ 9 children       
+10 none     
+```
+
+
+## Python
+
+```{python}
+1 + 1
+```
+
+:::
+
+Being able to predict with a vetiver model endpoint takes advantage of the model’s input data prototype and other metadata that is stored with the model.
+

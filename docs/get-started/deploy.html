@@ -293,7 +293,7 @@ if (FALSE) {
     library(workflows)
 }
 b &lt;- board_folder(path = ".")
-v &lt;- vetiver_pin_read(b, "hotel_rf")
+v &lt;- vetiver_pin_read(b, "hotel_rf", version = "20220422T020445Z-237c5")
 
 #* @plumber
 function(pr) {
@@ -314,13 +314,13 @@ function(pr) {
 </div>
 </div>
 <p>In a real-world situation, you would see something like <code>board_rsconnect()</code> or <code>board_s3()</code> here instead of our temporary demo board.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Tip
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -406,6 +406,64 @@ Tip
 </section>
 <section id="predict-from-your-model-endpoint" class="level2">
 <h2 class="anchored" data-anchor-id="predict-from-your-model-endpoint">Predict from your model endpoint</h2>
+<p>A model deployed via vetiver can be treated as a special <code>vetiver_endpoint()</code> object.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+── A model API endpoint for prediction: 
+http://127.0.0.1:8080/predict</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via <a href="https://solutions.rstudio.com/r/jobs/">a background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate process.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(endpoint, <span class="fu">slice_sample</span>(hotel_test, <span class="at">n =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code># A tibble: 10 × 1
+   .pred_class
+   &lt;chr&gt;      
+ 1 none       
+ 2 none       
+ 3 children       
+ 4 none       
+ 5 none       
+ 6 none       
+ 7 none       
+ 8 none       
+ 9 children       
+10 none     </code></pre>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Being able to predict with a vetiver model endpoint takes advantage of the model’s input data prototype and other metadata that is stored with the model.</p>
 
 
 </section>
