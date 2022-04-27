@@ -13,27 +13,6 @@ The vetiver framework for MLOps tasks is built for data science teams using R an
 
 ::: panel-tabset
 
-## Python
-
-You can use vetiver with:
-
-- [scikit-learn](https://scikit-learn.org/)
-- [PyTorch](https://pytorch.org/)
-
-You can install the released version of vetiver from [PyPI](https://pypi.org/project/vetiver/):
-
-```{python}
-#| eval: false
-pip install vetiver
-```
-
-And the development version from [GitHub](https://github.com/tidymodels/vetiver-python) with:
-
-```{python}
-#| eval: false
-python -m pip install git+https://github.com/tidymodels/vetiver-python
-```
-
 ## R
 
 You can use vetiver with:
@@ -59,6 +38,28 @@ And the development version from [GitHub](https://github.com/tidymodels/vetiver-
 # install.packages("devtools")
 devtools::install_github("tidymodels/vetiver-r")
 ```
+
+## Python
+
+You can use vetiver with:
+
+- [scikit-learn](https://scikit-learn.org/)
+- [PyTorch](https://pytorch.org/)
+
+You can install the released version of vetiver from [PyPI](https://pypi.org/project/vetiver/):
+
+```{python}
+#| eval: false
+pip install vetiver
+```
+
+And the development version from [GitHub](https://github.com/tidymodels/vetiver-python) with:
+
+```{python}
+#| eval: false
+python -m pip install git+https://github.com/tidymodels/vetiver-python
+```
+
 
 :::
 
@@ -90,7 +91,8 @@ rf_recipe <-
 rf_spec <- rand_forest(mode = "classification")
 
 set.seed(234)
-rf_fit <-
+## let's only use half of the training data for now
+rf <-
     workflow(rf_recipe, rf_spec) %>%
     fit(sample_frac(hotel_train, 0.5))
 ```
@@ -98,13 +100,36 @@ rf_fit <-
 
 ## Python
 
+Let’s consider one kind of model supported by vetiver, a [scikit-learn](https://scikit-learn.org/) pipeline that encompasses both feature engineering and model estimation.
+
 ```{python}
-1 + 1
+import pandas as pd
+import numpy as np
+from sklearn import model_selection, preprocessing, pipeline
+from sklearn.ensemble import RandomForestClassifier
+
+np.random.seed(500)
+
+raw = pd.read_csv('https://tidymodels.org/start/case-study/hotels.csv')
+df = pd.DataFrame(raw)
+df['arrival_date'] = pd.to_datetime(df['arrival_date'])
+df['arrival_month'] = df['arrival_date'].dt.month
+df['arrival_dow'] = df['arrival_date'].dt.dayofweek
+df = df.drop(columns = 'arrival_date').dropna()
+X, y = df.drop(columns = 'children'), df['children']
+X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size = 0.25)
+
+## let's only use half of the training data for now
+X_1, X_2, y_1, y_2 = model_selection.train_test_split(X_train, y_train, test_size = 0.5)
+
+le = preprocessing.OrdinalEncoder().fit(X_1)
+rf = RandomForestClassifier().fit(le.transform(X_1), y_1)
+rf = pipeline.Pipeline([('label_encoder', le), ('random_forest', rf)])
 ```
 
 :::
 
-This `rf_fit` object is a fitted model, with both feature engineering and model parameters estimated using some of the training data `hotel_train`. We can create a `vetiver_model()` in R or `VetiverModel()` in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.
+This `rf` object is a fitted model, with both feature engineering and model parameters estimated using some of the training data `hotel_train`. We can create a `vetiver_model()` in R or `VetiverModel()` in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.
 
 ::: panel-tabset
 
@@ -113,7 +138,7 @@ This `rf_fit` object is a fitted model, with both feature engineering and model 
 ```{r}
 #| message: false
 library(vetiver)
-v <- vetiver_model(rf_fit, "hotel_rf")
+v <- vetiver_model(rf, "hotel_rf")
 v
 ```
 
@@ -121,7 +146,9 @@ v
 ## Python
 
 ```{python}
-1 + 1
+from vetiver import VetiverModel
+v = VetiverModel(rf, save_ptype = True, ptype_data = X_1, model_name = "hotel_rf")
+v.description
 ```
 
 :::
