@@ -106,7 +106,7 @@ model_board %>% vetiver_pin_write(v)
 #| message: false
 from pins import board_temp
 from vetiver import vetiver_pin_write
-model_board = board_temp()
+model_board = board_temp(allow_pickle_read=True)
 vetiver_pin_write(model_board, v)
 ```
 

@@ -79,7 +79,7 @@ rf = RandomForestClassifier().fit(le.transform(X_1), y_1)
 rf = pipeline.Pipeline([('label_encoder', le), ('random_forest', rf)])
 
 v = VetiverModel(rf, save_ptype = True, ptype_data = X_1, model_name = "hotel_rf")
-model_board = board_folder(".")
+model_board = board_folder(".", allow_pickle_read=True)
 vetiver_pin_write(model_board, v)
 ```
 
@@ -104,10 +104,11 @@ To start a server using this object, pipe (`%>%`) to `pr_run(port = 8080)` or yo
 ## Python
 
 ```{python}
+from vetiver import VetiverAPI
 app = VetiverAPI(v, check_ptype = True)
 ```
 
-To start a server using this object, use `app.run()`. But how to specify port?
+To start a server using this object, use `app.run(port = 8000)` or your port of choice.
 
 :::
 
@@ -137,9 +138,20 @@ For RStudio Connect, you can streamline this deployment process even more by usi
 
 ```{python}
 #| eval: false
-vetiver_write_app(model_board, "hotel_rf")
+app_file = vetiver_write_app(model_board, "hotel_rf")
 ```
 
+```{python}
+#| echo: false
+#| comment: ""
+from vetiver import vetiver_write_app
+import tempfile
+with tempfile.TemporaryDirectory() as temp:
+  tmp = temp + "app.py"
+  vetiver_write_app(model_board, "hotel_rf", file=tmp)
+  contents = open(tmp).read()
+print(contents.replace(temp, "."))
+```
 :::
 
 In a real-world situation, you would see something like `board_rsconnect()` or `board_s3()` here instead of our temporary demo board. 
@@ -185,7 +197,23 @@ When you run `vetiver_write_docker()`, you generate _two_ files: the Dockerfile 
 
 ```{python}
 #| eval: false
-vetiver_write_docker(v)
+vetiver_write_docker(app_file)
+```
+
+```{python}
+#| echo: false
+#| comment: ""
+from vetiver import vetiver_write_docker
+import tempfile
+
+with tempfile.TemporaryDirectory() as temp:
+  tmp_app = temp + "/app.py"
+  tmp_docker = temp + "/Dockerfile"
+  vetiver_write_app(model_board, "hotel_rf", file=tmp_app)
+  vetiver_write_docker(app_file=tmp_app, path=temp+"/")
+  contents = open(tmp_docker).read()
+print(contents.replace(temp, "."))
+
 ```
 
 :::
@@ -255,7 +283,19 @@ predict(endpoint, slice_sample(hotel_test, n = 10))
 #| eval: false
 predict(endpoint, hotel_test.df_sample(n = 10))
 ```
-
+```
+  prediction
+0       none
+1       none
+2       none
+3       none
+4       none
+5       none
+6       none
+7   children
+8       none
+9       none
+```
 :::
 
 Being able to predict with a vetiver model endpoint takes advantage of the model’s input data prototype and other metadata that is stored with the model.
