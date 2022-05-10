@@ -57,6 +57,8 @@ website:
       align: left
       contents:
         - text:
+          href: learn-more/parity-checklist.qmd
+        - text:
           href: learn-more/model-card.qmd
 
 
