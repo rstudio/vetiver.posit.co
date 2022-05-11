@@ -47,6 +47,7 @@ from vetiver import VetiverModel
 from vetiver.data import mtcars
 from sklearn import linear_model
 
+mtcars = mtcars.drop(columns="model")
 model = linear_model.LinearRegression().fit(mtcars, mtcars["mpg"])
 v = VetiverModel(model, model_name = "cars_linear", 
                  save_ptype = True, ptype_data = mtcars)
