@@ -213,6 +213,9 @@ with tempfile.TemporaryDirectory() as temp:
 print(contents.replace(temp, "."))
 
 ```
+
+To run the Dockerfile, you need _two_ files: the Dockerfile itself from `vetiver_write_docker()` and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies. If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you.
+
 :::
 
 ::: callout-tip
