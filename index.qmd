@@ -43,11 +43,13 @@ vetiver_model(cars_lm, "cars_linear")
 ## Python
 
 ```{python}
-from vetiver import mock, VetiverModel
-X, y = mock.get_mock_data()
-model = mock.get_mock_model().fit(X, y)
+from vetiver import VetiverModel
+from vetiver.data import mtcars
+from sklearn import linear_model
+
+model = linear_model.LinearRegression().fit(mtcars, mtcars["mpg"])
 v = VetiverModel(model, model_name = "cars_linear", 
-                 save_ptype = True, ptype_data = X)
+                 save_ptype = True, ptype_data = mtcars)
 v.description
 ```
 :::

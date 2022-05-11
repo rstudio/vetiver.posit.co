@@ -147,7 +147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link active" href="../get-started/index.html" aria-current="page">Get Started</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../learn-more/model-card.html">Learn More</a>
+    <a class="nav-link" href="../learn-more/parity-checklist.html">Learn More</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://tidymodels.github.io/vetiver-python">Python Function Reference</a>
@@ -316,21 +316,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">500</span>)</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">'https://tidymodels.org/start/case-study/hotels.csv'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">"https://tidymodels.org/start/case-study/hotels.csv"</span>)</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(raw)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'arrival_date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'arrival_date'</span>])</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'arrival_month'</span>] <span class="op">=</span> df[<span class="st">'arrival_date'</span>].dt.month</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'arrival_dow'</span>] <span class="op">=</span> df[<span class="st">'arrival_date'</span>].dt.dayofweek</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns <span class="op">=</span> <span class="st">'arrival_date'</span>).dropna()</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> df.drop(columns <span class="op">=</span> <span class="st">'children'</span>), df[<span class="st">'children'</span>]</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> model_selection.train_test_split(X, y, test_size <span class="op">=</span> <span class="fl">0.25</span>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">## let's only use half of the training data for now</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>X_1, X_2, y_1, y_2 <span class="op">=</span> model_selection.train_test_split(X_train, y_train, test_size <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X_1)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestClassifier().fit(le.transform(X_1), y_1)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> pipeline.Pipeline([(<span class="st">'label_encoder'</span>, le), (<span class="st">'random_forest'</span>, rf)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"arrival_date"</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">"arrival_date"</span>])</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"arrival_month"</span>] <span class="op">=</span> df[<span class="st">"arrival_date"</span>].dt.month</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"arrival_dow"</span>] <span class="op">=</span> df[<span class="st">"arrival_date"</span>].dt.dayofweek</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">"arrival_date"</span>).dropna()</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">"children"</span>), df[<span class="st">"children"</span>]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> model_selection.train_test_split(</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.25</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">## let's only use half of the training data for now</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>X_part_1, X_part_2, y_part_1, y_part_2 <span class="op">=</span> model_selection.train_test_split(</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    X_train, y_train, test_size<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X_part_1)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestClassifier().fit(le.transform(X_part_1), y_part_1)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> pipeline.Pipeline([(<span class="st">"label_encoder"</span>, le), (<span class="st">"random_forest"</span>, rf)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -354,8 +358,14 @@ A ranger classification modeling workflow using 22 features</code></pre>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(rf, save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> X_1, model_name <span class="op">=</span> <span class="st">"hotel_rf"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>v.description</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    rf,  model_name <span class="op">=</span> <span class="st">"hotel_rf"</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> X_part_1</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>v.description</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>"Scikit-learn &lt;class 'sklearn.pipeline.Pipeline'&gt; model"</code></pre>
+</div>
 </div>
 </div>
 </div>
