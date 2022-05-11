@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>MLOps with vetiver - Vetiver</title>
+<title>MLOps with vetiver - Function parity for R and Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,6 +23,7 @@ ul.task-list{list-style: none;}
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../learn-more/model-card.html" rel="next">
 <link href="../images/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -55,13 +56,13 @@ ul.task-list{list-style: none;}
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="MLOps with vetiver - Vetiver">
+<meta property="og:title" content="MLOps with vetiver - Function parity for R and Python">
 <meta property="og:site-name" content="MLOps with vetiver">
-<meta name="twitter:title" content="MLOps with vetiver - Vetiver">
+<meta name="twitter:title" content="MLOps with vetiver - Function parity for R and Python">
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -83,7 +84,7 @@ ul.task-list{list-style: none;}
     <a class="nav-link" href="../get-started/index.html">Get Started</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../learn-more/model-card.html">Learn More</a>
+    <a class="nav-link active" href="../learn-more/model-card.html" aria-current="page">Learn More</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://tidymodels.github.io/vetiver-python">Python Function Reference</a>
@@ -96,18 +97,44 @@ ul.task-list{list-style: none;}
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Function parity for R and Python</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learn-more/parity-checklist.html" class="sidebar-item-text sidebar-link active">Function parity for R and Python</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learn-more/model-card.html" class="sidebar-item-text sidebar-link">Model cards for transparent, responsible reporting</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Vetiver</h1>
+<h1 class="title d-none d-lg-block">Function parity for R and Python</h1>
 </div>
 
 
@@ -123,15 +150,93 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<p>The goal of vetiver is to give data scientists and other model-builders the tools to deploy their model to a remote endpoint. It is the Python counterpart to the R package <a href="https://vetiver.tidymodels.org/">vetiver</a>.</p>
-<p>Key features include:</p>
-<ul>
-<li><strong>Simple:</strong> designed to fit into a data scientist’s natural workflow</li>
-<li><strong>Robust:</strong> ability to check input data types to minimize type failures in a model</li>
-<li><strong>Advanced support:</strong> easily deploy multiple endpoints to handle pre- and post- processing</li>
-<li>Based on <a href="https://github.com/tiangolo/fastapi">FastAPI</a>, using <a href="https://github.com/OAI/OpenAPI-Specification">OpenAPI</a></li>
-</ul>
-<p>Source code available <a href="https://github.com/isabelizimm/vetiver-python">on GitHub.</a></p>
+<p>This page is a translation guide for users interested in the operational parity between the R and Python versions of vetiver. Vetiver aims to provide users with a similar experience in each language. For a deeper understanding of each framework, please refer to the <a href="https://vetiver.tidymodels.org/reference/">R function reference</a> or <a href="https://tidymodels.github.io/vetiver-python">Python function reference</a>.</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 25%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>R</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Create a vetiver object for deployment of a trained model</td>
+<td>vetiver_model() new_vetiver_model()</td>
+<td>VetiverModel()</td>
+</tr>
+<tr class="even">
+<td>Read and write a trained model to a board of models</td>
+<td>vetiver_pin_write() vetiver_pin_read()</td>
+<td>vetiver_pin_write() vetiver_pin_read()</td>
+</tr>
+<tr class="odd">
+<td>Create an API to predict with a deployable vetiver_model() object</td>
+<td>vetiver_api() vetiver_pr_post() vetiver_pr_docs()</td>
+<td>VetiverAPI() VetiverAPI.vetiver_post()</td>
+</tr>
+<tr class="even">
+<td>Write a deployable API file for a vetiver model</td>
+<td>vetiver_write_plumber()</td>
+<td>vetiver_write_app()</td>
+</tr>
+<tr class="odd">
+<td>Deploy a vetiver model API to RStudio Connect</td>
+<td>vetiver_deploy_rsconnect()</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Create a model API endpoint object for prediction</td>
+<td>vetiver_endpoint()</td>
+<td>vetiver_endpoint()</td>
+</tr>
+<tr class="odd">
+<td>Post new data to a deployed model API endpoint and return predictions</td>
+<td>predict(<vetiver_endpoint>)</vetiver_endpoint></td>
+<td>VetiverAPI.predict()</td>
+</tr>
+<tr class="even">
+<td>Fully attach or load packages for making model predictions</td>
+<td>attach_pkgs() load_pkgs()</td>
+<td>load_pkgs()</td>
+</tr>
+<tr class="odd">
+<td>Model handler functions for API endpoint</td>
+<td>handler_startup() handler_predict()</td>
+<td>VetiverModel.translator.handler_startup() VetiverModel.translator.handler_predict()</td>
+</tr>
+<tr class="even">
+<td>Identify data types for each column in an input data prototype</td>
+<td>map_request_body()</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Model constructor methods</td>
+<td>vetiver_create_description() vetiver_prepare_model()</td>
+<td>VetiverModel.translator.create_description() VetiverModel.model()</td>
+</tr>
+<tr class="even">
+<td>Metadata constructors for vetiver model object</td>
+<td>vetiver_meta() vetiver_create_meta()</td>
+<td>vetiver_meta() vetiver_create_meta()</td>
+</tr>
+<tr class="odd">
+<td>Create a vetiver input data prototype</td>
+<td>vetiver_ptype() vetiver_create_ptype()</td>
+<td>VetiverModel.ptype() _vetiver_create_ptype()</td>
+</tr>
+<tr class="even">
+<td>Convert new data at prediction time using input data prototype</td>
+<td>vetiver_type_convert()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -215,6 +320,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../learn-more/model-card.html" class="pagination-link">
+        <span class="nav-page-text">Model cards for transparent, responsible reporting</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

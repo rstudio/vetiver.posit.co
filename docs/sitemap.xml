@@ -1,51 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vetiver.rstudio.com/python/examples.html</loc>
-    <lastmod>2022-04-27T01:38:58.950Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/python/get-started.html</loc>
-    <lastmod>2022-04-27T01:38:59.347Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/python/index.html</loc>
-    <lastmod>2022-04-27T01:39:01.942Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/python/vetiver-model.html</loc>
-    <lastmod>2022-04-27T01:39:04.808Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/python/vetiver-api.html</loc>
-    <lastmod>2022-04-27T01:39:05.358Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/learn-more/model-card.html</loc>
-    <lastmod>2022-05-10T16:22:02.981Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/index.html</loc>
-    <lastmod>2022-04-27T01:39:11.961Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/about.html</loc>
-    <lastmod>2022-04-27T01:39:12.276Z</lastmod>
-  </url>
-  <url>
     <loc>https://vetiver.rstudio.com/get-started/deploy.html</loc>
-    <lastmod>2022-05-10T16:26:38.752Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/get-started/index.html</loc>
-    <lastmod>2022-05-10T16:19:36.237Z</lastmod>
-  </url>
-  <url>
-    <loc>https://vetiver.rstudio.com/get-started/version.html</loc>
-    <lastmod>2022-05-10T16:21:17.642Z</lastmod>
+    <lastmod>2022-05-11T03:24:08.292Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/get-started/monitor.html</loc>
-    <lastmod>2022-05-10T16:22:02.249Z</lastmod>
+    <lastmod>2022-05-11T03:24:17.476Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/get-started/version.html</loc>
+    <lastmod>2022-05-11T03:24:51.331Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/get-started/index.html</loc>
+    <lastmod>2022-05-11T03:25:37.497Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/learn-more/model-card.html</loc>
+    <lastmod>2022-05-11T03:26:30.084Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/learn-more/parity-checklist.html</loc>
+    <lastmod>2022-05-11T03:26:51.665Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/about.html</loc>
+    <lastmod>2022-05-11T03:26:28.962Z</lastmod>
   </url>
 </urlset>
