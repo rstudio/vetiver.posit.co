@@ -151,7 +151,10 @@ v
 
 ```{python}
 from vetiver import VetiverModel
-v = VetiverModel(rf,  model_name = "hotel_rf", save_ptype = True, ptype_data = X_part_1)
+v = VetiverModel(
+    rf,  model_name = "hotel_rf", 
+    save_ptype = True, ptype_data = X_part_1
+)
 v.description
 ```
 
