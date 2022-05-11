@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.309">
+<meta name="generator" content="quarto-0.9.293">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -147,7 +147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../get-started/index.html">Get Started</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../learn-more/model-card.html" aria-current="page">Learn More</a>
+    <a class="nav-link active" href="../learn-more/parity-checklist.html" aria-current="page">Learn More</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://tidymodels.github.io/vetiver-python">Python Function Reference</a>
@@ -235,17 +235,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(cars_lm, <span class="st">"cars_linear"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_pin_write</span>(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20220506T195550Z-c65f8'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Writing to pin 'cars_linear'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
+<pre><code>Creating new version '20220511T215348Z-9ca24'
+Writing to pin 'cars_linear'
+
 Create a Model Card for your published model
-* Model Cards provide a framework for transparent, responsible reporting
-* Use the vetiver `.Rmd` template as a place to start
-This message is displayed once per session.</code></pre>
+• Model Cards provide a framework for transparent, responsible reporting
+• Use the vetiver `.Rmd` template as a place to start</code></pre>
 </div>
 </div>
 <p>(Learn more <a href="https://rlang.r-lib.org/reference/abort.html#muffling-and-silencing-conditions">about silencing messages like this if desired.</a>)</p>
@@ -268,11 +263,11 @@ Warning
 <p>To use the vetiver model card template from RStudio, access through <code>File -&gt; New File -&gt; R Markdown</code>. This will open the dialog box where you can select from one of the available templates:</p>
 <p><img src="../images/vetiver-templates.png" class="img-fluid"></p>
 <p>If you are not using RStudio, you’ll also need to install <a href="https://pandoc.org">Pandoc</a>. Then, use the <code>rmarkdown::draft()</code> function to create the model card:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">draft</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"my_model_card.Rmd"</span>, </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">template =</span> <span class="st">"vetiver_model_card"</span>, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">package =</span> <span class="st">"vetiver"</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">draft</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"my_model_card.Rmd"</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">template =</span> <span class="st">"vetiver_model_card"</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">package =</span> <span class="st">"vetiver"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="model-card-outline" class="level2">
 <h2 class="anchored" data-anchor-id="model-card-outline">Model card outline</h2>

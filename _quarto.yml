@@ -33,7 +33,7 @@ website:
       - text: Get Started
         href: get-started/index.qmd
       - text: Learn More
-        href: learn-more/model-card.qmd
+        href: learn-more/parity-checklist.qmd
       - href: https://tidymodels.github.io/vetiver-python
         text: Python Function Reference
       - href: https://vetiver.tidymodels.org/reference/
@@ -56,10 +56,8 @@ website:
       collapse-level: 3
       align: left
       contents:
-        - text:
-          href: learn-more/parity-checklist.qmd
-        - text:
-          href: learn-more/model-card.qmd
+        - href: learn-more/parity-checklist.qmd
+        - href: learn-more/model-card.qmd
 
 
 format:
