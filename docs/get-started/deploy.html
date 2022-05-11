@@ -372,7 +372,7 @@ if (FALSE) {
     library(workflows)
 }
 b &lt;- board_folder(path = ".")
-v &lt;- vetiver_pin_read(b, "hotel_rf", version = "20220511T215404Z-d13ac")
+v &lt;- vetiver_pin_read(b, "hotel_rf", version = "20220511T221411Z-d13ac")
 
 #* @plumber
 function(pr) {
@@ -492,7 +492,7 @@ COPY ./app.py /code/app
 CMD ["uvicorn", "app.app:api", "--host", "0.0.0.0", "--port", "80"]</code></pre>
 </div>
 </div>
-<p>To run the Dockerfile, you need <em>two</em> files: the Dockerfile itself from <code>vetiver_write_docker()</code> and <a href="https://pip.pypa.io/en/stable/reference/requirements-file-format/">a <code>requirements.txt</code> file</a> to capture your model dependencies. If you don’t already have a requirements file for your project, <code>vetiver.load_pkgs()</code> will generate one for you.</p>
+<p>To build the Docker image, you need <em>two</em> files: the Dockerfile itself generated via <code>vetiver_write_docker()</code> and <a href="https://pip.pypa.io/en/stable/reference/requirements-file-format/">a <code>requirements.txt</code> file</a> to capture your model dependencies. If you don’t already have a requirements file for your project, <code>vetiver.load_pkgs()</code> will generate one for you.</p>
 </div>
 </div>
 </div>
