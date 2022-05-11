@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/get-started/index.html</loc>
-    <lastmod>2022-05-11T03:29:46.456Z</lastmod>
+    <lastmod>2022-05-11T03:47:55.536Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/learn-more/model-card.html</loc>
@@ -27,5 +27,9 @@
   <url>
     <loc>https://vetiver.rstudio.com/about.html</loc>
     <lastmod>2022-05-11T03:26:28.962Z</lastmod>
+  </url>
+  <url>
+    <loc>https://vetiver.rstudio.com/index.html</loc>
+    <lastmod>2022-05-11T03:47:54.255Z</lastmod>
   </url>
 </urlset>
