@@ -45,8 +45,8 @@ v <- vetiver_model(rf_fit, "hotel_rf")
 ## Python
 
 ```{python}
-# | code-fold: true
-# | code-summary: "Show the code from previous steps"
+#| code-fold: true
+#| code-summary: "Show the code from previous steps"
 import pandas as pd
 import numpy as np
 from sklearn import model_selection, preprocessing, pipeline
