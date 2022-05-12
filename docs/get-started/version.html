@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.293">
+<meta name="generator" content="quarto-0.9.309">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -356,25 +356,27 @@ Note
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20220511T215453Z-e0fca'
-Writing to pin 'hotel_rf'</code></pre>
+<pre><code>Creating new version '20220512T162301Z-8f681'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Writing to pin 'hotel_rf'</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">## use a different random subset of the training data</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X_part_1, X_part_2, y_part_1, y_part_2 <span class="op">=</span> model_selection.train_test_split(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    X_train, y_train, test_size <span class="op">=</span> <span class="fl">0.5</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X_part_1)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestClassifier().fit(le.transform(X_part_1), y_part_1)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> pipeline.Pipeline([(<span class="st">"label_encoder"</span>, le), (<span class="st">"random_forest"</span>, rf)])</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(rf, model_name <span class="op">=</span> <span class="st">"hotel_rf"</span>, </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> X_part_1)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## use a different random subset of the training data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X_part_1, X_part_2, y_part_1, y_part_2 <span class="op">=</span> model_selection.train_test_split(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    X_train, y_train, test_size <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X_part_1)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestClassifier().fit(le.transform(X_part_1), y_part_1)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> pipeline.Pipeline([(<span class="st">"label_encoder"</span>, le), (<span class="st">"random_forest"</span>, rf)])</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(rf, model_name <span class="op">=</span> <span class="st">"hotel_rf"</span>, </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> X_part_1)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -385,23 +387,23 @@ Writing to pin 'hotel_rf'</code></pre>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">pin_versions</span>(<span class="st">"hotel_rf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">pin_versions</span>(<span class="st">"hotel_rf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20220511T215446Z-d13ac 2022-05-11 15:54:00 d13ac
-2 20220511T215453Z-e0fca 2022-05-11 15:54:00 e0fca</code></pre>
+1 20220512T162256Z-2d161 2022-05-12 12:22:00 2d161
+2 20220512T162301Z-8f681 2022-05-12 12:23:00 8f681</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"hotel_rf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"hotel_rf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              created   hash                 version
-0 2022-05-11 15:54:47  a4758  20220511T155447Z-a4758
-1 2022-05-11 15:54:54  6cd19  20220511T155454Z-6cd19</code></pre>
+0 2022-05-12 12:22:56  a4758  20220512T122256Z-a4758
+1 2022-05-12 12:23:03  6cd19  20220512T122303Z-6cd19</code></pre>
 </div>
 </div>
 </div>

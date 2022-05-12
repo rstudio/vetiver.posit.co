@@ -214,7 +214,7 @@ print(contents.replace(temp, "."))
 
 ```
 
-To build the Docker image, you need _two_ files: the Dockerfile itself generated via `vetiver_write_docker()` and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies. If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you.
+To build the Docker image, you need _two_ files: the Dockerfile itself generated via `vetiver_write_docker()` and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies. If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you, with the name `vetiver_requirements.txt`.
 
 :::
 
