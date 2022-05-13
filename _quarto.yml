@@ -22,6 +22,7 @@ website:
     right:
       - icon: github
         href: https://github.com/tidymodels/vetiver.rstudio.com
+        aria-label: Vetiver site GitHub
 
   navbar:
     background: primary
