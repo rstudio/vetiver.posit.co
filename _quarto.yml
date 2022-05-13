@@ -63,7 +63,7 @@ website:
 
 format:
   html:
-    theme: sandstone
+    theme: [sandstone, custom.scss]
     css: styles.css
 
 editor: visual

@@ -1,0 +1,49 @@
+/*-- scss:functions --*/
+
+/*-- scss:defaults --*/
+
+//
+// Color system
+//
+$white: #fff !default;
+$black: #000 !default;
+
+$sandstone-blue: #325d88 !default;
+$bluegray: #c7d3e0 !default;
+$darker-green: #5a7a2b !default;
+$light-gray: #f1f3f5 !default;
+$mid-gray: #75776d !default;
+$darker-gray: #687178 !default;
+
+// Navbar
+$navbar-bg: $sandstone-blue !default;
+$navbar-fg: $bluegray !default;
+$navbar-hl: $white !default;
+
+// Links
+$link-color: $darker-green !default;
+
+// Code blocks
+$code-block-bg: $light-gray !default;
+
+/* -- scss:mixins --*/
+
+/*-- scss:rules --*/
+// overrides selectors from Sandstone that take precedence
+// over $navbar-hl
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: $white;
+}
+
+// overrides Sandstone selectors for tabset links
+.nav-tabs .nav-link,
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+  color: $darker-gray;
+}
+
+// make blockquote text dark enough
+.blockquote {
+  color: $mid-gray;
+}
