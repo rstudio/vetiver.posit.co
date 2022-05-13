@@ -36,7 +36,7 @@ As of this writing, the model card template is only available for R Markdown.
 To use the vetiver model card template from RStudio, access through `File -> New File -> R Markdown`.
 This will open the dialog box where you can select from one of the available templates:
 
-![](../images/vetiver-templates.png)
+![](../images/vetiver-templates.png){fig-align="center" fig-alt="Screenshot of RStudio IDE New R Markdown dialog box, showing the vetiver Model Card R Markdown template option."}
 
 If you are not using RStudio, you'll also need to install [Pandoc](https://pandoc.org).
 Then, use the `rmarkdown::draft()` function to create the model card:
