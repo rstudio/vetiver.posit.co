@@ -40,6 +40,6 @@ Documentation is a high priority for vetiver, and pull requests to correct or im
 If you are a more experienced R or Python programmer, you may have the inclination, interest, and ability to contribute directly to package development.
 Before you submit a pull request to vetiver, always file an issue and confirm the vetiver team agrees with your idea and is happy with your basic proposal.
 
-We use the [tidyverse style guide](https://style.tidyverse.org/) for R and the ???
-style guide for Python.
+We use the [tidyverse style guide](https://style.tidyverse.org/) for R and the [PEP 8
+style guide](https://peps.python.org/pep-0008/) for Python.
 Using a style guide keeps your new code and documentation matching the existing style, and makes the review process much smoother.
