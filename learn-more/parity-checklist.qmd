@@ -10,7 +10,7 @@ Vetiver aims to provide users with a similar experience in each language.
 For a deeper understanding of each implementation, please refer to the [R function reference](https://vetiver.tidymodels.org/reference/) or [Python function reference](https://tidymodels.github.io/vetiver-python).
 
 | Function                                                              | R                                                        | Python                                                                                  |
-|----------------------------------|-----------------------|-------------------|
+|-----------------------------------------------------------------------|----------------------------------------------------------|-----------------------------------------------------------------------------------------|
 | Create a vetiver object for deployment of a trained model             | `vetiver_model()` `new_vetiver_model()`                  | `VetiverModel()`                                                                        |
 | Read and write a trained model to a board of models                   | `vetiver_pin_write()` `vetiver_pin_read()`               | `vetiver_pin_write()` `vetiver_pin_read()`                                              |
 | Create an API to predict with a deployable vetiver_model() object     | `vetiver_api()` `vetiver_pr_post()` `vetiver_pr_docs()`  | `VetiverAPI()` `VetiverAPI.vetiver_post()`                                              |
@@ -23,5 +23,5 @@ For a deeper understanding of each implementation, please refer to the [R functi
 | Identify data types for each column in an input data prototype        | `map_request_body()`                                     |                                                                                         |
 | Model constructor methods                                             | `vetiver_create_description()` `vetiver_prepare_model()` | `VetiverModel.translator.create_description()` `VetiverModel.model()`                   |
 | Metadata constructors for vetiver model object                        | `vetiver_meta()` `vetiver_create_meta()`                 | `vetiver_meta() vetiver_create_meta()`                                                  |
-| Create a vetiver input data prototype                                 | `vetiver_ptype()` `vetiver_create_ptype()`               | `VetiverModel.ptype()` `_vetiver_create_ptype()`                                         |
+| Create a vetiver input data prototype                                 | `vetiver_ptype()` `vetiver_create_ptype()`               | `VetiverModel.ptype()` `_vetiver_create_ptype()`                                        |
 | Convert new data at prediction time using input data prototype        | `vetiver_type_convert()`                                 |                                                                                         |

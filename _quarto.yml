@@ -35,10 +35,10 @@ website:
         href: get-started/index.qmd
       - text: Learn More
         href: learn-more/parity-checklist.qmd
-      - href: https://tidymodels.github.io/vetiver-python
-        text: Python Function Reference
       - href: https://vetiver.tidymodels.org/reference/
         text: R Function Reference
+      - href: https://tidymodels.github.io/vetiver-python
+        text: Python Function Reference
 
   sidebar:
     - id: get-started
