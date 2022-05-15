@@ -316,7 +316,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="store-and-version-your-model" class="level2">
 <h2 class="anchored" data-anchor-id="store-and-version-your-model">Store and version your model</h2>
-<p>You can store and version your model by choosing a <a href="https://pins.rstudio.com/">pins</a> “board” for it, including a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.</p>
+<p>You can store and version your model by choosing a <a href="https://pins.rstudio.com/">pins</a> “board” for it. Your board for model pins can be set up to use a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -352,6 +352,9 @@ Note
 </div>
 </div>
 <p>Let’s train our model again with a new version of the dataset and write it once more to our board.</p>
+<div class="cell">
+
+</div>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -366,7 +369,7 @@ Note
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20220515T170338Z-e0fca'
+<pre><code>Creating new version '20220515T194031Z-e0fca'
 Writing to pin 'hotel_rf'</code></pre>
 </div>
 </div>
@@ -400,8 +403,8 @@ Writing to pin 'hotel_rf'</code></pre>
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20220515T170332Z-d13ac 2022-05-15 11:03:00 d13ac
-2 20220515T170338Z-e0fca 2022-05-15 11:03:00 e0fca</code></pre>
+1 20220515T194023Z-d13ac 2022-05-15 13:40:00 d13ac
+2 20220515T194031Z-e0fca 2022-05-15 13:40:00 e0fca</code></pre>
 </div>
 </div>
 </div>
@@ -410,8 +413,8 @@ Writing to pin 'hotel_rf'</code></pre>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"hotel_rf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              created   hash                 version
-0 2022-05-15 11:03:32  a4758  20220515T110332Z-a4758
-1 2022-05-15 11:03:39  6cd19  20220515T110339Z-6cd19</code></pre>
+0 2022-05-15 13:40:24  a4758  20220515T134024Z-a4758
+1 2022-05-15 13:40:33  6cd19  20220515T134033Z-6cd19</code></pre>
 </div>
 </div>
 </div>
