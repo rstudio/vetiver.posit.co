@@ -382,7 +382,7 @@ if (FALSE) {
     library(workflows)
 }
 b &lt;- board_folder(path = ".")
-v &lt;- vetiver_pin_read(b, "hotel_rf", version = "20220515T193941Z-d13ac")
+v &lt;- vetiver_pin_read(b, "hotel_rf", version = "20220515T215842Z-d13ac")
 
 #* @plumber
 function(pr) {
@@ -607,7 +607,7 @@ http://127.0.0.1:8080/predict</code></pre>
 <script type="application/javascript">
 function syncSelectors(lang) {
   let targets = [];
-  function selectIfMatches(item, lang) {
+  function toggleIfMatches(item, lang) {
     if (item.innerHTML === lang) {
       item.classList.add("active");
       targets.push(item.getAttribute("aria-controls"));
@@ -618,13 +618,23 @@ function syncSelectors(lang) {
     }
   }
   document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-    selectIfMatches(item, lang);
+    // given nested tabsets such as a code dropdown inside of a tab,
+    // inside the tab content may have different role/toggle.toggle
+    // one other target we could try is the attribute role==="tab"
+    // vs role==="tabpanel" which julia's example for vetiver showed
+    if (item.getAttribute("data-bs-toggle") === "tab") {
+        toggleIfMatches(item, lang);
+    }
   });
 }
 
 document.querySelectorAll("[id^='tabset-']").forEach((item) => {
   item.addEventListener("click", (event) => {
     // this will target the tab itself, also need to expose the content
+    if (item.innerHTML !== "R" & item.innerHTML !== "Python") {
+        console.log("bad query selector with innerHTML", item.innerHTML)
+        return
+    }
     localStorage.setItem("lang", item.innerHTML);
     syncSelectors(item.innerHTML); // this should log R or Python
   });
