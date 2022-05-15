@@ -34,7 +34,11 @@ website:
       - text: Get Started
         href: get-started/index.qmd
       - text: Learn More
-        href: learn-more/parity-checklist.qmd
+        menu:
+          - href: learn-more/parity-checklist.qmd
+            text: "Function parity for R and python"
+          - href: learn-more/model-card.qmd
+            text: "Model cards for transparent, responsible reporting"
       - href: https://vetiver.tidymodels.org/reference/
         text: R Function Reference
       - href: https://tidymodels.github.io/vetiver-python

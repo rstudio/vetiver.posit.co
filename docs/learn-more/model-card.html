@@ -146,9 +146,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li class="nav-item">
     <a class="nav-link" href="../get-started/index.html">Get Started</a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="../learn-more/parity-checklist.html" aria-current="page">Learn More</a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-learn-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">Learn More</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-learn-more">    
+        <li>
+    <a class="dropdown-item" href="../learn-more/parity-checklist.html">
+ <span class="dropdown-text">Function parity for R and python</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../learn-more/model-card.html">
+ <span class="dropdown-text">Model cards for transparent, responsible reporting</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="https://vetiver.tidymodels.org/reference/">R Function Reference</a>
   </li>  
@@ -235,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(cars_lm, <span class="st">"cars_linear"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_pin_write</span>(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20220513T165845Z-9ca24'
+<pre><code>Creating new version '20220515T170226Z-9ca24'
 Writing to pin 'cars_linear'
 
 Create a Model Card for your published model
