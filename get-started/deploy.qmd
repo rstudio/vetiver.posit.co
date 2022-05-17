@@ -16,30 +16,14 @@ format:
 #| code-fold: true
 #| code-summary: "Show the code from previous steps"
 #| message: false
-
-library(tidyverse)
 library(tidymodels)
 library(vetiver)
 library(pins)
-hotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv')
 
-set.seed(123)
-hotel_split <- initial_split(hotels, strata = children)
-hotel_train <- training(hotel_split)
-hotel_test  <- testing(hotel_split)
-
-rf_recipe <- 
-  recipe(children ~ ., data = hotel_train) %>% 
-  step_date(arrival_date) %>% 
-  step_holiday(arrival_date, keep_original_cols = FALSE)
-rf_spec <- rand_forest(mode = "classification")
-
-set.seed(234)
-rf_fit <-
-    workflow(rf_recipe, rf_spec) %>%
-    fit(sample_frac(hotel_train, 0.5))
-
-v <- vetiver_model(rf_fit, "hotel_rf")
+car_mod <-
+    workflow(mpg ~ ., decision_tree(mode = "regression")) %>%
+    fit(mtcars)
+v <- vetiver_model(car_mod, "cars_mpg")
 model_board <- board_folder(".", versioned = TRUE)
 model_board %>% vetiver_pin_write(v)
 ```
@@ -51,36 +35,16 @@ model_board %>% vetiver_pin_write(v)
 #| code-summary: "Show the code from previous steps"
 #| message: false
 
-import pandas as pd
-import numpy as np
-from sklearn import model_selection, preprocessing, pipeline
-from sklearn.ensemble import RandomForestClassifier
+from vetiver.data import mtcars
 from vetiver import VetiverModel, vetiver_pin_write
+from sklearn import tree
 from pins import board_folder
 
-np.random.seed(500)
+car_mod = tree.DecisionTreeRegressor().fit(mtcars, mtcars["mpg"])
 
-raw = pd.read_csv("https://tidymodels.org/start/case-study/hotels.csv")
-df = pd.DataFrame(raw)
-df["arrival_date"] = pd.to_datetime(df["arrival_date"])
-df["arrival_month"] = df["arrival_date"].dt.month
-df["arrival_dow"] = df["arrival_date"].dt.dayofweek
-df = df.drop(columns="arrival_date").dropna()
-X, y = df.drop(columns="children"), df["children"]
-X_train, X_test, y_train, y_test = model_selection.train_test_split(
-    X, y, test_size=0.25
-)
+v = VetiverModel(car_mod, model_name = "cars_mpg", 
+                 save_ptype = True, ptype_data = mtcars)
 
-## let's only use half of the training data for now
-X_part_1, X_part_2, y_part_1, y_part_2 = model_selection.train_test_split(
-    X_train, y_train, test_size=0.5
-)
-
-le = preprocessing.OrdinalEncoder().fit(X_part_1)
-rf = RandomForestClassifier().fit(le.transform(X_part_1), y_part_1)
-rf = pipeline.Pipeline([("label_encoder", le), ("random_forest", rf)])
-
-v = VetiverModel(rf, save_ptype=True, ptype_data=X_part_1, model_name="hotel_rf")
 model_board = board_folder(".", allow_pickle_read=True)
 vetiver_pin_write(model_board, v)
 ```
@@ -111,16 +75,14 @@ app = VetiverAPI(v, check_ptype = True)
 To start a server using this object, use `app.run(port = 8080)` or your port of choice.
 :::
 
-You can interact with your vetiver API locally and debug it.
-FastAPI and Plumber APIs such as these can be hosted in a variety of ways.
-You can create a ready-to-go file for deployment that is especially suited for [RStudio Connect](https://www.rstudio.com/products/connect/).
+You can interact with your vetiver API locally and debug it. FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for [RStudio Connect](https://www.rstudio.com/products/connect/).
 
 ::: panel-tabset
 ## R
 
 ```{r}
 #| eval: false
-vetiver_write_plumber(model_board, "hotel_rf")
+vetiver_write_plumber(model_board, "cars_mpg")
 ```
 
 ```{r}
@@ -128,17 +90,17 @@ vetiver_write_plumber(model_board, "hotel_rf")
 #| comment: ""
 docker_dir <- fs::path_real(tempdir())
 tmp_plumber <- fs::path(docker_dir, "plumber.R")
-vetiver_write_plumber(model_board, "hotel_rf", file = tmp_plumber)
+vetiver_write_plumber(model_board, "cars_mpg", file = tmp_plumber)
 cat(readr::read_lines(tmp_plumber), sep = "\n")
 ```
 
-For RStudio Connect, you can streamline this deployment process even more by using `vetiver_deploy_rsconnect(model_board, "hotel_rf")`.
+For RStudio Connect, you can streamline this deployment process even more by using `vetiver_deploy_rsconnect(model_board, "cars_mpg")`.
 
 ## Python
 
 ```{python}
 #| eval: false
-app_file = vetiver_write_app(model_board, "hotel_rf")
+app_file = vetiver_write_app(model_board, "cars_mpg")
 ```
 
 ```{python}
@@ -148,7 +110,7 @@ from vetiver import vetiver_write_app
 import tempfile
 with tempfile.TemporaryDirectory() as temp:
   tmp = temp + "app.py"
-  vetiver_write_app(model_board, "hotel_rf", file=tmp)
+  vetiver_write_app(model_board, "cars_mpg", file=tmp)
   contents = open(tmp).read()
 print(contents.replace(temp, "."))
 ```
@@ -207,15 +169,14 @@ import tempfile
 with tempfile.TemporaryDirectory() as temp:
   tmp_app = temp + "/app.py"
   tmp_docker = temp + "/Dockerfile"
-  vetiver_write_app(model_board, "hotel_rf", file=tmp_app)
+  vetiver_write_app(model_board, "cars_mpg", file=tmp_app)
   vetiver_write_docker(app_file=tmp_app, path=temp+"/")
   contents = open(tmp_docker).read()
 print(contents.replace(temp, "."))
 
 ```
 
-To build the Docker image, you need _two_ files: the Dockerfile itself generated via `vetiver_write_docker()` and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies. If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you, with the name `vetiver_requirements.txt`.
-
+To build the Docker image, you need *two* files: the Dockerfile itself generated via `vetiver_write_docker()` and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies. If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you, with the name `vetiver_requirements.txt`.
 :::
 
 ::: callout-tip
@@ -247,48 +208,42 @@ endpoint
 
 If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via [a background job in the RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make predictions with that deployed model and new data in another, separate process[^1].
 
-[^1]: Keep in mind that the R and Python models are predicting on different samples of the test data.
+[^1]: Keep in mind that the R and Python models have different values for the decision tree hyperparameters.
 
 ::: panel-tabset
 ## R
 
 ```{r}
 #| eval: false
-predict(endpoint, slice_sample(hotel_test, n = 10))
+new_car <- tibble(cyl = 4,  disp = 200, 
+                  hp = 100, drat = 3,
+                  wt = 3,   qsec = 17, 
+                  vs = 0,   am = 1,
+                  gear = 4, carb = 2)
+predict(endpoint, new_car)
 ```
 
-    # A tibble: 10 × 1
-       .pred_class
+    # A tibble: 11 × 1
+       .pred
        <chr>      
-     1 none       
-     2 none       
-     3 children       
-     4 none       
-     5 none       
-     6 none       
-     7 none       
-     8 none       
-     9 children       
-    10 none     
+     1 22.3       
 
 ## Python
 
 ```{python}
 #| eval: false
-predict(endpoint, hotel_test.df_sample(n = 10))
+import pandas as pd
+new_car_dict = {"cyl": [4], "disp": [200], 
+                 "hp": [100], "drat": [3],
+                 "wt": [3], "qsec": [17], 
+                 "vs": [0], "am": [1],
+                 "gear": [4], "carb": [2]}
+new_car = pd.DataFrame(new_car_dict)
+predict(endpoint, new_car)
 ```
 
       prediction
-    0       none
-    1       none
-    2       none
-    3       none
-    4       none
-    5       none
-    6       none
-    7   children
-    8       none
-    9       none
+    0       22.3
 :::
 
 Being able to predict with a vetiver model endpoint takes advantage of the model's input data prototype and other metadata that is stored with the model.

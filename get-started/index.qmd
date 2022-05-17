@@ -12,17 +12,16 @@ The vetiver framework for MLOps tasks is built for data science teams using R an
 ## Installation
 
 ::: panel-tabset
-
 ## R
 
 You can use vetiver with:
 
-- a [tidymodels](https://www.tidymodels.org/) workflow
-- [caret](https://topepo.github.io/caret/)
-- [mlr3](https://mlr3.mlr-org.com/)
-- [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
-- [ranger](https://cran.r-project.org/package=ranger)
-- [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html) and [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
+-   a [tidymodels](https://www.tidymodels.org/) workflow
+-   [caret](https://topepo.github.io/caret/)
+-   [mlr3](https://mlr3.mlr-org.com/)
+-   [XGBoost](https://xgboost.readthedocs.io/en/latest/R-package/)
+-   [ranger](https://cran.r-project.org/package=ranger)
+-   [`lm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/lm.html) and [`glm()`](https://stat.ethz.ch/R-manual/R-patched/library/stats/html/glm.html)
 
 You can install the released version of vetiver from [CRAN](https://cran.r-project.org/package=vetiver):
 
@@ -43,8 +42,8 @@ devtools::install_github("tidymodels/vetiver-r")
 
 You can use vetiver with:
 
-- [scikit-learn](https://scikit-learn.org/)
-- [PyTorch](https://pytorch.org/)
+-   [scikit-learn](https://scikit-learn.org/)
+-   [PyTorch](https://pytorch.org/)
 
 You can install the released version of vetiver from [PyPI](https://pypi.org/project/vetiver/):
 
@@ -59,106 +58,63 @@ And the development version from [GitHub](https://github.com/tidymodels/vetiver-
 #| eval: false
 python -m pip install git+https://github.com/tidymodels/vetiver-python
 ```
-
-
 :::
 
-## Create a vetiver model
+## Train a model
 
-For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not.
+For this example, let's work with data on fuel efficiency for cars to predict miles per gallon.
 
 ::: panel-tabset
-
 ## R
 
-Let’s consider one kind of model supported by vetiver, a [tidymodels](https://www.tidymodels.org/) workflow that encompasses both feature engineering and model estimation.
+Let's consider one kind of model supported by vetiver, a [tidymodels](https://www.tidymodels.org/) workflow that encompasses both feature engineering and model estimation.
 
-```{r message = FALSE}
-library(tidyverse)
+```{r}
+#| message: false
 library(tidymodels)
 
-hotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv')
-
-set.seed(123)
-hotel_split <- initial_split(hotels, strata = children)
-hotel_train <- training(hotel_split)
-hotel_test  <- testing(hotel_split)
-
-rf_recipe <- 
-  recipe(children ~ ., data = hotel_train) %>% 
-  step_date(arrival_date) %>% 
-  step_holiday(arrival_date, keep_original_cols = FALSE)
-rf_spec <- rand_forest(mode = "classification")
-
-set.seed(234)
-## let's only use half of the training data for now
-rf <-
-    workflow(rf_recipe, rf_spec) %>%
-    fit(sample_frac(hotel_train, 0.5))
+car_mod <-
+    workflow(mpg ~ ., linear_reg()) %>%
+    fit(mtcars)
 ```
 
 
 ## Python
 
-Let’s consider one kind of model supported by vetiver, a [scikit-learn](https://scikit-learn.org/) pipeline that encompasses both feature engineering and model estimation.
+Let's consider one kind of model supported by vetiver, a [scikit-learn](https://scikit-learn.org/) linear model.
 
 ```{python}
-import pandas as pd
-import numpy as np
-from sklearn import model_selection, preprocessing, pipeline
-from sklearn.ensemble import RandomForestClassifier
+from vetiver.data import mtcars
+from sklearn import linear_model
 
-np.random.seed(500)
-
-raw = pd.read_csv("https://tidymodels.org/start/case-study/hotels.csv")
-df = pd.DataFrame(raw)
-df["arrival_date"] = pd.to_datetime(df["arrival_date"])
-df["arrival_month"] = df["arrival_date"].dt.month
-df["arrival_dow"] = df["arrival_date"].dt.dayofweek
-df = df.drop(columns="arrival_date").dropna()
-X, y = df.drop(columns="children"), df["children"]
-X_train, X_test, y_train, y_test = model_selection.train_test_split(
-    X, y, test_size=0.25
-)
-
-## let's only use half of the training data for now
-X_part_1, X_part_2, y_part_1, y_part_2 = model_selection.train_test_split(
-    X_train, y_train, test_size=0.5
-)
-
-le = preprocessing.OrdinalEncoder().fit(X_part_1)
-rf = RandomForestClassifier().fit(le.transform(X_part_1), y_part_1)
-rf = pipeline.Pipeline([("label_encoder", le), ("random_forest", rf)])
+car_mod = linear_model.LinearRegression().fit(mtcars, mtcars["mpg"])
 ```
-
 :::
 
-This `rf` object is a fitted model, with both feature engineering and model parameters estimated using some of the training data `hotel_train`. We can create a `vetiver_model()` in R or `VetiverModel()` in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.
+This `car_mod` object is a fitted model, with model parameters estimated using `mtcars`. 
+
+## Create a vetiver model
+
+We can create a `vetiver_model()` in R or `VetiverModel()` in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.
 
 ::: panel-tabset
-
-## R 
+## R
 
 ```{r}
 #| message: false
 library(vetiver)
-v <- vetiver_model(rf, "hotel_rf")
+v <- vetiver_model(car_mod, "cars_mpg")
 v
 ```
-
 
 ## Python
 
 ```{python}
 from vetiver import VetiverModel
-v = VetiverModel(
-    rf,  model_name = "hotel_rf", 
-    save_ptype = True, ptype_data = X_part_1
-)
+v = VetiverModel(car_mod, model_name = "cars_mpg", 
+                 save_ptype = True, ptype_data = mtcars)
 v.description
 ```
-
 :::
 
 Think of this vetiver model as a deployable model object.
-
