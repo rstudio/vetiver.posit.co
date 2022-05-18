@@ -201,7 +201,7 @@ endpoint
 
 ```{python}
 from vetiver.server import predict, vetiver_endpoint
-endpoint = vetiver_endpoint("http://127.0.0.1:8080/predict")
+endpoint = vetiver_endpoint("http://127.0.0.1:8080/predict/")
 endpoint
 ```
 :::
@@ -243,7 +243,7 @@ predict(endpoint, new_car)
 ```
 
       prediction
-    0       22.3
+    0       21.0
 :::
 
 Being able to predict with a vetiver model endpoint takes advantage of the model's input data prototype and other metadata that is stored with the model.
