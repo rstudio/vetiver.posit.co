@@ -39,9 +39,9 @@ website:
             text: "Function parity for R and python"
           - href: learn-more/model-card.qmd
             text: "Model cards for transparent, responsible reporting"
-      - href: https://vetiver.tidymodels.org/reference/
+      - href: https://rstudio.github.io/vetiver-r/reference/
         text: R Function Reference
-      - href: https://tidymodels.github.io/vetiver-python
+      - href: https://rstudio.github.io/vetiver-python/
         text: Python Function Reference
 
   sidebar:
