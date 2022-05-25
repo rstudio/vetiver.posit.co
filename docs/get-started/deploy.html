@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.397">
+<meta name="generator" content="quarto-0.9.442">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -220,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#generate-a-dockerfile" id="toc-generate-a-dockerfile" class="nav-link" data-scroll-target="#generate-a-dockerfile">Generate a Dockerfile</a></li>
   <li><a href="#predict-from-your-model-endpoint" id="toc-predict-from-your-model-endpoint" class="nav-link" data-scroll-target="#predict-from-your-model-endpoint">Predict from your model endpoint</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/tidymodels/vetiver.rstudio.com/edit/main/get-started/deploy.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/tidymodels/vetiver.rstudio.com/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rstudio/vetiver.rstudio.com/edit/main/get-started/deploy.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rstudio/vetiver.rstudio.com/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -229,8 +229,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title">
 <h1 class="title d-none d-lg-block">Deploy</h1>
 </div>
-
-
 
 
 
@@ -346,7 +344,7 @@ if (FALSE) {
     library(workflows)
 }
 b &lt;- board_folder(path = ".")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220523T154730Z-18935")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220525T150030Z-b4ee9")
 
 #* @plumber
 function(pr) {
@@ -367,7 +365,7 @@ import pins
 
 
 b = pins.board_folder('.')
-v = vetiver.vetiver_pin_read(b, 'cars_mpg', version = '20220523T094733Z-b33e7')
+v = vetiver.vetiver_pin_read(b, 'cars_mpg', version = '20220525T090032Z-a71fb')
 
 vetiver_api = vetiver.VetiverAPI(v)
 api = vetiver_api.app</code></pre>
@@ -709,7 +707,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/tidymodels/vetiver.rstudio.com">
+    <a class="nav-link" href="https://github.com/rstudio/vetiver.rstudio.com">
       <i class="bi bi-github" role="img" aria-label="Vetiver site GitHub">
 </i> 
     </a>
