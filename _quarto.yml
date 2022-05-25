@@ -8,7 +8,7 @@ website:
   open-graph: true
   twitter-card: true
   site-url: https://vetiver.rstudio.com
-  repo-url: https://github.com/tidymodels/vetiver.rstudio.com
+  repo-url: https://github.com/rstudio/vetiver.rstudio.com
   repo-actions: [edit, issue]
   page-navigation: true
   favicon: "images/favicon.ico"
@@ -21,7 +21,7 @@ website:
         href: about.qmd
     right:
       - icon: github
-        href: https://github.com/tidymodels/vetiver.rstudio.com
+        href: https://github.com/rstudio/vetiver.rstudio.com
         aria-label: Vetiver site GitHub
 
   navbar:

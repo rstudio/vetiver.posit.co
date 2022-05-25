@@ -7,7 +7,8 @@ format:
       - sync-tabs.html
 ---
 
-The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both. It is built to be extensible, with methods that can support many kinds of models.
+The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both.
+It is built to be extensible, with methods that can support many kinds of models.
 
 ## Installation
 
@@ -30,7 +31,7 @@ You can install the released version of vetiver from [CRAN](https://cran.r-proje
 install.packages("vetiver")
 ```
 
-And the development version from [GitHub](https://github.com/tidymodels/vetiver-r) with:
+And the development version from [GitHub](https://github.com/rstudio/vetiver-r) with:
 
 ```{r}
 #| eval: false
@@ -52,11 +53,11 @@ You can install the released version of vetiver from [PyPI](https://pypi.org/pro
 pip install vetiver
 ```
 
-And the development version from [GitHub](https://github.com/tidymodels/vetiver-python) with:
+And the development version from [GitHub](https://github.com/rstudio/vetiver-python) with:
 
 ```{python}
 #| eval: false
-python -m pip install git+https://github.com/tidymodels/vetiver-python
+python -m pip install git+https://github.com/rstudio/vetiver-python
 ```
 :::
 
@@ -78,7 +79,6 @@ car_mod <-
     fit(mtcars)
 ```
 
-
 ## Python
 
 Let's consider one kind of model supported by vetiver, a [scikit-learn](https://scikit-learn.org/) linear model.
@@ -91,7 +91,7 @@ car_mod = linear_model.LinearRegression().fit(mtcars, mtcars["mpg"])
 ```
 :::
 
-This `car_mod` object is a fitted model, with model parameters estimated using `mtcars`. 
+This `car_mod` object is a fitted model, with model parameters estimated using `mtcars`.
 
 ## Create a vetiver model
 

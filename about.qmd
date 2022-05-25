@@ -9,7 +9,7 @@ Development of vetiver is sponsored by [RStudio, PBC](https://www.rstudio.com).
 
 ## Is vetiver open source?
 
-The vetiver [Python](https://github.com/tidymodels/vetiver-python) and [R](https://github.com/tidymodels/vetiver-r) packages are released under the [MIT license](https://opensource.org/licenses/MIT).
+The vetiver [Python](https://github.com/rstudio/vetiver-python) and [R](https://github.com/rstudio/vetiver-r) packages are released under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## What are different ways you can contribute?
 
@@ -26,7 +26,7 @@ Be patient, polite, and empathetic.
 
 If you've found a bug, first create a minimal reproducible example.
 Spend some time working to make it as minimal as possible; the more time you spend doing this, the easier it is to fix the bug.
-When your reprex is ready, file it on the GitHub repo of the appropriate package, either [Python](https://github.com/tidymodels/vetiver-python) or [R](https://github.com/tidymodels/vetiver-r).
+When your reprex is ready, file it on the GitHub repo of the appropriate package, either [Python](https://github.com/rstudio/vetiver-python) or [R](https://github.com/rstudio/vetiver-r).
 
 The vetiver team often focuses on one package at a time to reduce context switching and be more efficient.
 We may not address each issue right away, but we will use the reproducible example you create to understand your problem when it is time to focus on that package.
