@@ -330,7 +330,7 @@ Note
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20220525T153538Z-43d89'
+<pre><code>Creating new version '20220612T202140Z-7bd23'
 Writing to pin 'cars_mpg'</code></pre>
 </div>
 </div>
@@ -358,8 +358,8 @@ Writing to pin 'cars_mpg'</code></pre>
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20220525T153536Z-d2bd6 2022-05-25 09:35:00 d2bd6
-2 20220525T153538Z-43d89 2022-05-25 09:35:00 43d89</code></pre>
+1 20220612T202138Z-e5ad4 2022-06-12 14:21:00 e5ad4
+2 20220612T202140Z-7bd23 2022-06-12 14:21:00 7bd23</code></pre>
 </div>
 </div>
 </div>
@@ -368,8 +368,8 @@ Writing to pin 'cars_mpg'</code></pre>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              created   hash                 version
-0 2022-05-25 09:35:37  6ec26  20220525T093537Z-6ec26
-1 2022-05-25 09:35:39  1efcd  20220525T093539Z-1efcd</code></pre>
+0 2022-06-12 14:21:38  6ec26  20220612T142138Z-6ec26
+1 2022-06-12 14:21:40  68245  20220612T142140Z-68245</code></pre>
 </div>
 </div>
 </div>
@@ -382,46 +382,63 @@ Writing to pin 'cars_mpg'</code></pre>
 
 </main> <!-- /main -->
 <script type="application/javascript">
-function syncSelectors(lang) {
-  let targets = [];
-  function toggleIfMatches(item, lang) {
-    if (item.innerHTML === lang) {
-      item.classList.add("active");
-      targets.push(item.getAttribute("aria-controls"));
-    } else if (targets.includes(item.getAttribute("id"))) {
-      item.classList.add("active");
-    } else {
-      item.classList.remove("active");
-    }
+
+function toggleTab(tabId, active) {
+  let tab = document.getElementById(tabId);
+  let tabPanelId = tab.getAttribute("aria-controls");
+  let tabPanel = document.getElementById(tabPanelId);
+  if (active) {
+    tab.classList.add("active");
+    tabPanel.classList.add("active");
+  } else {
+    tab.classList.remove("active");
+    tabPanel.classList.remove("active");
   }
-  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-    // given nested tabsets such as a code dropdown inside of a tab,
-    // inside the tab content may have different role/toggle.toggle
-    // one other target we could try is the attribute role==="tab"
-    // vs role==="tabpanel" which julia's example for vetiver showed
-    if (item.getAttribute("data-bs-toggle") === "tab") {
-        toggleIfMatches(item, lang);
-    }
+}
+function toggleAll(language, selectorsToSync) {
+  Object.keys(selectorsToSync).forEach((lang) => {
+    selectorsToSync[lang].forEach((selector) => {
+      toggleTab(selector, lang === language);
+    });
   });
 }
 
-document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-  item.addEventListener("click", (event) => {
-    // this will target the tab itself, also need to expose the content
-    if (item.innerHTML !== "R" & item.innerHTML !== "Python") {
-        console.log("bad query selector with innerHTML", item.innerHTML)
-        return
+function findSelectorsToSyncByLanguage() {
+  let selectorsToSync = {};
+  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
+    if ((item.innerHTML !== "R") & (item.innerHTML !== "Python")) {
+      return;
     }
-    localStorage.setItem("lang", item.innerHTML);
-    syncSelectors(item.innerHTML); // this should log R or Python
+    let lang = item.innerHTML;
+    if (!selectorsToSync[lang]) {
+      selectorsToSync[lang] = [];
+    }
+    selectorsToSync[lang].push(item.id);
   });
-});
+  return selectorsToSync;
+}
+
+function setupSelectorSync(lang) {
+  const selectorsToSync = findSelectorsToSyncByLanguage();
+  Object.keys(selectorsToSync).forEach((lang) => {
+    selectorsToSync[lang].forEach((selector) => {
+    const item = document.getElementById(selector);
+    item.addEventListener("click", (event) => {
+      localStorage.setItem("quartoLangTabSync", lang);
+      toggleAll(lang, selectorsToSync);
+    });
+    });
+  });
+  // for initial state
+  if (lang) {
+    toggleAll(lang, selectorsToSync);
+  }
+}
 
 window.document.addEventListener("DOMContentLoaded", (event) => {
-  if (localStorage.getItem("lang")) {
-    syncSelectors(localStorage.getItem("lang"));
-  }
+    setupSelectorSync(localStorage.getItem("quartoLangTabSync"));
 });
+
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
