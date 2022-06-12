@@ -350,46 +350,63 @@ A lm regression modeling workflow using 10 features</code></pre>
 
 </main> <!-- /main -->
 <script type="application/javascript">
-function syncSelectors(lang) {
-  let targets = [];
-  function toggleIfMatches(item, lang) {
-    if (item.innerHTML === lang) {
-      item.classList.add("active");
-      targets.push(item.getAttribute("aria-controls"));
-    } else if (targets.includes(item.getAttribute("id"))) {
-      item.classList.add("active");
-    } else {
-      item.classList.remove("active");
-    }
+
+function toggleTab(tabId, active) {
+  let tab = document.getElementById(tabId);
+  let tabPanelId = tab.getAttribute("aria-controls");
+  let tabPanel = document.getElementById(tabPanelId);
+  if (active) {
+    tab.classList.add("active");
+    tabPanel.classList.add("active");
+  } else {
+    tab.classList.remove("active");
+    tabPanel.classList.remove("active");
   }
-  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-    // given nested tabsets such as a code dropdown inside of a tab,
-    // inside the tab content may have different role/toggle.toggle
-    // one other target we could try is the attribute role==="tab"
-    // vs role==="tabpanel" which julia's example for vetiver showed
-    if (item.getAttribute("data-bs-toggle") === "tab") {
-        toggleIfMatches(item, lang);
-    }
+}
+function toggleAll(language, selectorsToSync) {
+  Object.keys(selectorsToSync).forEach((lang) => {
+    selectorsToSync[lang].forEach((selector) => {
+      toggleTab(selector, lang === language);
+    });
   });
 }
 
-document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-  item.addEventListener("click", (event) => {
-    // this will target the tab itself, also need to expose the content
-    if (item.innerHTML !== "R" & item.innerHTML !== "Python") {
-        console.log("bad query selector with innerHTML", item.innerHTML)
-        return
+function findSelectorsToSyncByLanguage() {
+  let selectorsToSync = {};
+  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
+    if ((item.innerHTML !== "R") & (item.innerHTML !== "Python")) {
+      return;
     }
-    localStorage.setItem("lang", item.innerHTML);
-    syncSelectors(item.innerHTML); // this should log R or Python
+    let lang = item.innerHTML;
+    if (!selectorsToSync[lang]) {
+      selectorsToSync[lang] = [];
+    }
+    selectorsToSync[lang].push(item.id);
   });
-});
+  return selectorsToSync;
+}
+
+function setupSelectorSync(lang) {
+  const selectorsToSync = findSelectorsToSyncByLanguage();
+  Object.keys(selectorsToSync).forEach((lang) => {
+    selectorsToSync[lang].forEach((selector) => {
+    const item = document.getElementById(selector);
+    item.addEventListener("click", (event) => {
+      localStorage.setItem("quartoLangTabSync", lang);
+      toggleAll(lang, selectorsToSync);
+    });
+    });
+  });
+  // for initial state
+  if (lang) {
+    toggleAll(lang, selectorsToSync);
+  }
+}
 
 window.document.addEventListener("DOMContentLoaded", (event) => {
-  if (localStorage.getItem("lang")) {
-    syncSelectors(localStorage.getItem("lang"));
-  }
+    setupSelectorSync(localStorage.getItem("quartoLangTabSync"));
 });
+
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
