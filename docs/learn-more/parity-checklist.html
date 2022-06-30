@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.442">
+<meta name="generator" content="quarto-0.9.624">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,12 +17,13 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 </style>
 
+
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
 <link href="../learn-more/model-card.html" rel="next">
 <link href="../images/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -30,7 +31,7 @@ ul.task-list{list-style: none;}
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link id="quarto-text-highlighting-styles" href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -57,8 +58,10 @@ ul.task-list{list-style: none;}
 
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="MLOps with vetiver - Function parity for R and Python">
+<meta property="og:description" content="This page is a translation guide for users interested in the operational parity between the R and Python versions of vetiver. Vetiver aims to provide users with a similar experience in each language.">
 <meta property="og:site-name" content="MLOps with vetiver">
 <meta name="twitter:title" content="MLOps with vetiver - Function parity for R and Python">
+<meta name="twitter:description" content="This page is a translation guide for users interested in the operational parity between the R and Python versions of vetiver. Vetiver aims to provide users with a similar experience in each language.">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -161,9 +164,9 @@ ul.task-list{list-style: none;}
 <p>This page is a translation guide for users interested in the operational parity between the R and Python versions of vetiver. Vetiver aims to provide users with a similar experience in each language. For a deeper understanding of each implementation, please refer to the <a href="https://vetiver.tidymodels.org/reference/">R function reference</a> or <a href="https://tidymodels.github.io/vetiver-python">Python function reference</a>.</p>
 <table class="table">
 <colgroup>
-<col style="width: 32%">
-<col style="width: 26%">
-<col style="width: 40%">
+<col style="width: 38%">
+<col style="width: 31%">
+<col style="width: 30%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -181,7 +184,7 @@ ul.task-list{list-style: none;}
 <tr class="even">
 <td>Read and write a trained model to a board of models</td>
 <td><code>vetiver_pin_write()</code> <code>vetiver_pin_read()</code></td>
-<td><code>vetiver_pin_write()</code> <code>vetiver_pin_read()</code></td>
+<td><code>vetiver_pin_write()</code> <code>VetiverModel.from_pin()</code></td>
 </tr>
 <tr class="odd">
 <td>Create an API to predict with a deployable vetiver_model() object</td>
@@ -191,12 +194,12 @@ ul.task-list{list-style: none;}
 <tr class="even">
 <td>Write a deployable API file for a vetiver model</td>
 <td><code>vetiver_write_plumber()</code></td>
-<td><code>vetiver_write_app()</code></td>
+<td><code>write_app()</code></td>
 </tr>
 <tr class="odd">
 <td>Deploy a vetiver model API to RStudio Connect</td>
 <td><code>vetiver_deploy_rsconnect()</code></td>
-<td></td>
+<td><code>deploy_rsconnect()</code></td>
 </tr>
 <tr class="even">
 <td>Create a model API endpoint object for prediction</td>
@@ -205,8 +208,8 @@ ul.task-list{list-style: none;}
 </tr>
 <tr class="odd">
 <td>Post new data to a deployed model API endpoint and return predictions</td>
-<td><code>predict(&lt;vetiver_endpoint&gt;)</code></td>
-<td><code>VetiverAPI.predict()</code></td>
+<td><code>predict()</code></td>
+<td><code>predict()</code></td>
 </tr>
 <tr class="even">
 <td>Fully attach or load packages for making model predictions</td>
@@ -216,7 +219,7 @@ ul.task-list{list-style: none;}
 <tr class="odd">
 <td>Model handler functions for API endpoint</td>
 <td><code>handler_startup()</code> <code>handler_predict()</code></td>
-<td><code>VetiverModel.translator.handler_startup()</code> <code>VetiverModel.translator.handler_predict()</code></td>
+<td><code>VetiverHandler.handler_predict()</code></td>
 </tr>
 <tr class="even">
 <td>Identify data types for each column in an input data prototype</td>
@@ -226,17 +229,17 @@ ul.task-list{list-style: none;}
 <tr class="odd">
 <td>Model constructor methods</td>
 <td><code>vetiver_create_description()</code> <code>vetiver_prepare_model()</code></td>
-<td><code>VetiverModel.translator.create_description()</code> <code>VetiverModel.model()</code></td>
+<td><code>VetiverHandler.describe()</code></td>
 </tr>
 <tr class="even">
 <td>Metadata constructors for vetiver model object</td>
 <td><code>vetiver_meta()</code> <code>vetiver_create_meta()</code></td>
-<td><code>vetiver_meta() vetiver_create_meta()</code></td>
+<td><code>VetiverHandler.create_meta()</code> <code>vetiver_create_meta()</code></td>
 </tr>
 <tr class="odd">
 <td>Create a vetiver input data prototype</td>
 <td><code>vetiver_ptype()</code> <code>vetiver_create_ptype()</code></td>
-<td><code>VetiverModel.ptype()</code> <code>_vetiver_create_ptype()</code></td>
+<td><code>vetiver_create_ptype()</code></td>
 </tr>
 <tr class="even">
 <td>Convert new data at prediction time using input data prototype</td>
