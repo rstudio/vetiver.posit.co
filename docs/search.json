@@ -102,7 +102,7 @@
     "href": "get-started/index.html#installation",
     "title": "Getting Started",
     "section": "Installation",
-    "text": "Installation\n\nRPython\n\n\nYou can use vetiver with:\n\na tidymodels workflow\ncaret\nmlr3\nXGBoost\nranger\nlm() and glm()\n\nYou can install the released version of vetiver from CRAN:\n\ninstall.packages(\"vetiver\")\n\nAnd the development version from GitHub with:\n\n# install.packages(\"devtools\")\ndevtools::install_github(\"tidymodels/vetiver-r\")\n\n\n\nYou can use vetiver with:\n\nscikit-learn\nPyTorch\n\nYou can install the released version of vetiver from PyPI:\n\npip install vetiver\n\nAnd the development version from GitHub with:\n\npython -m pip install git+https://github.com/rstudio/vetiver-python"
+    "text": "Installation\n\nRPython\n\n\nYou can use vetiver with:\n\na tidymodels workflow\ncaret\nmlr3\nXGBoost\nranger\nlm() and glm()\n\nYou can install the released version of vetiver from CRAN:\n\ninstall.packages(\"vetiver\")\n\nAnd the development version from GitHub with:\n\n# install.packages(\"devtools\")\ndevtools::install_github(\"tidymodels/vetiver-r\")\n\n\n\nYou can use vetiver with:\n\nscikit-learn\nPyTorch\n\nYou can install the released version of vetiver from PyPI:\n\npython -m pip install vetiver\n\nAnd the development version from GitHub with:\n\npython -m pip install git+https://github.com/rstudio/vetiver-python"
   },
   {
     "objectID": "get-started/index.html#train-a-model",
