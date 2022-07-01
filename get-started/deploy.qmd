@@ -75,7 +75,12 @@ app = VetiverAPI(v, check_ptype = True)
 To start a server using this object, use `app.run(port = 8080)` or your port of choice.
 :::
 
-You can interact with your vetiver API locally and debug it.
+
+You can interact with your vetiver API via automatically generated, detailed visual documentation.
+
+<script src="https://fast.wistia.com/embed/medias/w7p0op712v.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:107.92% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_w7p0op712v videoFoam=true" style="height:100%;position:relative;width:100%"><div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"><img src="https://fast.wistia.com/embed/medias/w7p0op712v/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" /></div></div></div></div>
+<br>
+
 FastAPI and Plumber APIs such as these can be hosted in a variety of ways.
 You can create a ready-to-go file for deployment that is especially suited for [RStudio Connect](https://www.rstudio.com/products/connect/).
 
@@ -102,17 +107,17 @@ For RStudio Connect, you can streamline this deployment process even more by usi
 
 ```{python}
 #| eval: false
-app_file = vetiver_write_app(model_board, "cars_mpg")
+app_file = vetiver.write_app(model_board, "cars_mpg")
 ```
 
 ```{python}
 #| echo: false
 #| comment: ""
-from vetiver import vetiver_write_app
+from vetiver import write_app
 import tempfile
 with tempfile.TemporaryDirectory() as temp:
   tmp = temp + "app.py"
-  vetiver_write_app(model_board, "cars_mpg", file=tmp)
+  write_app(model_board, "cars_mpg", file=tmp)
   contents = open(tmp).read()
 print(contents.replace(temp, "."))
 ```
@@ -159,20 +164,20 @@ When you run `vetiver_write_docker()`, you generate *two* files: the Dockerfile 
 
 ```{python}
 #| eval: false
-vetiver_write_docker(app_file)
+vetiver.write_docker(app_file)
 ```
 
 ```{python}
 #| echo: false
 #| comment: ""
-from vetiver import vetiver_write_docker
+from vetiver import write_docker
 import tempfile
 
 with tempfile.TemporaryDirectory() as temp:
   tmp_app = temp + "/app.py"
   tmp_docker = temp + "/Dockerfile"
-  vetiver_write_app(model_board, "cars_mpg", file=tmp_app)
-  vetiver_write_docker(app_file=tmp_app, path=temp+"/")
+  write_app(model_board, "cars_mpg", file=tmp_app)
+  write_docker(app_file=tmp_app, path=temp+"/")
   contents = open(tmp_docker).read()
 print(contents.replace(temp, "."))
 
