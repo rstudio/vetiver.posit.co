@@ -8,7 +8,7 @@ The vetiver framework is for MLOps tasks in Python and R.
 
 > *Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.*
 
-The goal of vetiver is to provide fluent tooling to **version**, **share**, **deploy**, and **monitor** a trained model.
+The goal of vetiver is to provide fluent tooling to **version**, **deploy**, and **monitor** a trained model.
 Functions handle both recording and checking the model's input data prototype, and predicting from a remote API endpoint.
 
 ![](images/ml_ops_cycle.png){fig-align="center" fig-alt="During the MLOps cycle, we collect data, understand and clean the data, train and evaluate a model, deploy the model, and monitor the deployed model. Monitoring can then lead back to collecting more data. There are many great tools available to understand clean data (like pandas and the tidyverse) and to build models (like tidymodels and scikit-learn). Use the vetiver framework to deploy and monitor your models."}
@@ -24,12 +24,12 @@ Functions handle both recording and checking the model's input data prototype, a
 ::: callout-warning
 ## There is a lack 😩 of effective tools to:
 
+-   version and publish models
 -   put models into production
 -   monitor model performance
--   trigger retraining
 :::
 
-You can use vetiver for deploying and handling your trained models.
+Use vetiver to manage and deploy your trained models.
 
 ::: panel-tabset
 ## R
@@ -53,3 +53,7 @@ v = VetiverModel(model, model_name = "cars_linear",
 v.description
 ```
 :::
+
+Generate a REST API to serve your model, including detailed, interactive visual documentation.
+
+<script src="https://fast.wistia.com/embed/medias/w7p0op712v.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:107.92% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_w7p0op712v videoFoam=true" style="height:100%;position:relative;width:100%"><div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"><img src="https://fast.wistia.com/embed/medias/w7p0op712v/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" /></div></div></div></div>

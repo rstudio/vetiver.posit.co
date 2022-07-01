@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.442">
+<meta name="generator" content="quarto-0.9.624">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -80,19 +80,20 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
-<meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
 <link href="./images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -119,8 +120,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="MLOps with vetiver">
+<meta property="og:description" content="The vetiver framework is for MLOps tasks in Python and R.">
 <meta property="og:site-name" content="MLOps with vetiver">
 <meta name="twitter:title" content="MLOps with vetiver">
+<meta name="twitter:description" content="The vetiver framework is for MLOps tasks in Python and R.">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -184,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <blockquote class="blockquote">
 <p><em>Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.</em></p>
 </blockquote>
-<p>The goal of vetiver is to provide fluent tooling to <strong>version</strong>, <strong>share</strong>, <strong>deploy</strong>, and <strong>monitor</strong> a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint.</p>
+<p>The goal of vetiver is to provide fluent tooling to <strong>version</strong>, <strong>deploy</strong>, and <strong>monitor</strong> a trained model. Functions handle both recording and checking the model’s input data prototype, and predicting from a remote API endpoint.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/ml_ops_cycle.png" class="img-fluid figure-img" alt="During the MLOps cycle, we collect data, understand and clean the data, train and evaluate a model, deploy the model, and monitor the deployed model. Monitoring can then lead back to collecting more data. There are many great tools available to understand clean data (like pandas and the tidyverse) and to build models (like tidymodels and scikit-learn). Use the vetiver framework to deploy and monitor your models."></p>
@@ -218,13 +221,13 @@ There is a lack 😩 of effective tools to:
 </div>
 <div class="callout-body-container callout-body">
 <ul>
+<li>version and publish models</li>
 <li>put models into production</li>
 <li>monitor model performance</li>
-<li>trigger retraining</li>
 </ul>
 </div>
 </div>
-<p>You can use vetiver for deploying and handling your trained models.</p>
+<p>Use vetiver to manage and deploy your trained models.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -253,6 +256,18 @@ An OLS linear regression model using 10 features</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>"Scikit-learn &lt;class 'sklearn.linear_model._base.LinearRegression'&gt; model"</code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<p>Generate a REST API to serve your model, including detailed, interactive visual documentation.</p>
+<script src="https://fast.wistia.com/embed/medias/w7p0op712v.jsonp" async=""></script>
+<script src="https://fast.wistia.com/assets/external/E-v1.js" async=""></script>
+<div class="wistia_responsive_padding" style="padding:107.92% 0 0 0;position:relative;">
+<div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+<div class="wistia_embed wistia_async_w7p0op712v videoFoam=true" style="height:100%;position:relative;width:100%">
+<div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
+<img src="https://fast.wistia.com/embed/medias/w7p0op712v/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;">
 </div>
 </div>
 </div>
