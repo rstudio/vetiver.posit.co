@@ -2,7 +2,10 @@ library(tidyverse)
 library(faux)
 
 set.seed(123)
-new_mtcars <- sim_df(mtcars, 50)
+new_mtcars <- sim_df(mtcars, n = 50) %>%
+    mutate(across(c(cyl, vs, am, gear, carb), round),
+           across(c(cyl, vs, am, gear, carb), abs))
+
 
 new_mtcars %>%
     select(-id) %>%
