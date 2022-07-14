@@ -7,4 +7,153 @@ format:
       - sync-tabs.html
 ---
 
-🚧 COMING SOON 🚧
+Once a model is deployed, it is important to continue monitoring the model. Machine learning breaks quietly, that is, a model can continue running without error, even if it is performing poorly. Without monitoring for degradation, this can continue undiagnosed. Vetiver offers functions to quickly run, store, and plot model metrics. These functions are particularly suited to measure one model with multiple performance metrics over a period of time.
+
+When a model is deployed, data comes in over time, regardless of if time is a feature for prediction. Whether it explicitly uses date, the date affects your model performance.
+
+::: callout-tip
+## What if my model is using time for prediction?
+
+Sometimes your model uses datetime features for prediction. As we have defined it, monitoring ALWAYS includes datetime, not as a feature, but as a dimension along which we are monitoring.
+
+:::
+
+## Build a model and model board
+
+::: panel-tabset
+## R
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code from previous steps"
+#| message: false
+library(tidymodels)
+library(tidyverse)
+car_mod <-
+    workflow(mpg ~ ., linear_reg()) %>%
+    fit(mtcars)
+```
+
+## Python
+
+```{python}
+#| code-fold: true
+#| code-summary: "Show the code from previous steps"
+#| message: false
+
+from vetiver.data import mtcars
+from sklearn import linear_model
+
+car_mod = linear_model.LinearRegression().fit(mtcars, mtcars["mpg"])
+```
+:::
+
+
+## Compute metrics
+
+::: panel-tabset
+## R
+
+```{r}
+library(vetiver)
+new_cars <- read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
+original_metrics <-
+    augment(car_mod, new_data = new_cars) %>%
+    vetiver_compute_metrics(date_obs, "week", mpg, .pred, every = 4L)
+
+original_metrics
+```
+
+
+## Python
+
+```{python}
+import vetiver
+
+import pandas as pd
+from sklearn import metrics
+from datetime import timedelta
+
+new_cars = pd.read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
+new_cars["preds"] = car_mod.predict(new_cars.drop(columns="date_obs"))
+
+metric_set = [metrics.mean_absolute_error, metrics.mean_squared_error]
+td = timedelta(weeks = 4)
+
+original_metrics = vetiver.compute_metrics(data = new_cars, 
+                    date_var="date_obs", 
+                    period = td, 
+                    metric_set=metric_set, 
+                    truth="mpg", 
+                    estimate="preds")
+original_metrics
+```
+
+:::
+
+## Pin metrics
+
+The first time you pin metrics, you can simply write to a board. However, when updating metrics pins, vetiver handles date integrity to ensure it is not overlapping.
+
+::: panel-tabset
+## R
+
+```{r}
+library(pins)
+b <- board_temp()
+pin_write(b, original_metrics, "lm_fit_metrics")
+
+new_metrics <-
+    augment(car_mod, new_data = new_cars) %>%
+    vetiver_compute_metrics(date, "week", ridership, .pred, every = 4L)
+vetiver_pin_metrics(b, new_metrics, "lm_fit_metrics")
+```
+
+
+
+## Python
+
+```{python}
+import vetiver
+
+from sklearn import metrics
+from datetime import timedelta
+
+metric_set = [metrics.mean_absolute_error, metrics.mean_squared_error]
+td = timedelta(weeks = 1)
+
+original_metrics = vetiver.compute_metrics(data = chicago, 
+                    date_var="date", 
+                    period = td, 
+                    metric_set=metric_set, 
+                    truth="ridership", 
+                    estimate="preds")
+```
+
+:::
+
+
+## Plot metrics
+
+::: panel-tabset
+## R
+
+```{r}
+library(ggplot2)
+vetiver_plot_metrics(new_metrics) +
+    scale_size(range = c(2, 4))
+```
+
+
+## Python
+
+```{python}
+p = vetiver.plot_metrics(df_metrics = m)
+p.show()
+```
+
+:::
+
+## Dashboarding
+
+link and s/o (look @ model card wording)
