@@ -9,7 +9,7 @@ format:
 
 Once a model is deployed, it is important to continue monitoring the model. Machine learning breaks quietly, that is, a model can continue running without error, even if it is performing poorly. Without monitoring for degradation, this can continue undiagnosed. Vetiver offers functions to quickly run, store, and plot model metrics. These functions are particularly suited to measure one model with multiple performance metrics over a period of time.
 
-When a model is deployed, data comes in over time, regardless of if time is a feature for prediction. Whether it explicitly uses date, the date affects your model performance.
+When a model is deployed, data comes in over time, regardless of if time is a feature for prediction. Even if your model does not explicitly use dates, it can affect your model performance.
 
 ::: callout-tip
 ## What if my model is using time for prediction?
@@ -18,7 +18,7 @@ Sometimes your model uses datetime features for prediction. As we have defined i
 
 :::
 
-## Build a model and model board
+## Build a model
 
 ::: panel-tabset
 ## R
@@ -29,6 +29,7 @@ Sometimes your model uses datetime features for prediction. As we have defined i
 #| message: false
 library(tidymodels)
 library(tidyverse)
+
 car_mod <-
     workflow(mpg ~ ., linear_reg()) %>%
     fit(mtcars)
@@ -51,10 +52,13 @@ car_mod = linear_model.LinearRegression().fit(mtcars.drop(columns="mpg"), mtcars
 
 ## Compute metrics
 
+You can compute multiple metrics at once over a certain time aggregation.
+
 ::: panel-tabset
 ## R
 
 ```{r}
+#| message: false
 library(vetiver)
 new_cars <- read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
 original_metrics <-
@@ -86,19 +90,21 @@ original_metrics = vetiver.compute_metrics(data = new_cars,
                     metric_set=metric_set, 
                     truth="mpg", 
                     estimate="preds")
-original_metrics
+original_metrics.head(6)
 ```
+
 
 :::
 
 ## Pin metrics
 
-The first time you pin metrics, you can write to a board as normal. However, when updating metrics pins, vetiver handles date integrity to ensure it is not overlapping.
+The first time you pin metrics, you can write to a board as normal. However, when adding new metrics to your pin, you may have dates that overlap with with the original pin, such as our `new_metrics` here. You can choose how to handle these dates by using the `overwrite` argument.
 
 ::: panel-tabset
 ## R
 
 ```{r}
+#| message: false
 library(pins)
 board <- board_temp()
 pin_write(board, original_metrics, "lm_fit_metrics")
@@ -115,6 +121,7 @@ vetiver_pin_metrics(board, new_metrics, "lm_fit_metrics", overwrite = TRUE)
 ## Python
 
 ```{python}
+#| message: false
 import vetiver
 import pins
 
@@ -137,6 +144,8 @@ vetiver.pin_metrics(board, new_metrics, "lm_fit_metrics", overwrite = True)
 
 ## Plot metrics
 
+With a metrics computed, it is essential to visualize metrics to have an overview of the model performance.
+
 ::: panel-tabset
 ## R
 
@@ -149,10 +158,10 @@ vetiver_plot_metrics(new_metrics) +
 
 ## Python
 
+
 ```{python}
 #| eval: false
 p = vetiver.plot_metrics(df_metrics = new_metrics)
-p.update_yaxes(matches=None)
 p.show()
 ```
 ![](../images/pythonmonitor.png)
@@ -161,4 +170,5 @@ p.show()
 
 ## Dashboarding
 
-link and s/o (look @ model card wording)
+The vetiver package provides an R Markdown template for [creating a monitoring dashboard](https://rstudio.github.io/vetiver-r/reference/vetiver_dashboard.html) for pinned metrics. The template automates extracting some information from the metrics, and provides a framework to extend the dashboard with custom monitoring implementation.
+

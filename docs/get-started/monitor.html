@@ -217,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#build-a-model-and-model-board" id="toc-build-a-model-and-model-board" class="nav-link active" data-scroll-target="#build-a-model-and-model-board">Build a model and model board</a></li>
+  <li><a href="#build-a-model" id="toc-build-a-model" class="nav-link active" data-scroll-target="#build-a-model">Build a model</a></li>
   <li><a href="#compute-metrics" id="toc-compute-metrics" class="nav-link" data-scroll-target="#compute-metrics">Compute metrics</a></li>
   <li><a href="#pin-metrics" id="toc-pin-metrics" class="nav-link" data-scroll-target="#pin-metrics">Pin metrics</a></li>
   <li><a href="#plot-metrics" id="toc-plot-metrics" class="nav-link" data-scroll-target="#plot-metrics">Plot metrics</a></li>
@@ -245,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>Once a model is deployed, it is important to continue monitoring the model. Machine learning breaks quietly, that is, a model can continue running without error, even if it is performing poorly. Without monitoring for degradation, this can continue undiagnosed. Vetiver offers functions to quickly run, store, and plot model metrics. These functions are particularly suited to measure one model with multiple performance metrics over a period of time.</p>
-<p>When a model is deployed, data comes in over time, regardless of if time is a feature for prediction. Whether it explicitly uses date, the date affects your model performance.</p>
+<p>When a model is deployed, data comes in over time, regardless of if time is a feature for prediction. Even if your model does not explicitly use dates, it can affect your model performance.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -259,8 +259,8 @@ What if my model is using time for prediction?
 <p>Sometimes your model uses datetime features for prediction. As we have defined it, monitoring ALWAYS includes datetime, not as a feature, but as a dimension along which we are monitoring.</p>
 </div>
 </div>
-<section id="build-a-model-and-model-board" class="level2">
-<h2 class="anchored" data-anchor-id="build-a-model-and-model-board">Build a model and model board</h2>
+<section id="build-a-model" class="level2">
+<h2 class="anchored" data-anchor-id="build-a-model">Build a model</h2>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -270,9 +270,10 @@ What if my model is using time for prediction?
 <summary>Show the code from previous steps</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>car_mod <span class="ot">&lt;-</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">workflow</span>(mpg <span class="sc">~</span> ., <span class="fu">linear_reg</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>car_mod <span class="ot">&lt;-</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">workflow</span>(mpg <span class="sc">~</span> ., <span class="fu">linear_reg</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>
@@ -292,39 +293,19 @@ What if my model is using time for prediction?
 </section>
 <section id="compute-metrics" class="level2">
 <h2 class="anchored" data-anchor-id="compute-metrics">Compute metrics</h2>
+<p>You can compute multiple metrics at once over a certain time aggregation.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vetiver)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'vetiver'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:tune':
-
-    load_pkgs</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>new_cars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://vetiver.rstudio.com/get-started/new-cars.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 50 Columns: 12</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-dbl  (11): mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
-date  (1): date_obs
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="ot">&lt;-</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">augment</span>(car_mod, <span class="at">new_data =</span> new_cars) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">vetiver_compute_metrics</span>(date_obs, <span class="st">"week"</span>, mpg, .pred, <span class="at">every =</span> 1L)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>original_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vetiver)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>new_cars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://vetiver.rstudio.com/get-started/new-cars.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="ot">&lt;-</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">augment</span>(car_mod, <span class="at">new_data =</span> new_cars) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">vetiver_compute_metrics</span>(date_obs, <span class="st">"week"</span>, mpg, .pred, <span class="at">every =</span> 1L)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>original_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 24 × 5
    .index        .n .metric .estimator .estimate
@@ -345,48 +326,33 @@ date  (1): date_obs
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> vetiver</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>new_cars <span class="op">=</span> pd.read_csv(<span class="st">"https://vetiver.rstudio.com/get-started/new-cars.csv"</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>new_cars[<span class="st">"preds"</span>] <span class="op">=</span> car_mod.predict(new_cars.drop(columns<span class="op">=</span>[<span class="st">"date_obs"</span>, <span class="st">"mpg"</span>]))</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>td <span class="op">=</span> timedelta(weeks <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="op">=</span> vetiver.compute_metrics(data <span class="op">=</span> new_cars, </span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                    date_var<span class="op">=</span><span class="st">"date_obs"</span>, </span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                    period <span class="op">=</span> td, </span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                    metric_set<span class="op">=</span>metric_set, </span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                    truth<span class="op">=</span><span class="st">"mpg"</span>, </span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>                    estimate<span class="op">=</span><span class="st">"preds"</span>)</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>original_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> vetiver</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>new_cars <span class="op">=</span> pd.read_csv(<span class="st">"https://vetiver.rstudio.com/get-started/new-cars.csv"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>new_cars[<span class="st">"preds"</span>] <span class="op">=</span> car_mod.predict(new_cars.drop(columns<span class="op">=</span>[<span class="st">"date_obs"</span>, <span class="st">"mpg"</span>]))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>td <span class="op">=</span> timedelta(weeks <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="op">=</span> vetiver.compute_metrics(data <span class="op">=</span> new_cars, </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                    date_var<span class="op">=</span><span class="st">"date_obs"</span>, </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                    period <span class="op">=</span> td, </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                    metric_set<span class="op">=</span>metric_set, </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                    truth<span class="op">=</span><span class="st">"mpg"</span>, </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                    estimate<span class="op">=</span><span class="st">"preds"</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>original_metrics.head(<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        index  n               metric  estimate
-0  2022-03-15  7  mean_absolute_error  1.572021
-1  2022-03-15  7   mean_squared_error  3.561911
-2  2022-03-15  7             r2_score  0.898821
-3  2022-03-22  7  mean_absolute_error  1.562652
-4  2022-03-22  7   mean_squared_error  3.245496
-5  2022-03-22  7             r2_score  0.878289
-6  2022-03-29  7  mean_absolute_error  1.738432
-7  2022-03-29  7   mean_squared_error  5.302954
-8  2022-03-29  7             r2_score  0.843334
-9  2022-04-05  7  mean_absolute_error  1.737853
-10 2022-04-05  7   mean_squared_error  4.216742
-11 2022-04-05  7             r2_score  0.792356
-12 2022-04-12  7  mean_absolute_error  1.560125
-13 2022-04-12  7   mean_squared_error  3.338802
-14 2022-04-12  7             r2_score  0.847371
-15 2022-04-19  7  mean_absolute_error  2.216515
-16 2022-04-19  7   mean_squared_error  6.008295
-17 2022-04-19  7             r2_score  0.495696
-18 2022-04-26  7  mean_absolute_error  1.298632
-19 2022-04-26  7   mean_squared_error  2.456600
-20 2022-04-26  7             r2_score  0.953456</code></pre>
+<pre><code>       index  n               metric  estimate
+0 2022-03-15  7  mean_absolute_error  1.572021
+1 2022-03-15  7   mean_squared_error  3.561911
+2 2022-03-15  7             r2_score  0.898821
+3 2022-03-22  7  mean_absolute_error  1.562652
+4 2022-03-22  7   mean_squared_error  3.245496
+5 2022-03-22  7             r2_score  0.878289</code></pre>
 </div>
 </div>
 </div>
@@ -395,30 +361,21 @@ date  (1): date_obs
 </section>
 <section id="pin-metrics" class="level2">
 <h2 class="anchored" data-anchor-id="pin-metrics">Pin metrics</h2>
-<p>The first time you pin metrics, you can write to a board as normal. However, when updating metrics pins, vetiver handles date integrity to ensure it is not overlapping.</p>
+<p>The first time you pin metrics, you can write to a board as normal. However, when adding new metrics to your pin, you may have dates that overlap with with the original pin, such as our <code>new_metrics</code> here. You can choose how to handle these dates by using the <code>overwrite</code> argument.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pins)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>board <span class="ot">&lt;-</span> <span class="fu">board_temp</span>()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pin_write</span>(board, original_metrics, <span class="st">"lm_fit_metrics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Guessing `type = 'rds'`
-Creating new version '20220715T202644Z-951b4'
-Writing to pin 'lm_fit_metrics'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>new_metrics <span class="ot">&lt;-</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">augment</span>(car_mod, <span class="at">new_data =</span> new_cars) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">vetiver_compute_metrics</span>(date_obs, <span class="st">"week"</span>, mpg, .pred, <span class="at">every =</span> 1L)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_pin_metrics</span>(board, new_metrics, <span class="st">"lm_fit_metrics"</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Guessing `type = 'rds'`
-Replacing version '20220715T202644Z-951b4' with '20220715T202644Z-d8e90'
-Writing to pin 'lm_fit_metrics'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pins)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>board <span class="ot">&lt;-</span> <span class="fu">board_temp</span>()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pin_write</span>(board, original_metrics, <span class="st">"lm_fit_metrics"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>new_metrics <span class="ot">&lt;-</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">augment</span>(car_mod, <span class="at">new_data =</span> new_cars) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">vetiver_compute_metrics</span>(date_obs, <span class="st">"week"</span>, mpg, .pred, <span class="at">every =</span> 1L)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_pin_metrics</span>(board, new_metrics, <span class="st">"lm_fit_metrics"</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 24 × 5
    .index        .n .metric .estimator .estimate
@@ -439,26 +396,26 @@ Writing to pin 'lm_fit_metrics'</code></pre>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> vetiver</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pins</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>board <span class="op">=</span> pins.board_temp(allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>board.pin_write(original_metrics, <span class="st">"lm_fit_metrics"</span>, <span class="bu">type</span> <span class="op">=</span> <span class="st">"csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> vetiver</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pins</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>board <span class="op">=</span> pins.board_temp(allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>board.pin_write(original_metrics, <span class="st">"lm_fit_metrics"</span>, <span class="bu">type</span> <span class="op">=</span> <span class="st">"csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Meta(title='lm_fit_metrics: a pinned 21 x 4 DataFrame', description=None, created='20220715T162644Z', pin_hash='1484358d3ee2bab6', file='lm_fit_metrics.csv', file_size=1024, type='csv', api_version=1, version=Version(created=datetime.datetime(2022, 7, 15, 16, 26, 44, 483371), hash='1484358d3ee2bab6'), name='lm_fit_metrics', user={})
+<pre><code>Meta(title='lm_fit_metrics: a pinned 21 x 4 DataFrame', description=None, created='20220715T173343Z', pin_hash='1484358d3ee2bab6', file='lm_fit_metrics.csv', file_size=1024, type='csv', api_version=1, version=Version(created=datetime.datetime(2022, 7, 15, 17, 33, 43, 685382), hash='1484358d3ee2bab6'), name='lm_fit_metrics', user={})
 
 Writing pin:
 Name: 'lm_fit_metrics'
-Version: 20220715T162644Z-14843</code></pre>
+Version: 20220715T173343Z-14843</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>new_metrics <span class="op">=</span> vetiver.compute_metrics(data <span class="op">=</span> new_cars, </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                    date_var<span class="op">=</span><span class="st">"date_obs"</span>, </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                    period <span class="op">=</span> td, </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                    metric_set<span class="op">=</span>metric_set, </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                    truth<span class="op">=</span><span class="st">"mpg"</span>, </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                    estimate<span class="op">=</span><span class="st">"preds"</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                    </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>vetiver.pin_metrics(board, new_metrics, <span class="st">"lm_fit_metrics"</span>, overwrite <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>new_metrics <span class="op">=</span> vetiver.compute_metrics(data <span class="op">=</span> new_cars, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    date_var<span class="op">=</span><span class="st">"date_obs"</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                    period <span class="op">=</span> td, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                    metric_set<span class="op">=</span>metric_set, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                    truth<span class="op">=</span><span class="st">"mpg"</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                    estimate<span class="op">=</span><span class="st">"preds"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>vetiver.pin_metrics(board, new_metrics, <span class="st">"lm_fit_metrics"</span>, overwrite <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        index  n               metric  estimate
 0  2022-03-15  7  mean_absolute_error  1.572021
@@ -485,7 +442,7 @@ Version: 20220715T162644Z-14843</code></pre>
 
 Writing pin:
 Name: 'lm_fit_metrics'
-Version: 20220715T162644Z-8621e</code></pre>
+Version: 20220715T173343Z-8621e</code></pre>
 </div>
 </div>
 </div>
@@ -494,14 +451,15 @@ Version: 20220715T162644Z-8621e</code></pre>
 </section>
 <section id="plot-metrics" class="level2">
 <h2 class="anchored" data-anchor-id="plot-metrics">Plot metrics</h2>
+<p>With a metrics computed, it is essential to visualize metrics to have an overview of the model performance.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_plot_metrics</span>(new_metrics) <span class="sc">+</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_plot_metrics</span>(new_metrics) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="monitor_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -509,9 +467,8 @@ Version: 20220715T162644Z-8621e</code></pre>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> vetiver.plot_metrics(df_metrics <span class="op">=</span> new_metrics)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p.update_yaxes(matches<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> vetiver.plot_metrics(df_metrics <span class="op">=</span> new_metrics)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="../images/pythonmonitor.png" class="img-fluid"></p>
 </div>
@@ -520,7 +477,7 @@ Version: 20220715T162644Z-8621e</code></pre>
 </section>
 <section id="dashboarding" class="level2">
 <h2 class="anchored" data-anchor-id="dashboarding">Dashboarding</h2>
-<p>link and s/o (look @ model card wording)</p>
+<p>The vetiver package provides an R Markdown template for <a href="https://rstudio.github.io/vetiver-r/reference/vetiver_dashboard.html">creating a monitoring dashboard</a> for pinned metrics. The template automates extracting some information from the metrics, and provides a framework to extend the dashboard with custom monitoring implementation.</p>
 
 
 </section>
