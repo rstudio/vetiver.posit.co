@@ -56,7 +56,7 @@ We'll use a temporary board that will be automatically deleted for this demo, bu
 Most pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.
 
 ```{r}
-#| message: false
+#| output: false
 library(pins)
 model_board <- board_temp(versioned = TRUE)
 model_board %>% vetiver_pin_write(v)
@@ -65,7 +65,7 @@ model_board %>% vetiver_pin_write(v)
 ## Python
 
 ```{python}
-#| message: false
+#| output: false
 from pins import board_temp
 from vetiver import vetiver_pin_write
 model_board = board_temp(versioned = True, allow_pickle_read = True)
