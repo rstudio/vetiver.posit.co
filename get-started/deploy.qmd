@@ -33,7 +33,7 @@ model_board %>% vetiver_pin_write(v)
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code from previous steps"
-#| message: false
+#| output: false
 
 from vetiver.data import mtcars
 from vetiver import VetiverModel, vetiver_pin_write
@@ -75,14 +75,27 @@ app = VetiverAPI(v, check_ptype = True)
 To start a server using this object, use `app.run(port = 8080)` or your port of choice.
 :::
 
-
 You can interact with your vetiver API via automatically generated, detailed visual documentation.
 
-<script src="https://fast.wistia.com/embed/medias/w7p0op712v.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:107.92% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_w7p0op712v videoFoam=true" style="height:100%;position:relative;width:100%"><div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"><img src="https://fast.wistia.com/embed/medias/w7p0op712v/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" /></div></div></div></div>
+```{=html}
+<script src="https://fast.wistia.com/embed/medias/w7p0op712v.jsonp" async></script>
+```
+```{=html}
+<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+```
+::: {.wistia_responsive_padding style="padding:107.92% 0 0 0;position:relative;"}
+::: {.wistia_responsive_wrapper style="height:100%;left:0;position:absolute;top:0;width:100%;"}
+::: {.wistia_embed .wistia_async_w7p0op712v .videoFoam=true style="height:100%;position:relative;width:100%"}
+::: {.wistia_swatch style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"}
+<img src="https://fast.wistia.com/embed/medias/w7p0op712v/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" aria-hidden="true" onload="this.parentNode.style.opacity=1;"/>
+:::
+:::
+:::
+:::
+
 <br>
 
-FastAPI and Plumber APIs such as these can be hosted in a variety of ways.
-You can create a ready-to-go file for deployment that is especially suited for [RStudio Connect](https://www.rstudio.com/products/connect/).
+FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for [RStudio Connect](https://www.rstudio.com/products/connect/).
 
 ::: panel-tabset
 ## R
@@ -183,8 +196,7 @@ print(contents.replace(temp, "."))
 
 ```
 
-To build the Docker image, you need *two* files: the Dockerfile itself generated via `vetiver_write_docker()` and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies.
-If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you, with the name `vetiver_requirements.txt`.
+To build the Docker image, you need *two* files: the Dockerfile itself generated via `vetiver_write_docker()` and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies. If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you, with the name `vetiver_requirements.txt`.
 :::
 
 ::: callout-tip
