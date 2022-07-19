@@ -3,20 +3,17 @@ title: "Version"
 format:
   html:
     toc: true
-    include-after-body:
-      - sync-tabs.html
 ---
 
 ## Review of previous steps
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code from previous steps"
 #| message: false
-
 library(tidymodels)
 library(vetiver)
 
@@ -35,7 +32,7 @@ from vetiver.data import mtcars
 from vetiver import VetiverModel
 from sklearn import linear_model
 
-car_mod = linear_model.LinearRegression().fit(mtcars, mtcars["mpg"])
+car_mod = linear_model.LinearRegression().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
                  save_ptype = True, ptype_data = mtcars)
@@ -50,7 +47,7 @@ You can store and version your model by choosing a [pins](https://pins.rstudio.c
 We'll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.
 :::
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 Most pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.
@@ -80,7 +77,7 @@ Let's train a new kind of model for `mtcars`, a decision tree instead of our ori
 Sys.sleep(1.5)
 ```
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 ```{r}
@@ -97,7 +94,7 @@ model_board %>% vetiver_pin_write(v)
 
 ```{python}
 from sklearn import tree
-car_mod = tree.DecisionTreeRegressor().fit(mtcars, mtcars["mpg"])
+car_mod = tree.DecisionTreeRegressor().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
                  save_ptype = True, ptype_data = mtcars)
@@ -107,7 +104,7 @@ vetiver_pin_write(model_board, v)
 
 Both versions are stored, and we have access to both.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 ```{r}
