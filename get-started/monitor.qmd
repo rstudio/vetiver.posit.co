@@ -9,7 +9,7 @@ format:
 
 Once a model is deployed, it is important to continue monitoring the model. Machine learning breaks quietly, that is, a model can continue running without error, even if it is performing poorly. Without monitoring for degradation, this can continue undiagnosed. Vetiver offers functions to quickly run, store, and plot model metrics. These functions are particularly suited to measure one model with multiple performance metrics over a period of time.
 
-When a model is deployed, data comes in over time, regardless of if time is a feature for prediction. Even if your model does not explicitly use dates, it can affect your model performance.
+When a model is deployed, data comes in over time, even if time is not a feature for prediction. Even if your model does not explicitly use dates, the date can affect your model performance.
 
 ::: callout-tip
 ## What if my model is using time for prediction?
@@ -78,13 +78,16 @@ import pandas as pd
 from sklearn import metrics
 from datetime import timedelta
 
-new_cars = pd.read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
-new_cars["preds"] = car_mod.predict(new_cars.drop(columns=["date_obs", "mpg"]))
+cars = pd.read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
+cars["preds"] = car_mod.predict(cars.drop(columns=["date_obs", "mpg"]))
+
+original_cars = cars.iloc[:20, :]
+new_cars = cars.iloc[20:, :]
 
 metric_set = [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]
 td = timedelta(weeks = 1)
 
-original_metrics = vetiver.compute_metrics(data = new_cars, 
+original_metrics = vetiver.compute_metrics(data = original_cars, 
                     date_var="date_obs", 
                     period = td, 
                     metric_set=metric_set, 
@@ -121,7 +124,6 @@ vetiver_pin_metrics(board, new_metrics, "lm_fit_metrics", overwrite = TRUE)
 ## Python
 
 ```{python}
-#| message: false
 import vetiver
 import pins
 
@@ -144,7 +146,7 @@ vetiver.pin_metrics(board, new_metrics, "lm_fit_metrics", overwrite = True)
 
 ## Plot metrics
 
-With a metrics computed, it is essential to visualize metrics to have an overview of the model performance.
+With a metrics computed, visualizing metrics allows us to view the model performance.
 
 ::: panel-tabset
 ## R

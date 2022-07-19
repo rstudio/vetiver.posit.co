@@ -332,19 +332,22 @@ What if my model is using time for prediction?
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>new_cars <span class="op">=</span> pd.read_csv(<span class="st">"https://vetiver.rstudio.com/get-started/new-cars.csv"</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>new_cars[<span class="st">"preds"</span>] <span class="op">=</span> car_mod.predict(new_cars.drop(columns<span class="op">=</span>[<span class="st">"date_obs"</span>, <span class="st">"mpg"</span>]))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>cars <span class="op">=</span> pd.read_csv(<span class="st">"https://vetiver.rstudio.com/get-started/new-cars.csv"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>cars[<span class="st">"preds"</span>] <span class="op">=</span> car_mod.predict(cars.drop(columns<span class="op">=</span>[<span class="st">"date_obs"</span>, <span class="st">"mpg"</span>]))</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>td <span class="op">=</span> timedelta(weeks <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>original_cars <span class="op">=</span> cars.iloc[:<span class="dv">20</span>, :]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>new_cars <span class="op">=</span> cars.iloc[<span class="dv">20</span>:, :]</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="op">=</span> vetiver.compute_metrics(data <span class="op">=</span> new_cars, </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                    date_var<span class="op">=</span><span class="st">"date_obs"</span>, </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                    period <span class="op">=</span> td, </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                    metric_set<span class="op">=</span>metric_set, </span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                    truth<span class="op">=</span><span class="st">"mpg"</span>, </span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                    estimate<span class="op">=</span><span class="st">"preds"</span>)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>original_metrics.head(<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>td <span class="op">=</span> timedelta(weeks <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="op">=</span> vetiver.compute_metrics(data <span class="op">=</span> original_cars, </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                    date_var<span class="op">=</span><span class="st">"date_obs"</span>, </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                    period <span class="op">=</span> td, </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                    metric_set<span class="op">=</span>metric_set, </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                    truth<span class="op">=</span><span class="st">"mpg"</span>, </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>                    estimate<span class="op">=</span><span class="st">"preds"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>original_metrics.head(<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       index  n               metric  estimate
 0 2022-03-15  7  mean_absolute_error  1.572021
@@ -402,11 +405,11 @@ What if my model is using time for prediction?
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>board <span class="op">=</span> pins.board_temp(allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>board.pin_write(original_metrics, <span class="st">"lm_fit_metrics"</span>, <span class="bu">type</span> <span class="op">=</span> <span class="st">"csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Meta(title='lm_fit_metrics: a pinned 21 x 4 DataFrame', description=None, created='20220715T173343Z', pin_hash='1484358d3ee2bab6', file='lm_fit_metrics.csv', file_size=1024, type='csv', api_version=1, version=Version(created=datetime.datetime(2022, 7, 15, 17, 33, 43, 685382), hash='1484358d3ee2bab6'), name='lm_fit_metrics', user={})
+<pre><code>Meta(title='lm_fit_metrics: a pinned 9 x 4 DataFrame', description=None, created='20220719T093215Z', pin_hash='3d24c31493ef5cdc', file='lm_fit_metrics.csv', file_size=454, type='csv', api_version=1, version=Version(created=datetime.datetime(2022, 7, 19, 9, 32, 15, 181901), hash='3d24c31493ef5cdc'), name='lm_fit_metrics', user={})
 
 Writing pin:
 Name: 'lm_fit_metrics'
-Version: 20220715T173343Z-14843</code></pre>
+Version: 20220719T093215Z-3d24c</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>new_metrics <span class="op">=</span> vetiver.compute_metrics(data <span class="op">=</span> new_cars, </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    date_var<span class="op">=</span><span class="st">"date_obs"</span>, </span>
@@ -417,32 +420,35 @@ Version: 20220715T173343Z-14843</code></pre>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                    </span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>vetiver.pin_metrics(board, new_metrics, <span class="st">"lm_fit_metrics"</span>, overwrite <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        index  n               metric  estimate
-0  2022-03-15  7  mean_absolute_error  1.572021
-1  2022-03-15  7   mean_squared_error  3.561911
-2  2022-03-15  7             r2_score  0.898821
-3  2022-03-22  7  mean_absolute_error  1.562652
-4  2022-03-22  7   mean_squared_error  3.245496
-5  2022-03-22  7             r2_score  0.878289
-6  2022-03-29  7  mean_absolute_error  1.738432
-7  2022-03-29  7   mean_squared_error  5.302954
-8  2022-03-29  7             r2_score  0.843334
-11 2022-04-05  7             r2_score  0.792356
-10 2022-04-05  7   mean_squared_error  4.216742
-9  2022-04-05  7  mean_absolute_error  1.737853
-12 2022-04-12  7  mean_absolute_error  1.560125
-13 2022-04-12  7   mean_squared_error  3.338802
-14 2022-04-12  7             r2_score  0.847371
-15 2022-04-19  7  mean_absolute_error  2.216515
-16 2022-04-19  7   mean_squared_error  6.008295
-17 2022-04-19  7             r2_score  0.495696
-18 2022-04-26  7  mean_absolute_error  1.298632
-19 2022-04-26  7   mean_squared_error  2.456600
-20 2022-04-26  7             r2_score  0.953456
+<pre><code>        index  n               metric   estimate
+0  2022-03-15  7  mean_absolute_error   1.572021
+1  2022-03-15  7   mean_squared_error   3.561911
+2  2022-03-15  7             r2_score   0.898821
+3  2022-03-22  7  mean_absolute_error   1.562652
+4  2022-03-22  7   mean_squared_error   3.245496
+5  2022-03-22  7             r2_score   0.878289
+6  2022-03-29  6  mean_absolute_error   1.817672
+7  2022-03-29  6   mean_squared_error   5.920922
+8  2022-03-29  6             r2_score   0.834151
+10 2022-04-04  7   mean_squared_error   4.444009
+11 2022-04-04  7             r2_score   0.771667
+9  2022-04-04  7  mean_absolute_error   1.908942
+12 2022-04-11  7  mean_absolute_error   1.199589
+13 2022-04-11  7   mean_squared_error   2.381765
+14 2022-04-11  7             r2_score   0.890683
+15 2022-04-18  7  mean_absolute_error   2.258133
+16 2022-04-18  7   mean_squared_error   6.211679
+17 2022-04-18  7             r2_score   0.414457
+18 2022-04-25  7  mean_absolute_error   1.285378
+19 2022-04-25  7   mean_squared_error   2.394464
+20 2022-04-25  7             r2_score   0.940056
+22 2022-05-02  2   mean_squared_error  11.476022
+21 2022-05-02  2  mean_absolute_error   3.271170
+23 2022-05-02  2             r2_score   0.215349
 
 Writing pin:
 Name: 'lm_fit_metrics'
-Version: 20220715T173343Z-8621e</code></pre>
+Version: 20220719T093215Z-dfd2b</code></pre>
 </div>
 </div>
 </div>
