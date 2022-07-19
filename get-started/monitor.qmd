@@ -60,10 +60,13 @@ You can compute multiple metrics at once over a certain time aggregation.
 ```{r}
 #| message: false
 library(vetiver)
-new_cars <- read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
-original_metrics <-
-    augment(car_mod, new_data = new_cars) %>%
+cars <- read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
+
+metrics <-
+    augment(car_mod, new_data = cars) %>%
     vetiver_compute_metrics(date_obs, "week", mpg, .pred, every = 1L)
+
+original_metrics <- metrics[1:20,]
 
 original_metrics
 ```
@@ -81,19 +84,18 @@ from datetime import timedelta
 cars = pd.read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
 cars["preds"] = car_mod.predict(cars.drop(columns=["date_obs", "mpg"]))
 
-original_cars = cars.iloc[:20, :]
-new_cars = cars.iloc[20:, :]
-
 metric_set = [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]
 td = timedelta(weeks = 1)
 
-original_metrics = vetiver.compute_metrics(data = original_cars, 
+metrics = vetiver.compute_metrics(data = cars, 
                     date_var="date_obs", 
                     period = td, 
                     metric_set=metric_set, 
                     truth="mpg", 
                     estimate="preds")
-original_metrics.head(6)
+original_metrics = metrics.iloc[:20, :]
+               
+original_metrics
 ```
 
 
@@ -112,9 +114,7 @@ library(pins)
 board <- board_temp()
 pin_write(board, original_metrics, "lm_fit_metrics")
 
-new_metrics <-
-    augment(car_mod, new_data = new_cars) %>%
-    vetiver_compute_metrics(date_obs, "week", mpg, .pred, every = 1L)
+new_metrics <- metrics[20:length(metrics),]
 
 vetiver_pin_metrics(board, new_metrics, "lm_fit_metrics", overwrite = TRUE)
 ```
@@ -130,12 +130,7 @@ import pins
 board = pins.board_temp(allow_pickle_read = True)
 board.pin_write(original_metrics, "lm_fit_metrics", type = "csv")
 
-new_metrics = vetiver.compute_metrics(data = new_cars, 
-                    date_var="date_obs", 
-                    period = td, 
-                    metric_set=metric_set, 
-                    truth="mpg", 
-                    estimate="preds")
+new_metrics = metrics.iloc[20:, :]
                     
 vetiver.pin_metrics(board, new_metrics, "lm_fit_metrics", overwrite = True)
 
