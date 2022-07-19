@@ -3,8 +3,6 @@ title: "Getting Started"
 format:
   html:
     toc: true
-    include-after-body:
-      - sync-tabs.html
 ---
 
 The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both.
@@ -12,7 +10,7 @@ It is built to be extensible, with methods that can support many kinds of models
 
 ## Installation
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 You can use vetiver with:
@@ -65,7 +63,7 @@ python -m pip install git+https://github.com/rstudio/vetiver-python
 
 For this example, let's work with data on fuel efficiency for cars to predict miles per gallon.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 Let's consider one kind of model supported by vetiver, a [tidymodels](https://www.tidymodels.org/) workflow that encompasses both feature engineering and model estimation.
@@ -97,7 +95,7 @@ This `car_mod` object is a fitted model, with model parameters estimated using `
 
 We can create a `vetiver_model()` in R or `VetiverModel()` in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 ```{r}

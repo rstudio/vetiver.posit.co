@@ -3,13 +3,11 @@ title: "Version"
 format:
   html:
     toc: true
-    include-after-body:
-      - sync-tabs.html
 ---
 
 ## Review of previous steps
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 ```{r}
@@ -44,13 +42,15 @@ v = VetiverModel(car_mod, model_name = "cars_mpg",
 
 ## Store and version your model
 
-You can store and version your model by choosing a [pins](https://pins.rstudio.com/) "board" for it. Your board for model pins can be set up to use a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model's input data prototype for checking new data at prediction time.
+You can store and version your model by choosing a [pins](https://pins.rstudio.com/) "board" for it.
+Your board for model pins can be set up to use a local folder, RStudio Connect, Amazon S3, and more.
+When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model's input data prototype for checking new data at prediction time.
 
 ::: callout-note
 We'll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.
 :::
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 Most pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.
@@ -80,7 +80,7 @@ Let's train a new kind of model for `mtcars`, a decision tree instead of our ori
 Sys.sleep(1.5)
 ```
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 ```{r}
@@ -107,7 +107,7 @@ vetiver_pin_write(model_board, v)
 
 Both versions are stored, and we have access to both.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 ```{r}

@@ -3,8 +3,6 @@ title: "Monitor"
 format:
   html:
     toc: true
-    include-after-body:
-      - sync-tabs.html
 ---
 
 🚧 COMING SOON 🚧
