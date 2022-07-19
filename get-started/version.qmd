@@ -84,6 +84,7 @@ Sys.sleep(1.5)
 ## R
 
 ```{r}
+#| output: false
 car_mod <-
     workflow(mpg ~ ., decision_tree(mode = "regression")) %>%
     fit(mtcars)
@@ -96,6 +97,7 @@ model_board %>% vetiver_pin_write(v)
 ## Python
 
 ```{python}
+#| output: false
 from sklearn import tree
 car_mod = tree.DecisionTreeRegressor().fit(mtcars, mtcars["mpg"])
 
