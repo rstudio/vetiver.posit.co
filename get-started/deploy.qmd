@@ -22,7 +22,7 @@ car_mod <-
     workflow(mpg ~ ., decision_tree(mode = "regression")) %>%
     fit(mtcars)
 v <- vetiver_model(car_mod, "cars_mpg")
-model_board <- board_folder(".", versioned = TRUE)
+model_board <- board_folder("pins-r", versioned = TRUE)
 model_board %>% vetiver_pin_write(v)
 ```
 
@@ -38,12 +38,12 @@ from vetiver import VetiverModel, vetiver_pin_write
 from sklearn import tree
 from pins import board_folder
 
-car_mod = tree.DecisionTreeRegressor().fit(mtcars, mtcars["mpg"])
+car_mod = tree.DecisionTreeRegressor().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
-                 save_ptype = True, ptype_data = mtcars)
+                 save_ptype = True, ptype_data = mtcars.drop(columns="mpg"))
 
-model_board = board_folder(".", allow_pickle_read=True)
+model_board = board_folder("pins-py", allow_pickle_read=True)
 vetiver_pin_write(model_board, v)
 ```
 :::
@@ -94,7 +94,7 @@ vetiver_write_plumber(model_board, "cars_mpg")
 #| comment: ""
 docker_dir <- fs::path_real(tempdir())
 tmp_plumber <- fs::path(docker_dir, "plumber.R")
-vetiver_write_plumber(model_board, "cars_mpg", file = tmp_plumber)
+vetiver_write_plumber(model_board, "cars_mpg", file = tmp_plumber, rsconnect = FALSE)
 cat(readr::read_lines(tmp_plumber), sep = "\n")
 ```
 

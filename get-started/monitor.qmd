@@ -5,4 +5,187 @@ format:
     toc: true
 ---
 
-🚧 COMING SOON 🚧
+Once a model is [deployed](/get-started/deploy.html), it is important to monitor its statistical performance. Machine learning can break quietly; a model can continue returning predictions without error, even if it is performing poorly. Without monitoring for degradation, this silent failure can continue undiagnosed. The vetiver framework offers functions to fluently compute, store, and plot model metrics. These functions are particularly suited to monitoring your model using multiple performance metrics over time.
+
+When a model is deployed, new data comes in over time, even if time is not a feature for prediction. Even if your model does not explicitly use any dates, a measure of time like a date can affect your model performance.
+
+::: callout-tip
+## How does my model use time?
+
+- Your model **sometimes** uses date-time quantities as features for prediction. 
+- Monitoring **always** involves a date-time quantity, not necessarily as a feature, but as a dimension along which you are monitoring.
+
+:::
+
+## Build a model
+
+::: {.panel-tabset group="language"}
+## R
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code from previous steps"
+#| output: false
+library(pins)
+library(vetiver)
+library(workflows)
+
+model_board <- board_folder(path = "pins-r")
+v <- vetiver_pin_read(model_board, "cars_mpg")
+```
+
+## Python
+
+```{python}
+#| code-fold: true
+#| code-summary: "Show the code from previous steps"
+#| output: false
+
+from vetiver import VetiverModel
+from pins import board_folder
+
+model_board = board_folder("pins-py", allow_pickle_read=True)
+v = VetiverModel.from_pin(model_board, "cars_mpg")
+```
+:::
+
+
+## Compute metrics
+
+Let's say we collect new data on fuel efficiency in cars and we want to monitor the performance of our model over time. We can compute multiple metrics at once over a certain time aggregation.
+
+::: {.panel-tabset group="language"}
+## R
+
+```{r}
+#| message: false
+library(vetiver)
+library(tidyverse)
+cars <- read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
+original_cars <- slice(cars, 1:14)
+
+original_metrics <-
+    augment(v, new_data = original_cars) %>%
+    vetiver_compute_metrics(date_obs, "week", mpg, .pred)
+
+original_metrics
+```
+
+
+## Python
+
+```{python}
+import vetiver
+
+import pandas as pd
+from sklearn import metrics
+from datetime import timedelta
+
+cars = pd.read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
+original_cars = cars.iloc[:14, :]
+original_cars["preds"] = v.model.predict(original_cars.drop(columns=["date_obs", "mpg"]))
+
+metric_set = [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]
+td = timedelta(weeks = 1)
+
+original_metrics = vetiver.compute_metrics(
+    data = original_cars, 
+    date_var = "date_obs", 
+    period = td, 
+    metric_set = metric_set, 
+    truth = "mpg", 
+    estimate = "preds"
+)
+
+original_metrics
+```
+
+:::
+
+## Pin metrics
+
+The first time you pin monitoring metrics, you can write to a board as normal. However, when adding new metrics measurements to your pin as you continue to gather new data and monitor, you may have dates that overlap with those already in the pin, depending on your monitoring strategy. You can choose how to handle overlapping dates with the `overwrite` argument.
+
+::: {.panel-tabset group="language"}
+## R
+
+```{r}
+#| output: false
+model_board %>% pin_write(original_metrics, "tree_metrics")
+
+# dates overlap with existing metrics:
+new_cars <- slice(cars, -1:-7)
+new_metrics <-
+    augment(v, new_data = new_cars) %>%
+    vetiver_compute_metrics(date_obs, "week", mpg, .pred)
+
+model_board %>%
+    vetiver_pin_metrics(new_metrics, "tree_metrics", overwrite = TRUE)
+```
+
+
+
+## Python
+
+```{python}
+#| output: false
+import vetiver
+import pins
+
+model_board.pin_write(original_metrics, "tree_metrics", type = "csv")
+
+# dates overlap with existing metrics:
+new_cars = cars.iloc[7:, :]
+new_cars["preds"] = v.model.predict(new_cars.drop(columns=["date_obs", "mpg"]))
+new_metrics = vetiver.compute_metrics(
+    data = new_cars, 
+    date_var = "date_obs", 
+    period = td, 
+    metric_set = metric_set, 
+    truth = "mpg", 
+    estimate = "preds"
+)
+                    
+vetiver.pin_metrics(model_board, new_metrics, "tree_metrics", overwrite = True)
+
+```
+
+:::
+
+
+## Plot metrics
+
+You can visualize your set of computed metrics and your model's performance[^1].
+
+[^1]: Keep in mind that the R and Python models have different values for the decision tree hyperparameters.
+
+::: {.panel-tabset group="language"}
+## R
+
+```{r}
+#| fig.height: 7
+#| fig.width: 6
+library(ggplot2)
+monitoring_metrics <- model_board %>% pin_read("tree_metrics")
+vetiver_plot_metrics(monitoring_metrics) +
+    scale_size(range = c(2, 4))
+```
+
+
+## Python
+
+
+```{python}
+#| eval: false
+monitoring_metrics = model_board.pin_read("tree_metrics")
+p = vetiver.plot_metrics(df_metrics = monitoring_metrics)
+p.show()
+```
+![](../images/pythonmonitor.png)
+
+:::
+
+## Build a dashboard
+
+The vetiver package provides an R Markdown template for [creating a monitoring dashboard](https://rstudio.github.io/vetiver-r/reference/vetiver_dashboard.html). The template automates extracting some information from your metrics, and provides a way to extend the dashboard for a custom monitoring implementation.
+

@@ -85,7 +85,7 @@ Let's consider one kind of model supported by vetiver, a [scikit-learn](https://
 from vetiver.data import mtcars
 from sklearn import linear_model
 
-car_mod = linear_model.LinearRegression().fit(mtcars, mtcars["mpg"])
+car_mod = linear_model.LinearRegression().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 ```
 :::
 

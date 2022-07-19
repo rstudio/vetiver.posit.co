@@ -270,7 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> linear_model</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> linear_model.LinearRegression().fit(mtcars, mtcars[<span class="st">"mpg"</span>])</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> linear_model.LinearRegression().fit(mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>), mtcars[<span class="st">"mpg"</span>])</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(car_mod, model_name <span class="op">=</span> <span class="st">"cars_mpg"</span>, </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -333,16 +333,20 @@ Note
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(car_mod, <span class="st">"cars_mpg"</span>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Creating new version '20220719T223457Z-9b649'
+Writing to pin 'cars_mpg'</code></pre>
+</div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> tree.DecisionTreeRegressor().fit(mtcars, mtcars[<span class="st">"mpg"</span>])</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(car_mod, model_name <span class="op">=</span> <span class="st">"cars_mpg"</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> tree.DecisionTreeRegressor().fit(mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>), mtcars[<span class="st">"mpg"</span>])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(car_mod, model_name <span class="op">=</span> <span class="st">"cars_mpg"</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -358,8 +362,8 @@ Note
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20220719T000951Z-4a65a 2022-07-18 18:09:00 4a65a
-2 20220719T000953Z-15490 2022-07-18 18:09:00 15490</code></pre>
+1 20220719T223455Z-4a65a 2022-07-19 16:34:00 4a65a
+2 20220719T223457Z-9b649 2022-07-19 16:34:00 9b649</code></pre>
 </div>
 </div>
 </div>
@@ -368,8 +372,8 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              created   hash                 version
-0 2022-07-18 18:09:51  6ec26  20220718T180951Z-6ec26
-1 2022-07-18 18:09:53  468d7  20220718T180953Z-468d7</code></pre>
+0 2022-07-19 16:34:55  dd3e7  20220719T163455Z-dd3e7
+1 2022-07-19 16:34:57  afa6c  20220719T163457Z-afa6c</code></pre>
 </div>
 </div>
 </div>

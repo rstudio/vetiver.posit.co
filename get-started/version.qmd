@@ -14,7 +14,6 @@ format:
 #| code-fold: true
 #| code-summary: "Show the code from previous steps"
 #| message: false
-
 library(tidymodels)
 library(vetiver)
 
@@ -33,7 +32,7 @@ from vetiver.data import mtcars
 from vetiver import VetiverModel
 from sklearn import linear_model
 
-car_mod = linear_model.LinearRegression().fit(mtcars, mtcars["mpg"])
+car_mod = linear_model.LinearRegression().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
                  save_ptype = True, ptype_data = mtcars)
@@ -99,7 +98,7 @@ model_board %>% vetiver_pin_write(v)
 ```{python}
 #| output: false
 from sklearn import tree
-car_mod = tree.DecisionTreeRegressor().fit(mtcars, mtcars["mpg"])
+car_mod = tree.DecisionTreeRegressor().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
                  save_ptype = True, ptype_data = mtcars)

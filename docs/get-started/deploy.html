@@ -262,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">workflow</span>(mpg <span class="sc">~</span> ., <span class="fu">decision_tree</span>(<span class="at">mode =</span> <span class="st">"regression"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(mtcars)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(car_mod, <span class="st">"cars_mpg"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>model_board <span class="ot">&lt;-</span> <span class="fu">board_folder</span>(<span class="st">"."</span>, <span class="at">versioned =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>model_board <span class="ot">&lt;-</span> <span class="fu">board_folder</span>(<span class="st">"pins-r"</span>, <span class="at">versioned =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -276,12 +276,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins <span class="im">import</span> board_folder</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> tree.DecisionTreeRegressor().fit(mtcars, mtcars[<span class="st">"mpg"</span>])</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> tree.DecisionTreeRegressor().fit(mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>), mtcars[<span class="st">"mpg"</span>])</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(car_mod, model_name <span class="op">=</span> <span class="st">"cars_mpg"</span>, </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>))</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>model_board <span class="op">=</span> board_folder(<span class="st">"."</span>, allow_pickle_read<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>model_board <span class="op">=</span> board_folder(<span class="st">"pins-py"</span>, allow_pickle_read<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -353,15 +353,8 @@ library(pins)
 library(plumber)
 library(rapidoc)
 library(vetiver)
-
-# Packages needed to generate model predictions
-if (FALSE) {
-    library(parsnip)
-    library(rpart)
-    library(workflows)
-}
-b &lt;- board_folder(path = ".")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220719T000609Z-67f41")
+b &lt;- board_folder(path = "pins-r")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220719T223436Z-04d88")
 
 #* @plumber
 function(pr) {
@@ -382,8 +375,8 @@ import vetiver
 import pins
 
 
-b = pins.board_folder('.')
-v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220718T175834Z-01cb1')
+b = pins.board_folder('pins-py')
+v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220719T161222Z-0cb02')
 
 vetiver_api = vetiver.VetiverAPI(v)
 api = vetiver_api.app</code></pre>
