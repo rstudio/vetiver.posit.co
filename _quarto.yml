@@ -69,6 +69,3 @@ format:
   html:
     theme: [sandstone, custom.scss]
     css: styles.css
-
-editor: visual
-
