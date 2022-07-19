@@ -99,6 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/grouped-tabsets-0.0.1/grouped-tabsets.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -244,9 +245,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="review-of-previous-steps" class="level2">
 <h2 class="anchored" data-anchor-id="review-of-previous-steps">Review of previous steps</h2>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <details>
@@ -295,9 +296,9 @@ Note
 <p>We’ll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.</p>
 </div>
 </div>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Most pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.</p>
 <div class="cell">
@@ -320,9 +321,9 @@ Note
 <div class="cell">
 
 </div>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>car_mod <span class="ot">&lt;-</span></span>
@@ -333,7 +334,7 @@ Note
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20220719T000047Z-35217'
+<pre><code>Creating new version '20220719T000630Z-73a56'
 Writing to pin 'cars_mpg'</code></pre>
 </div>
 </div>
@@ -346,38 +347,33 @@ Writing to pin 'cars_mpg'</code></pre>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(car_mod, model_name <span class="op">=</span> <span class="st">"cars_mpg"</span>, </span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Writing pin:
-Name: 'cars_mpg'
-Version: 20220717T174750Z-396e1</code></pre>
-</div>
 </div>
 </div>
 </div>
 </div>
 <p>Both versions are stored, and we have access to both.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">pin_versions</span>(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">pin_versions</span>(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20220717T234746Z-66c7d 2022-07-17 17:47:00 66c7d
-2 20220717T234749Z-4876d 2022-07-17 17:47:00 4876d</code></pre>
+1 20220719T000628Z-4a65a 2022-07-18 18:06:00 4a65a
+2 20220719T000630Z-73a56 2022-07-18 18:06:00 73a56</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              created   hash                 version
-0 2022-07-17 17:47:47  ba92a  20220717T174747Z-ba92a
-1 2022-07-17 17:47:50  396e1  20220717T174750Z-396e1</code></pre>
+0 2022-07-18 18:06:29  6ec26  20220718T180629Z-6ec26
+1 2022-07-18 18:06:31  65b15  20220718T180631Z-65b15</code></pre>
 </div>
 </div>
 </div>
@@ -389,65 +385,6 @@ Version: 20220717T174750Z-396e1</code></pre>
 </section>
 
 </main> <!-- /main -->
-<script type="application/javascript">
-
-function toggleTab(tabId, active) {
-  let tab = document.getElementById(tabId);
-  let tabPanelId = tab.getAttribute("aria-controls");
-  let tabPanel = document.getElementById(tabPanelId);
-  if (active) {
-    tab.classList.add("active");
-    tabPanel.classList.add("active");
-  } else {
-    tab.classList.remove("active");
-    tabPanel.classList.remove("active");
-  }
-}
-function toggleAll(language, selectorsToSync) {
-  Object.keys(selectorsToSync).forEach((lang) => {
-    selectorsToSync[lang].forEach((selector) => {
-      toggleTab(selector, lang === language);
-    });
-  });
-}
-
-function findSelectorsToSyncByLanguage() {
-  let selectorsToSync = {};
-  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-    if ((item.innerHTML !== "R") & (item.innerHTML !== "Python")) {
-      return;
-    }
-    let lang = item.innerHTML;
-    if (!selectorsToSync[lang]) {
-      selectorsToSync[lang] = [];
-    }
-    selectorsToSync[lang].push(item.id);
-  });
-  return selectorsToSync;
-}
-
-function setupSelectorSync(lang) {
-  const selectorsToSync = findSelectorsToSyncByLanguage();
-  Object.keys(selectorsToSync).forEach((lang) => {
-    selectorsToSync[lang].forEach((selector) => {
-    const item = document.getElementById(selector);
-    item.addEventListener("click", (event) => {
-      localStorage.setItem("quartoLangTabSync", lang);
-      toggleAll(lang, selectorsToSync);
-    });
-    });
-  });
-  // for initial state
-  if (lang) {
-    toggleAll(lang, selectorsToSync);
-  }
-}
-
-window.document.addEventListener("DOMContentLoaded", (event) => {
-    setupSelectorSync(localStorage.getItem("quartoLangTabSync"));
-});
-
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

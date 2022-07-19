@@ -99,6 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/grouped-tabsets-0.0.1/grouped-tabsets.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -246,9 +247,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="review-of-previous-steps" class="level2">
 <h2 class="anchored" data-anchor-id="review-of-previous-steps">Review of previous steps</h2>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <details>
@@ -291,9 +292,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="create-a-rest-api-for-deployment" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-rest-api-for-deployment">Create a REST API for deployment</h2>
 <p>You can deploy your model by creating a special <a href="https://www.rplumber.io/">Plumber</a> router in R or a <a href="https://fastapi.tiangolo.com/">FastAPI</a> router in Python, and adding a POST endpoint for making predictions.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plumber)</span>
@@ -337,9 +338,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><br></p>
 <p>FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for <a href="https://www.rstudio.com/products/connect/">RStudio Connect</a>.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_plumber</span>(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -360,7 +361,7 @@ if (FALSE) {
     library(workflows)
 }
 b &lt;- board_folder(path = ".")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220719T000025Z-7235a")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220719T000609Z-67f41")
 
 #* @plumber
 function(pr) {
@@ -422,9 +423,9 @@ Note
 <p>You can use any pins board with Docker, like <code>board_folder()</code> or <code>board_rsconnect()</code>, as long as your Docker container can authenticate to your pins board.</p>
 </div>
 </div>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_docker</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -506,9 +507,9 @@ Tip
 <section id="predict-from-your-model-endpoint" class="level2">
 <h2 class="anchored" data-anchor-id="predict-from-your-model-endpoint">Predict from your model endpoint</h2>
 <p>A model deployed via vetiver can be treated as a special <code>vetiver_endpoint()</code> object.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
@@ -533,9 +534,9 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 </div>
 <p>If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via <a href="https://solutions.rstudio.com/r/jobs/">a background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate process<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>new_car <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cyl =</span> <span class="dv">4</span>,  <span class="at">disp =</span> <span class="dv">200</span>, </span>
@@ -578,65 +579,6 @@ http://127.0.0.1:8080/predict</code></pre>
 <li id="fn1" role="doc-endnote"><p>Keep in mind that the R and Python models have different values for the decision tree hyperparameters.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
-<script type="application/javascript">
-
-function toggleTab(tabId, active) {
-  let tab = document.getElementById(tabId);
-  let tabPanelId = tab.getAttribute("aria-controls");
-  let tabPanel = document.getElementById(tabPanelId);
-  if (active) {
-    tab.classList.add("active");
-    tabPanel.classList.add("active");
-  } else {
-    tab.classList.remove("active");
-    tabPanel.classList.remove("active");
-  }
-}
-function toggleAll(language, selectorsToSync) {
-  Object.keys(selectorsToSync).forEach((lang) => {
-    selectorsToSync[lang].forEach((selector) => {
-      toggleTab(selector, lang === language);
-    });
-  });
-}
-
-function findSelectorsToSyncByLanguage() {
-  let selectorsToSync = {};
-  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-    if ((item.innerHTML !== "R") & (item.innerHTML !== "Python")) {
-      return;
-    }
-    let lang = item.innerHTML;
-    if (!selectorsToSync[lang]) {
-      selectorsToSync[lang] = [];
-    }
-    selectorsToSync[lang].push(item.id);
-  });
-  return selectorsToSync;
-}
-
-function setupSelectorSync(lang) {
-  const selectorsToSync = findSelectorsToSyncByLanguage();
-  Object.keys(selectorsToSync).forEach((lang) => {
-    selectorsToSync[lang].forEach((selector) => {
-    const item = document.getElementById(selector);
-    item.addEventListener("click", (event) => {
-      localStorage.setItem("quartoLangTabSync", lang);
-      toggleAll(lang, selectorsToSync);
-    });
-    });
-  });
-  // for initial state
-  if (lang) {
-    toggleAll(lang, selectorsToSync);
-  }
-}
-
-window.document.addEventListener("DOMContentLoaded", (event) => {
-    setupSelectorSync(localStorage.getItem("quartoLangTabSync"));
-});
-
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

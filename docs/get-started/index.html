@@ -98,6 +98,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/grouped-tabsets-0.0.1/grouped-tabsets.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -245,9 +246,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The vetiver framework for MLOps tasks is built for data science teams using R and/or Python, with a native, fluent experience for both. It is built to be extensible, with methods that can support many kinds of models.</p>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>You can use vetiver with:</p>
 <ul>
@@ -289,9 +290,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="train-a-model" class="level2">
 <h2 class="anchored" data-anchor-id="train-a-model">Train a model</h2>
 <p>For this example, let’s work with data on fuel efficiency for cars to predict miles per gallon.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>Let’s consider one kind of model supported by vetiver, a <a href="https://www.tidymodels.org/">tidymodels</a> workflow that encompasses both feature engineering and model estimation.</p>
 <div class="cell">
@@ -318,9 +319,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="create-a-vetiver-model" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-vetiver-model">Create a vetiver model</h2>
 <p>We can create a <code>vetiver_model()</code> in R or <code>VetiverModel()</code> in Python from the trained model; a vetiver model object collects the information needed to store, version, and deploy a trained model.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vetiver)</span>
@@ -352,65 +353,6 @@ A lm regression modeling workflow using 10 features</code></pre>
 </section>
 
 </main> <!-- /main -->
-<script type="application/javascript">
-
-function toggleTab(tabId, active) {
-  let tab = document.getElementById(tabId);
-  let tabPanelId = tab.getAttribute("aria-controls");
-  let tabPanel = document.getElementById(tabPanelId);
-  if (active) {
-    tab.classList.add("active");
-    tabPanel.classList.add("active");
-  } else {
-    tab.classList.remove("active");
-    tabPanel.classList.remove("active");
-  }
-}
-function toggleAll(language, selectorsToSync) {
-  Object.keys(selectorsToSync).forEach((lang) => {
-    selectorsToSync[lang].forEach((selector) => {
-      toggleTab(selector, lang === language);
-    });
-  });
-}
-
-function findSelectorsToSyncByLanguage() {
-  let selectorsToSync = {};
-  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-    if ((item.innerHTML !== "R") & (item.innerHTML !== "Python")) {
-      return;
-    }
-    let lang = item.innerHTML;
-    if (!selectorsToSync[lang]) {
-      selectorsToSync[lang] = [];
-    }
-    selectorsToSync[lang].push(item.id);
-  });
-  return selectorsToSync;
-}
-
-function setupSelectorSync(lang) {
-  const selectorsToSync = findSelectorsToSyncByLanguage();
-  Object.keys(selectorsToSync).forEach((lang) => {
-    selectorsToSync[lang].forEach((selector) => {
-    const item = document.getElementById(selector);
-    item.addEventListener("click", (event) => {
-      localStorage.setItem("quartoLangTabSync", lang);
-      toggleAll(lang, selectorsToSync);
-    });
-    });
-  });
-  // for initial state
-  if (lang) {
-    toggleAll(lang, selectorsToSync);
-  }
-}
-
-window.document.addEventListener("DOMContentLoaded", (event) => {
-    setupSelectorSync(localStorage.getItem("quartoLangTabSync"));
-});
-
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
