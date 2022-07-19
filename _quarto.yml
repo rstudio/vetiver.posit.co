@@ -64,11 +64,10 @@ website:
         - href: learn-more/parity-checklist.qmd
         - href: learn-more/model-card.qmd
 
+filters:
+  - grouped-tabsets
 
 format:
   html:
     theme: [sandstone, custom.scss]
     css: styles.css
-
-editor: visual
-
