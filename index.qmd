@@ -31,7 +31,7 @@ Functions handle both recording and checking the model's input data prototype, a
 
 Use vetiver to [version](/get-started/version.html) and [deploy](/get-started/deploy.html) your trained models.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 ```{r}
@@ -53,4 +53,3 @@ v = VetiverModel(model, model_name = "cars_linear",
 v.description
 ```
 :::
-

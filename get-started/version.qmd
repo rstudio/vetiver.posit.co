@@ -41,7 +41,9 @@ v = VetiverModel(car_mod, model_name = "cars_mpg",
 
 ## Store and version your model
 
-You can store and version your model by choosing a [pins](https://pins.rstudio.com/) "board" for it. Your board for model pins can be set up to use a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model's input data prototype for checking new data at prediction time.
+You can store and version your model by choosing a [pins](https://pins.rstudio.com/) "board" for it.
+Your board for model pins can be set up to use a local folder, RStudio Connect, Amazon S3, and more.
+When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model's input data prototype for checking new data at prediction time.
 
 ::: callout-note
 We'll use a temporary board that will be automatically deleted for this demo, but for your real work, you will want to choose the best board for your particular infrastructure.
@@ -53,7 +55,7 @@ We'll use a temporary board that will be automatically deleted for this demo, bu
 Most pins boards have versioning turned on by default, but we can turn it on explicitly for our temporary demo board.
 
 ```{r}
-#| message: false
+#| output: false
 library(pins)
 model_board <- board_temp(versioned = TRUE)
 model_board %>% vetiver_pin_write(v)
@@ -62,7 +64,7 @@ model_board %>% vetiver_pin_write(v)
 ## Python
 
 ```{python}
-#| message: false
+#| output: false
 from pins import board_temp
 from vetiver import vetiver_pin_write
 model_board = board_temp(versioned = True, allow_pickle_read = True)
@@ -81,6 +83,7 @@ Sys.sleep(1.5)
 ## R
 
 ```{r}
+#| output: false
 car_mod <-
     workflow(mpg ~ ., decision_tree(mode = "regression")) %>%
     fit(mtcars)
@@ -93,6 +96,7 @@ model_board %>% vetiver_pin_write(v)
 ## Python
 
 ```{python}
+#| output: false
 from sklearn import tree
 car_mod = tree.DecisionTreeRegressor().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 

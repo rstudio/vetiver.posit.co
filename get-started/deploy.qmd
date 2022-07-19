@@ -31,7 +31,7 @@ model_board %>% vetiver_pin_write(v)
 ```{python}
 #| code-fold: true
 #| code-summary: "Show the code from previous steps"
-#| message: false
+#| output: false
 
 from vetiver.data import mtcars
 from vetiver import VetiverModel, vetiver_pin_write
@@ -72,7 +72,6 @@ app = VetiverAPI(v, check_ptype = True)
 
 To start a server using this object, use `app.run(port = 8080)` or your port of choice.
 :::
-
 
 You can interact with your vetiver API via automatically generated, detailed visual documentation.
 
