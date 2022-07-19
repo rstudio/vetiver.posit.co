@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.20">
+<meta name="generator" content="quarto-1.0.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -99,6 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/grouped-tabsets-0.0.1/grouped-tabsets.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -246,9 +247,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="review-of-previous-steps" class="level2">
 <h2 class="anchored" data-anchor-id="review-of-previous-steps">Review of previous steps</h2>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <details>
@@ -261,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">workflow</span>(mpg <span class="sc">~</span> ., <span class="fu">decision_tree</span>(<span class="at">mode =</span> <span class="st">"regression"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(mtcars)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(car_mod, <span class="st">"cars_mpg"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>model_board <span class="ot">&lt;-</span> <span class="fu">board_folder</span>(<span class="st">"."</span>, <span class="at">versioned =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>model_board <span class="ot">&lt;-</span> <span class="fu">board_folder</span>(<span class="st">"pins-r"</span>, <span class="at">versioned =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -275,19 +276,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins <span class="im">import</span> board_folder</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> tree.DecisionTreeRegressor().fit(mtcars, mtcars[<span class="st">"mpg"</span>])</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> tree.DecisionTreeRegressor().fit(mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>), mtcars[<span class="st">"mpg"</span>])</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(car_mod, model_name <span class="op">=</span> <span class="st">"cars_mpg"</span>, </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>))</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>model_board <span class="op">=</span> board_folder(<span class="st">"."</span>, allow_pickle_read<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>model_board <span class="op">=</span> board_folder(<span class="st">"pins-py"</span>, allow_pickle_read<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Writing pin:
-Name: 'cars_mpg'
-Version: 20220715T162650Z-73101</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -296,14 +292,14 @@ Version: 20220715T162650Z-73101</code></pre>
 <section id="create-a-rest-api-for-deployment" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-rest-api-for-deployment">Create a REST API for deployment</h2>
 <p>You can deploy your model by creating a special <a href="https://www.rplumber.io/">Plumber</a> router in R or a <a href="https://fastapi.tiangolo.com/">FastAPI</a> router in Python, and adding a POST endpoint for making predictions.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plumber)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pr</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vetiver_api</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plumber)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pr</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vetiver_api</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Plumber router with 2 endpoints, 4 filters, and 1 sub-router.
 # Use `pr_run()` on this object to start the API.
@@ -312,7 +308,7 @@ Version: 20220715T162650Z-73101</code></pre>
 ├──[cookieParser]
 ├──[sharedSecret]
 ├──/logo
-│  │ # Plumber static router serving from directory: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/vetiver
+│  │ # Plumber static router serving from directory: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/library/vetiver
 ├──/ping (GET)
 └──/predict (POST)</code></pre>
 </div>
@@ -321,8 +317,8 @@ Version: 20220715T162650Z-73101</code></pre>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverAPI</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> VetiverAPI(v, check_ptype <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverAPI</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> VetiverAPI(v, check_ptype <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To start a server using this object, use <code>app.run(port = 8080)</code> or your port of choice.</p>
 </div>
@@ -342,12 +338,12 @@ Version: 20220715T162650Z-73101</code></pre>
 </div>
 <p><br></p>
 <p>FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for <a href="https://www.rstudio.com/products/connect/">RStudio Connect</a>.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_plumber</span>(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_plumber</span>(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -357,15 +353,8 @@ library(pins)
 library(plumber)
 library(rapidoc)
 library(vetiver)
-
-# Packages needed to generate model predictions
-if (FALSE) {
-    library(parsnip)
-    library(rpart)
-    library(workflows)
-}
-b &lt;- board_folder(path = ".")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220715T202648Z-67ad7")
+b &lt;- board_folder(path = "pins-r")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220719T223436Z-04d88")
 
 #* @plumber
 function(pr) {
@@ -377,7 +366,7 @@ function(pr) {
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>app_file <span class="op">=</span> vetiver.write_app(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>app_file <span class="op">=</span> vetiver.write_app(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -386,8 +375,8 @@ import vetiver
 import pins
 
 
-b = pins.board_folder('.', allow_pickle_read=True)
-v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220715T162650Z-73101')
+b = pins.board_folder('pins-py')
+v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220719T161222Z-0cb02')
 
 vetiver_api = vetiver.VetiverAPI(v)
 api = vetiver_api.app</code></pre>
@@ -427,18 +416,18 @@ Note
 <p>You can use any pins board with Docker, like <code>board_folder()</code> or <code>board_rsconnect()</code>, as long as your Docker container can authenticate to your pins board.</p>
 </div>
 </div>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_docker</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_docker</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># Generated by the vetiver package; edit with care
 
-FROM rocker/r-ver:4.1.2
+FROM rocker/r-ver:4.2.0
 ENV RENV_CONFIG_REPOS_OVERRIDE https://packagemanager.rstudio.com/cran/latest
 
 RUN apt-get update -qq &amp;&amp; apt-get install -y --no-install-recommends \
@@ -460,13 +449,13 @@ ENTRYPOINT ["R", "-e", "pr &lt;- plumber::plumb('/opt/ml/plumber.R'); pr$run(hos
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vetiver.write_docker(app_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>vetiver.write_docker(app_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># # Generated by the vetiver package; edit with care
 # start with python base image
-FROM python:3.9
+FROM python:3.8
 
 # create directory in container for vetiver files
 WORKDIR /vetiver
@@ -511,13 +500,13 @@ Tip
 <section id="predict-from-your-model-endpoint" class="level2">
 <h2 class="anchored" data-anchor-id="predict-from-your-model-endpoint">Predict from your model endpoint</h2>
 <p>A model deployed via vetiver can be treated as a special <code>vetiver_endpoint()</code> object.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ── A model API endpoint for prediction: 
@@ -527,9 +516,9 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver.server <span class="im">import</span> predict, vetiver_endpoint</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> vetiver_endpoint(<span class="st">"http://127.0.0.1:8080/predict/"</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver.server <span class="im">import</span> predict, vetiver_endpoint</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> vetiver_endpoint(<span class="st">"http://127.0.0.1:8080/predict/"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'http://127.0.0.1:8080/predict/'</code></pre>
 </div>
@@ -538,17 +527,17 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 </div>
 <p>If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via <a href="https://solutions.rstudio.com/r/jobs/">a background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate process<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<div class="panel-tabset">
+<div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
+<div class="tab-content" data-group="language">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>new_car <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cyl =</span> <span class="dv">4</span>,  <span class="at">disp =</span> <span class="dv">200</span>, </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hp =</span> <span class="dv">100</span>, <span class="at">drat =</span> <span class="dv">3</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">wt =</span> <span class="dv">3</span>,   <span class="at">qsec =</span> <span class="dv">17</span>, </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vs =</span> <span class="dv">0</span>,   <span class="at">am =</span> <span class="dv">1</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gear =</span> <span class="dv">4</span>, <span class="at">carb =</span> <span class="dv">2</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>new_car <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cyl =</span> <span class="dv">4</span>,  <span class="at">disp =</span> <span class="dv">200</span>, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hp =</span> <span class="dv">100</span>, <span class="at">drat =</span> <span class="dv">3</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">wt =</span> <span class="dv">3</span>,   <span class="at">qsec =</span> <span class="dv">17</span>, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vs =</span> <span class="dv">0</span>,   <span class="at">am =</span> <span class="dv">1</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gear =</span> <span class="dv">4</span>, <span class="at">carb =</span> <span class="dv">2</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code># A tibble: 11 × 1
    .pred
@@ -557,14 +546,14 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>new_car_dict <span class="op">=</span> {<span class="st">"cyl"</span>: [<span class="dv">4</span>], <span class="st">"disp"</span>: [<span class="dv">200</span>], </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"hp"</span>: [<span class="dv">100</span>], <span class="st">"drat"</span>: [<span class="dv">3</span>],</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"wt"</span>: [<span class="dv">3</span>], <span class="st">"qsec"</span>: [<span class="dv">17</span>], </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"vs"</span>: [<span class="dv">0</span>], <span class="st">"am"</span>: [<span class="dv">1</span>],</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"gear"</span>: [<span class="dv">4</span>], <span class="st">"carb"</span>: [<span class="dv">2</span>]}</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>new_car <span class="op">=</span> pd.DataFrame(new_car_dict)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>predict(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>new_car_dict <span class="op">=</span> {<span class="st">"cyl"</span>: [<span class="dv">4</span>], <span class="st">"disp"</span>: [<span class="dv">200</span>], </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"hp"</span>: [<span class="dv">100</span>], <span class="st">"drat"</span>: [<span class="dv">3</span>],</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"wt"</span>: [<span class="dv">3</span>], <span class="st">"qsec"</span>: [<span class="dv">17</span>], </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"vs"</span>: [<span class="dv">0</span>], <span class="st">"am"</span>: [<span class="dv">1</span>],</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"gear"</span>: [<span class="dv">4</span>], <span class="st">"carb"</span>: [<span class="dv">2</span>]}</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>new_car <span class="op">=</span> pd.DataFrame(new_car_dict)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>predict(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>  prediction
 0       21.0</code></pre>
@@ -583,65 +572,6 @@ http://127.0.0.1:8080/predict</code></pre>
 <li id="fn1" role="doc-endnote"><p>Keep in mind that the R and Python models have different values for the decision tree hyperparameters.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
-<script type="application/javascript">
-
-function toggleTab(tabId, active) {
-  let tab = document.getElementById(tabId);
-  let tabPanelId = tab.getAttribute("aria-controls");
-  let tabPanel = document.getElementById(tabPanelId);
-  if (active) {
-    tab.classList.add("active");
-    tabPanel.classList.add("active");
-  } else {
-    tab.classList.remove("active");
-    tabPanel.classList.remove("active");
-  }
-}
-function toggleAll(language, selectorsToSync) {
-  Object.keys(selectorsToSync).forEach((lang) => {
-    selectorsToSync[lang].forEach((selector) => {
-      toggleTab(selector, lang === language);
-    });
-  });
-}
-
-function findSelectorsToSyncByLanguage() {
-  let selectorsToSync = {};
-  document.querySelectorAll("[id^='tabset-']").forEach((item) => {
-    if ((item.innerHTML !== "R") & (item.innerHTML !== "Python")) {
-      return;
-    }
-    let lang = item.innerHTML;
-    if (!selectorsToSync[lang]) {
-      selectorsToSync[lang] = [];
-    }
-    selectorsToSync[lang].push(item.id);
-  });
-  return selectorsToSync;
-}
-
-function setupSelectorSync(lang) {
-  const selectorsToSync = findSelectorsToSyncByLanguage();
-  Object.keys(selectorsToSync).forEach((lang) => {
-    selectorsToSync[lang].forEach((selector) => {
-    const item = document.getElementById(selector);
-    item.addEventListener("click", (event) => {
-      localStorage.setItem("quartoLangTabSync", lang);
-      toggleAll(lang, selectorsToSync);
-    });
-    });
-  });
-  // for initial state
-  if (lang) {
-    toggleAll(lang, selectorsToSync);
-  }
-}
-
-window.document.addEventListener("DOMContentLoaded", (event) => {
-    setupSelectorSync(localStorage.getItem("quartoLangTabSync"));
-});
-
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -656,7 +586,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   const toggleBodyColorPrimary = () => {
-    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
   }
   toggleBodyColorPrimary();  
   const icon = "";
