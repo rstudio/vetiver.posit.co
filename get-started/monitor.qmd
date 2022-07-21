@@ -109,7 +109,7 @@ original_metrics
 
 ## Pin metrics
 
-The first time you pin monitoring metrics, you can write to a board as normal. However, when adding new metrics measurements to your pin as you continue to gather new data and monitor, you may have dates that overlap with those already in the pin, depending on your monitoring strategy. You can choose how to handle overlapping dates with the `overwrite` argument.
+The first time you pin monitoring metrics, you can write to a board as normal. 
 
 ::: {.panel-tabset group="language"}
 ## R
@@ -117,7 +117,27 @@ The first time you pin monitoring metrics, you can write to a board as normal. H
 ```{r}
 #| output: false
 model_board %>% pin_write(original_metrics, "tree_metrics")
+```
 
+
+
+## Python
+
+```{python}
+#| output: false
+model_board.pin_write(original_metrics, "tree_metrics", type = "csv")
+```
+
+:::
+
+
+However, when adding new metrics measurements to your pin as you continue to gather new data and monitor, you may have dates that overlap with those already in the pin, depending on your monitoring strategy. You can choose how to handle overlapping dates with the `overwrite` argument.
+
+::: {.panel-tabset group="language"}
+## R
+
+```{r}
+#| output: false
 # dates overlap with existing metrics:
 new_cars <- slice(cars, -1:-7)
 new_metrics <-
@@ -134,11 +154,6 @@ model_board %>%
 
 ```{python}
 #| output: false
-import vetiver
-import pins
-
-model_board.pin_write(original_metrics, "tree_metrics", type = "csv")
-
 # dates overlap with existing metrics:
 new_cars = cars.iloc[7:, :].copy()
 new_cars["preds"] = v.model.predict(
@@ -176,8 +191,9 @@ You can visualize your set of computed metrics and your model's performance[^1].
 ## R
 
 ```{r}
-#| fig.height: 7
-#| fig.width: 6
+#| fig.height: 6
+#| fig.width: 7
+#| fig-align: center
 library(ggplot2)
 monitoring_metrics <- model_board %>% pin_read("tree_metrics")
 vetiver_plot_metrics(monitoring_metrics) +
