@@ -82,10 +82,15 @@ from sklearn import metrics
 from datetime import timedelta
 
 cars = pd.read_csv("https://vetiver.rstudio.com/get-started/new-cars.csv")
-original_cars = cars.iloc[:14, :]
-original_cars["preds"] = v.model.predict(original_cars.drop(columns=["date_obs", "mpg"]))
+original_cars = cars.iloc[:14, :].copy()
+original_cars["preds"] = v.model.predict(
+    original_cars.drop(columns=["date_obs", "mpg"])
+)
 
-metric_set = [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]
+metric_set = [metrics.mean_absolute_error, 
+  metrics.mean_squared_error, 
+  metrics.r2_score]
+  
 td = timedelta(weeks = 1)
 
 original_metrics = vetiver.compute_metrics(
@@ -135,8 +140,11 @@ import pins
 model_board.pin_write(original_metrics, "tree_metrics", type = "csv")
 
 # dates overlap with existing metrics:
-new_cars = cars.iloc[7:, :]
-new_cars["preds"] = v.model.predict(new_cars.drop(columns=["date_obs", "mpg"]))
+new_cars = cars.iloc[7:, :].copy()
+new_cars["preds"] = v.model.predict(
+    new_cars.drop(columns=["date_obs", "mpg"])
+)
+
 new_metrics = vetiver.compute_metrics(
     data = new_cars, 
     date_var = "date_obs", 
@@ -146,7 +154,12 @@ new_metrics = vetiver.compute_metrics(
     estimate = "preds"
 )
                     
-vetiver.pin_metrics(model_board, new_metrics, "tree_metrics", overwrite = True)
+vetiver.pin_metrics(
+    model_board, 
+    new_metrics, 
+    "tree_metrics", 
+    overwrite = True
+)
 
 ```
 
@@ -179,6 +192,7 @@ vetiver_plot_metrics(monitoring_metrics) +
 #| eval: false
 monitoring_metrics = model_board.pin_read("tree_metrics")
 p = vetiver.plot_metrics(df_metrics = monitoring_metrics)
+p.update_yaxes(matches=None)
 p.show()
 ```
 ![](../images/pythonmonitor.png)
@@ -188,4 +202,3 @@ p.show()
 ## Build a dashboard
 
 The vetiver package provides an R Markdown template for [creating a monitoring dashboard](https://rstudio.github.io/vetiver-r/reference/vetiver_dashboard.html). The template automates extracting some information from your metrics, and provides a way to extend the dashboard for a custom monitoring implementation.
-
