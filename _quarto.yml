@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - "get-started/new-cars.csv"
 
 website:
   title: "MLOps with vetiver"
