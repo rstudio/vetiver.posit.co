@@ -13,4 +13,5 @@ Imports:
     pins,
     reticulate,
     vetiver,
-    tidymodels
+    tidymodels,
+    rmarkdown
