@@ -3,6 +3,14 @@ project:
   output-dir: docs
   resources:
     - "get-started/new-cars.csv"
+  render:
+    - about.qmd
+    - index.qmd
+    - learn-more/*
+    - get-started/index.qmd
+    - get-started/version.qmd
+    - get-started/deploy.qmd
+    - get-started/monitor.qmd
 
 website:
   title: "MLOps with vetiver"
