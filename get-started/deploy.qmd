@@ -155,7 +155,7 @@ docker_contents <- gsub(paste0(docker_dir, "/"), "", docker_contents, fixed = TR
 cat(docker_contents, sep = "\n")
 ```
 
-When you run `vetiver_write_docker()`, you generate *two* files: the Dockerfile itself and [the `renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html) to capture your model dependencies.
+When you run `vetiver_write_docker()`, you generate *two* files: the Dockerfile itself and [the `vetiver_renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html) to capture your model dependencies.
 
 ## Python
 
