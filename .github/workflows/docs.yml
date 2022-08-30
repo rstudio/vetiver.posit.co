@@ -3,8 +3,7 @@ name: "Deploy docs to GHPages"
 on:
   workflow_dispatch:
   push:
-    branches: ['main', 'dev-*', 'gh-actions']
-  pull_request:
+    branches: ['main']
 
 jobs:
   build-deploy:
