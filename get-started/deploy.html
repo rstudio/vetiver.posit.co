@@ -354,7 +354,7 @@ library(plumber)
 library(rapidoc)
 library(vetiver)
 b &lt;- board_folder(path = "pins-r")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220830T214609Z-d49c5")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220830T215820Z-bdc6e")
 
 #* @plumber
 function(pr) {
@@ -376,7 +376,7 @@ import pins
 
 
 b = pins.board_folder('pins-py', allow_pickle_read=True)
-v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220830T214612Z-40aa3')
+v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220830T215823Z-c58a0')
 
 vetiver_api = vetiver.VetiverAPI(v)
 api = vetiver_api.app</code></pre>
@@ -445,7 +445,7 @@ EXPOSE 8000
 ENTRYPOINT ["R", "-e", "pr &lt;- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8000)"]</code></pre>
 </div>
 </div>
-<p>When you run <code>vetiver_write_docker()</code>, you generate <em>two</em> files: the Dockerfile itself and <a href="https://rstudio.github.io/renv/articles/lockfile.html">the <code>renv.lock</code> file</a> to capture your model dependencies.</p>
+<p>When you run <code>vetiver_write_docker()</code>, you generate <em>two</em> files: the Dockerfile itself and <a href="https://rstudio.github.io/renv/articles/lockfile.html">the <code>vetiver_renv.lock</code> file</a> to capture your model dependencies.</p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
