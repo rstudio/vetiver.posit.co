@@ -1,0 +1,18 @@
+Package: vetiver.rstudio.com
+Title: Vetiver Bilingual Docs
+Version: 0.1
+Encoding: UTF-8
+Authors@R: c(
+    person("Julia", "Silge", , "julia.silge@rstudio.com", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0002-3671-836X")),
+    person("RStudio", role = c("cph", "fnd"))
+  )
+License: MIT
+Depends: R (>= 3.1.0)
+Imports: 
+    pins,
+    reticulate,
+    vetiver,
+    tidymodels,
+    rmarkdown,
+    tidyverse
