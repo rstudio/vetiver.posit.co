@@ -4,7 +4,6 @@ format:
   html:
     toc: true
 ---
-# Deploying with Docker
 
 For people who wish to bring vetiver to a public or private cloud outside of RStudio Connect, [Docker](https://www.docker.com/) containers are a highly portable solution. Vetiver makes Dockerfile creation easy by generating these files based off of pinned models.
 
@@ -18,10 +17,6 @@ For this demo, we will use data from [Tidy Tuesday](https://github.com/rfordatas
 ```{python}
 import pandas as pd
 import numpy as np
-from sklearn import model_selection, preprocessing, pipeline
-from sklearn.ensemble import RandomForestRegressor
-import vetiver
-import pins
 
 np.random.seed(500)
 
@@ -31,6 +26,7 @@ df = pd.DataFrame(raw)
 df = df[["like_count", "funny", "show_product_quickly", "patriotic", \
     "celebrity", "danger", "animals"]].dropna()
 
+df.head(3)
 ```
 
 ## R
@@ -39,14 +35,11 @@ df = df[["like_count", "funny", "show_product_quickly", "patriotic", \
 library(tidyverse)
 superbowl_ads_raw <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv')
 
-superbowl_ads_raw %>%
-    select(brand, funny:animals, like_count)
-
 superbowl_ads <-
     superbowl_ads_raw %>%
     select(funny:animals, like_count) %>%
     na.omit()
-
+superbowl_ads
 ```
 :::
 
@@ -58,6 +51,9 @@ With data in hand, the next step is to do feature engineering and build a model.
 ## Python
 
 ```{python}
+from sklearn import model_selection, preprocessing, pipeline
+from sklearn.ensemble import RandomForestRegressor
+
 X, y = df.iloc[:,1:],df['like_count']
 X_train, X_test, y_train, y_test = model_selection.train_test_split(
     X, y,
@@ -92,17 +88,21 @@ Next, it is time to create a deployable model object.
 ## Python
 
 ```{python}
+import vetiver
+
 v = vetiver.VetiverModel(
     rf_pipe, 
     ptype_data=X_train, 
     model_name = "superbowl_rf"
 )
+v.description
 ```
 
 ## R
 ```{r}
 #| message: false
 library(vetiver)
+
 v <- vetiver_model(rf_fit, "superbowl_rf")
 v
 ```
@@ -117,6 +117,8 @@ With vetiver model in hand, we pin it to a board to version. We will also use th
 
 ```{python}
 #| eval: false
+import pins
+
 board = pins.board_rsconnect(
     server_url=server_url, # load this from an .env file
     api_key=api_key, # load this from an .env file 
