@@ -9,7 +9,7 @@ For people who wish to bring vetiver to a public or private cloud outside of RSt
 
 ## Import data
 
-For this demo, we will use data from [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-02) to predict the amount of likes a television commercial played during the [Super Bowl]() will get, based on qualities such as: if the ad included any animals, if the ad was funny, if the ad had any elements of danger, etc.
+For this demo, we will use data from [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-02) to predict the amount of YouTube likes a television commercial played during the [Super Bowl](https://en.wikipedia.org/wiki/Super_Bowl) will get, based on qualities such as: if the ad included any animals, if the ad was funny, if the ad had any elements of danger, etc.
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -110,7 +110,7 @@ v
 
 ## Version your model
 
-With vetiver model in hand, we pin it to a board to version. We will also use this board later to create artifacts to run our Dockerfile. 
+We pin our vetiver model to a board to version it. We will also use this board later to create artifacts to run our Dockerfile. 
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -120,8 +120,8 @@ With vetiver model in hand, we pin it to a board to version. We will also use th
 import pins
 
 board = pins.board_rsconnect(
-    server_url=server_url, # load this from an .env file
-    api_key=api_key, # load this from an .env file 
+    server_url=server_url, # load from an .env file
+    api_key=api_key, # load from an .env file 
     allow_pickle_read=True
 )
 
@@ -141,7 +141,7 @@ vetiver_pin_write(board, v)
 
 ## Create API and Docker artifacts
 
-Next, it is time to create an `app.py` or `plumber.R` file. This file will be running inside your Docker container. Once written, vetiver can help write a Dockerfile.
+Next, it is time to create an `app.py` or `plumber.R` file. This file contains the information to create a vetiver API and will be running inside your Docker container. Once you have this file, vetiver can help write a Dockerfile.
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -157,7 +157,9 @@ vetiver.write_docker()
 ```
 
 :::{.callout-note}
-You may need to edit the `app.py` file to load a `.env` file for authorization, if necessary. (??? `vetiver_req.txt`)
+You may need to edit the `app.py` file to load a `.env` file for authorization, if necessary.
+
+Docker also needs a requirements file. You can generate your own, or use `vetiver.load_pkgs()` to generate a file named `vetiver_req.txt` with the packages necessary for prediction.
 :::
 
 ## R
@@ -167,13 +169,16 @@ You may need to edit the `app.py` file to load a `.env` file for authorization, 
 vetiver_write_plumber(board, "julia.silge/superbowl_rf")
 vetiver_write_docker(v, port=8080)
 ```
+
+:::{.callout-note}
+When you run `vetiver_write_docker()`, you generate *two* files: the Dockerfile itself and [the `vetiver_renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html) to capture your model dependencies.
 :::
 
 You have now created all the artifacts to run your Docker container!
 
 ## Build and run your Dockerfile
 
-It is time to build and run your container. Building the Docker container can potentially take a while because it installs all the packages needed to make a prediction with this model.
+It is time to build and run your container. Building the Docker container can potentially take a while, because it installs all the packages needed to make a prediction with this model.
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -192,7 +197,7 @@ docker build --platform linux/amd64 -t superbowlads .
 :::
 
 
-Now run! To authenticate to RStudio Connect (to get the pinned vetiver model), pass in a file supplying enviornment variables.
+Now run! To authenticate to an RStudio Connect board (to get the pinned vetiver model), pass in a file supplying enviornment variables.
 
 ::: {.panel-tabset group="language"}
 ## Python
