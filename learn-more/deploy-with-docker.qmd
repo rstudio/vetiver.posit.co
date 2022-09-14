@@ -1,15 +1,15 @@
 ---
-title: Deploying with Docker
+title: "Deploy with Docker"
 format:
   html:
     toc: true
 ---
 
-For people who wish to bring vetiver to a public or private cloud outside of RStudio Connect, [Docker](https://www.docker.com/) containers are a highly portable solution. Vetiver makes Dockerfile creation easy by generating these files based off of pinned models.
+If you plan to bring vetiver to a public or private cloud outside of [RStudio Connect](https://www.rstudio.com/products/connect/), [Docker](https://www.docker.com/) containers are a highly portable solution. Using vetiver makes Dockerfile creation easy by generating the files you need from your trained models.
 
 ## Import data
 
-For this demo, we will use data from [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-02) to predict the amount of YouTube likes a television commercial played during the [Super Bowl](https://en.wikipedia.org/wiki/Super_Bowl) will get, based on qualities such as: if the ad included any animals, if the ad was funny, if the ad had any elements of danger, etc.
+For this demo, we will use data from [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-02) to predict the number of YouTube likes a television commercial played during the [Super Bowl](https://en.wikipedia.org/wiki/Super_Bowl) will get, based on qualities such as if the ad included any animals, if the ad was funny, if the ad had any elements of danger, etc.
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -30,6 +30,7 @@ df.head(3)
 ```
 
 ## R
+
 ```{r}
 #| message: false
 library(tidyverse)
@@ -39,13 +40,14 @@ superbowl_ads <-
     superbowl_ads_raw %>%
     select(funny:animals, like_count) %>%
     na.omit()
+
 superbowl_ads
 ```
 :::
 
 ## Build a model
 
-With data in hand, the next step is to do feature engineering and build a model. We put these two steps into a single function, such as a pipeline or workflow, and will deploy these pieces together. ([Why are we doing this?](https://www.tmwr.org/workflows.html#begin-model-end))
+With data in hand, the next step is feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will deploy these pieces together. ([Why are we doing this?](https://www.tmwr.org/workflows.html#begin-model-end))
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -79,9 +81,9 @@ rf_fit <-
 ```
 :::
 
-## Create vetiver model
+## Create a vetiver model
 
-Next, it is time to create a deployable model object.
+Next, let's create a deployable model object with vetiver.
 
 ::: {.panel-tabset group="language"}
 
@@ -134,14 +136,18 @@ vetiver.vetiver_pin_write(board, v)
 #| eval: false
 #| message: false
 library(pins)
-board <- board_rsconnect()
+board <- board_rsconnect() # authenticates via environment variables
 vetiver_pin_write(board, v)
 ```
 :::
 
+Here we are using `board_rsconnect()`, but you can use other boards such as `board_s3()`. [Read more](https://vetiver.rstudio.com/get-started/version.html) about how to store and version your vetiver model.
+
 ## Create API and Docker artifacts
 
-Next, it is time to create an `app.py` or `plumber.R` file. This file contains the information to create a vetiver API and will be running inside your Docker container. Once you have this file, vetiver can help write a Dockerfile.
+Next, let's create an `app.py` or `plumber.R` file. This file contains the [information to create a vetiver REST API](https://vetiver.rstudio.com/get-started/deploy.html#create-a-rest-api-for-deployment) and will be running inside your Docker container. 
+
+Once you have this file, vetiver can help you write a Dockerfile.
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -180,42 +186,35 @@ You have now created all the artifacts to run your Docker container!
 
 ## Build and run your Dockerfile
 
-It is time to build and run your container. Building the Docker container can potentially take a while, because it installs all the packages needed to make a prediction with this model.
+It is time to build and run your container. Building the Docker container can potentially take a while, because it installs all the packages needed to make a prediction with this model. Use the [command line](https://docs.docker.com/engine/reference/commandline/cli/) (not R or Python) to build your Docker container:
 
-::: {.panel-tabset group="language"}
-## Python
 
-```
+```{bash}
+#| eval: false
 docker build -t superbowlads .
 ```
 
-## R
 
-If you are on an ARM architecture, use `--platform linux/amd64` for RSPM's fast installation of binaries.
-
-```
-docker build --platform linux/amd64 -t superbowlads .
-```
+:::{.callout-tip}
+If you are on an ARM architecture locally and deploying an R model, use `--platform linux/amd64` for RSPM's fast installation of binaries.
 :::
 
+Now run! To authenticate to your board (to get the pinned vetiver model from, for example, RStudio Connect), pass in a file supplying environment variables.
 
-Now run! To authenticate to an RStudio Connect board (to get the pinned vetiver model), pass in a file supplying enviornment variables.
-
-::: {.panel-tabset group="language"}
-## Python
-```
+```{bash}
+#| eval: false
 docker run --env-file .env -p 8080:8080 superbowlads
 ```
 
-## R
-```
-docker run --env-file .Renviron -p 8080:8080 superbowlads
-```
+:::{.callout-tip}
+R users likely will store their environment variables in a file called `.Renviron` instead of `.env`.
 :::
 
-The Docker container is now running! You can interact with it such as by visiting in a browser at <http://0.0.0.0:8080/__docs__/>
+The Docker container is now running locally! You can interact with it, such as by using a browser to visit <http://0.0.0.0:8080/__docs__/>
 
-## Make predictions from Dockerfile
+## Make predictions from Docker container
+
+Running a Docker container locally is a great way to test that you can [make predictions from your endpoint](https://vetiver.rstudio.com/get-started/deploy.html#predict-from-your-model-endpoint) as expected, using R or Python.
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -239,8 +238,25 @@ predict(endpoint, new_ads)
 ```
 :::
 
-When you're done, stop all Docker containers with
+When you're done, stop all Docker containers from the command line with:
 
-```
+```{bash}
+#| eval: false
 docker stop $(docker ps -a -q)
 ```
+
+## What if I don't know how to use Docker?
+
+Docker is a great tool for data scientists, so learning the basics is a good idea. These resources can help you get started:
+
+### Getting started with Docker and R
+
+- [Docker for the UseR](https://github.com/noamross/nyhackr-docker-talk)
+- [Enough Docker to be Dangerous](https://seankross.com/2017/09/17/Enough-Docker-to-be-Dangerous.html)
+- [Docker tutorial for reproducible research](https://jsta.github.io/r-docker-tutorial/)
+
+### Getting started with Docker and Python
+
+- tktk
+
+
