@@ -49,6 +49,8 @@ website:
             text: "Function parity for R and python"
           - href: learn-more/model-card.qmd
             text: "Model cards for transparent, responsible reporting"
+          - href: learn-more/deploy-with-docker.qmd
+            text: "Deploy with Docker"
       - href: https://rstudio.github.io/vetiver-r/reference/
         text: R Function Reference
       - href: https://rstudio.github.io/vetiver-python/
