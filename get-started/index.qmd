@@ -43,6 +43,8 @@ You can use vetiver with:
 
 -   [scikit-learn](https://scikit-learn.org/)
 -   [PyTorch](https://pytorch.org/)
+-   [xgboost](https://xgboost.readthedocs.io/en/stable/python/index.html)
+-   [statsmodels](https://www.statsmodels.org/stable/index.html)
 
 You can install the released version of vetiver from [PyPI](https://pypi.org/project/vetiver/):
 
