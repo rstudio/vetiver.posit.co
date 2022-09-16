@@ -162,6 +162,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="dropdown-item" href="../learn-more/model-card.html">
  <span class="dropdown-text">Model cards for transparent, responsible reporting</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../learn-more/deploy-with-docker.html">
+ <span class="dropdown-text">Deploy with Docker</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -354,7 +358,7 @@ library(plumber)
 library(rapidoc)
 library(vetiver)
 b &lt;- board_folder(path = "pins-r")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220830T215820Z-bdc6e")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220916T013624Z-147d8")
 
 #* @plumber
 function(pr) {
@@ -376,7 +380,7 @@ import pins
 
 
 b = pins.board_folder('pins-py', allow_pickle_read=True)
-v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220830T215823Z-c58a0')
+v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220916T013626Z-d2a2b')
 
 vetiver_api = vetiver.VetiverAPI(v)
 api = vetiver_api.app</code></pre>
@@ -517,10 +521,10 @@ http://127.0.0.1:8080/predict</code></pre>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver.server <span class="im">import</span> predict, vetiver_endpoint</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> vetiver_endpoint(<span class="st">"http://127.0.0.1:8080/predict/"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> vetiver_endpoint(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>'http://127.0.0.1:8080/predict/'</code></pre>
+<pre><code>'http://127.0.0.1:8080/predict'</code></pre>
 </div>
 </div>
 </div>
