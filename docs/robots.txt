@@ -1,1 +1,0 @@
-Sitemap: https://vetiver.rstudio.com/sitemap.xml
