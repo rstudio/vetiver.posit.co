@@ -1,0 +1,260 @@
+---
+title: "Deploy with Docker"
+format:
+  html:
+    toc: true
+---
+
+If you plan to bring vetiver to a public or private cloud outside of [RStudio Connect](https://www.rstudio.com/products/connect/), [Docker](https://www.docker.com/) containers are a highly portable solution. Using vetiver makes Dockerfile creation easy by generating the files you need from your trained models.
+
+## Import data
+
+For this demo, we will use data from [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-02) to predict the number of YouTube likes a television commercial played during the [Super Bowl](https://en.wikipedia.org/wiki/Super_Bowl) will get, based on qualities such as if the ad included any animals, if the ad was funny, if the ad had any elements of danger, etc.
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+import pandas as pd
+import numpy as np
+
+np.random.seed(500)
+
+raw = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv')
+df = pd.DataFrame(raw)
+
+df = df[["like_count", "funny", "show_product_quickly", "patriotic", \
+    "celebrity", "danger", "animals"]].dropna()
+
+df.head(3)
+```
+
+## R
+
+```{r}
+#| message: false
+library(tidyverse)
+superbowl_ads_raw <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv')
+
+superbowl_ads <-
+    superbowl_ads_raw %>%
+    select(funny:animals, like_count) %>%
+    na.omit()
+
+superbowl_ads
+```
+:::
+
+## Build a model
+
+With data in hand, the next step is feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will deploy these pieces together. ([Why are we doing this?](https://www.tmwr.org/workflows.html#begin-model-end))
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+from sklearn import model_selection, preprocessing, pipeline
+from sklearn.ensemble import RandomForestRegressor
+
+X, y = df.iloc[:,1:],df['like_count']
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+    X, y,
+    test_size=0.2
+)
+
+le = preprocessing.OrdinalEncoder().fit(X)
+rf = RandomForestRegressor().fit(le.transform(X_train), y_train)
+rf_pipe = pipeline.Pipeline([('label_encoder',le), ('random_forest', rf)])
+```
+
+## R
+```{r}
+#| message: false
+library(tidymodels)
+
+rf_spec <- rand_forest(mode = "regression")
+rf_form <- like_count ~ .
+
+rf_fit <-
+    workflow(rf_form, rf_spec) %>%
+    fit(superbowl_ads)
+```
+:::
+
+## Create a vetiver model
+
+Next, let's create a deployable model object with vetiver.
+
+::: {.panel-tabset group="language"}
+
+## Python
+
+```{python}
+import vetiver
+
+v = vetiver.VetiverModel(
+    rf_pipe, 
+    ptype_data=X_train, 
+    model_name = "superbowl_rf"
+)
+v.description
+```
+
+## R
+```{r}
+#| message: false
+library(vetiver)
+
+v <- vetiver_model(rf_fit, "superbowl_rf")
+v
+```
+:::
+
+## Version your model
+
+We pin our vetiver model to a board to version it. We will also use this board later to create artifacts to run our Dockerfile. 
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+#| eval: false
+import pins
+
+board = pins.board_rsconnect(
+    server_url=server_url, # load from an .env file
+    api_key=api_key, # load from an .env file 
+    allow_pickle_read=True
+)
+
+vetiver.vetiver_pin_write(board, v)
+```
+
+## R
+
+```{r}
+#| eval: false
+#| message: false
+library(pins)
+board <- board_rsconnect() # authenticates via environment variables
+vetiver_pin_write(board, v)
+```
+:::
+
+Here we are using `board_rsconnect()`, but you can use other boards such as `board_s3()`. [Read more](https://vetiver.rstudio.com/get-started/version.html) about how to store and version your vetiver model.
+
+## Create API and Docker artifacts
+
+Next, let's create an `app.py` or `plumber.R` file. This file contains the [information to create a vetiver REST API](https://vetiver.rstudio.com/get-started/deploy.html#create-a-rest-api-for-deployment) and will be running inside your Docker container. 
+
+Once you have this file, vetiver can help you write a Dockerfile.
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+#| eval: false
+vetiver.write_app(
+    board, 
+    "isabel.zimmerman/superbowl_rf", 
+    version = "20220901T144702Z-fd402"
+)
+vetiver.write_docker()
+```
+
+:::{.callout-note}
+You may need to edit the `app.py` file to load a `.env` file for authorization, if necessary.
+
+Docker also needs a requirements file. You can generate your own, or use `vetiver.load_pkgs()` to generate a file named `vetiver_req.txt` with the packages necessary for prediction.
+:::
+
+## R
+
+```{r}
+#| eval: false
+vetiver_write_plumber(board, "julia.silge/superbowl_rf")
+vetiver_write_docker(v, port=8080)
+```
+
+:::{.callout-note}
+When you run `vetiver_write_docker()`, you generate *two* files: the Dockerfile itself and [the `vetiver_renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html) to capture your model dependencies.
+:::
+
+:::
+
+You have now created all the artifacts to run your Docker container!
+
+## Build and run your Dockerfile
+
+It is time to build and run your container. Building the Docker container can potentially take a while, because it installs all the packages needed to make a prediction with this model. Use the [command line](https://docs.docker.com/engine/reference/commandline/cli/) (not R or Python) to build your Docker container:
+
+
+```{bash}
+#| eval: false
+docker build -t superbowlads .
+```
+
+
+:::{.callout-tip}
+If you are on an ARM architecture locally and deploying an R model, use `--platform linux/amd64` for RSPM's fast installation of binaries.
+:::
+
+Now run! To authenticate to your board (to get the pinned vetiver model from, for example, RStudio Connect), pass in a file supplying environment variables.
+
+```{bash}
+#| eval: false
+docker run --env-file .env -p 8080:8080 superbowlads
+```
+
+:::{.callout-tip}
+R users likely will store their environment variables in a file called `.Renviron` instead of `.env`.
+:::
+
+The Docker container is now running locally! You can interact with it, such as by using a browser to visit <http://0.0.0.0:8080/__docs__/>
+
+## Make predictions from Docker container
+
+Running a Docker container locally is a great way to test that you can [make predictions from your endpoint](https://vetiver.rstudio.com/get-started/deploy.html#predict-from-your-model-endpoint) as expected, using R or Python.
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+#| eval: false
+endpoint = vetiver.vetiver_endpoint("http://0.0.0.0:8080/predict")
+vetiver.predict(endpoint=endpoint, data=X_test)
+```
+
+## R
+
+```{r}
+#| eval: false
+new_ads <- superbowl_ads %>% 
+    select(-like_count) %>% 
+
+endpoint <- vetiver_endpoint("http://0.0.0.0:8080/predict")
+
+predict(endpoint, new_ads)
+```
+:::
+
+When you're done, stop all Docker containers from the command line with:
+
+```{bash}
+#| eval: false
+docker stop $(docker ps -a -q)
+```
+
+## What if I don't know how to use Docker?
+
+Docker is a great tool for data scientists, so learning the basics is a good idea. These resources can help you get started:
+
+- [Enough Docker to be Dangerous](https://seankross.com/2017/09/17/Enough-Docker-to-be-Dangerous.html)
+- [Docker for the UseR](https://github.com/noamross/nyhackr-docker-talk)
+- [Docker tutorial for reproducible research](https://jsta.github.io/r-docker-tutorial/)
+- [Python Docker](https://zetcode.com/python/docker/)
+- [Ten simple rules for writing Dockerfiles for reproducible data science](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008316)
+- [Docker and Python: making them play nicely and securely for Data Science and ML](https://www.youtube.com/watch?v=Jq68axbKIbg)
+- [Docker info from RStudio Solutions Engineering](https://solutions.rstudio.com/environments/docker/)
+
+
