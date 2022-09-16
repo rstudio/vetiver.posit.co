@@ -249,13 +249,12 @@ docker stop $(docker ps -a -q)
 
 Docker is a great tool for data scientists, so learning the basics is a good idea. These resources can help you get started:
 
-### Getting started with Docker
-
 - [Enough Docker to be Dangerous](https://seankross.com/2017/09/17/Enough-Docker-to-be-Dangerous.html)
 - [Docker for the UseR](https://github.com/noamross/nyhackr-docker-talk)
 - [Docker tutorial for reproducible research](https://jsta.github.io/r-docker-tutorial/)
 - [Python Docker](https://zetcode.com/python/docker/)
 - [Ten simple rules for writing Dockerfiles for reproducible data science](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008316)
 - [Docker and Python: making them play nicely and securely for Data Science and ML](https://www.youtube.com/watch?v=Jq68axbKIbg)
+- [Docker info from RStudio Solutions Engineering](https://solutions.rstudio.com/environments/docker/)
 
 
