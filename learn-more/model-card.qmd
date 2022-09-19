@@ -15,6 +15,10 @@ The template **automates** extracting some information from the model object, an
 
 Model developers see a nudge to create a model card when they publish a model; we recommend that you create a model card when you deploy a model for the first time and refresh that model card as needed when new versions are deployed.
 
+:::{.panel-tabset}
+
+## R
+
 ```{r setup}
 library(vetiver)
 library(pins)
@@ -27,11 +31,36 @@ vetiver_pin_write(model_board, v)
 
 (Learn more [about silencing messages like this if desired.](https://rlang.r-lib.org/reference/abort.html#muffling-and-silencing-conditions))
 
+## Python
+```{python}
+import vetiver
+import pins
+from vetiver.data import mtcars
+from sklearn.linear_model import LinearRegression
+
+model_board = pins.board_temp(allow_pickle_read=True)
+
+model = LinearRegression().fit(mtcars, mtcars["mpg"])
+v = vetiver.VetiverModel(model, model_name = "cars_linear", 
+                 save_ptype = True, ptype_data = mtcars)
+
+vetiver.vetiver_pin_write(model_board, v)
+```
+
+To silence this message, 
+
+``` python
+from vetiver.utils import modelcard_options
+
+modelcard_options.quiet = True
+```
+
+:::
+
 ## Accessing the template
 
-::: callout-warning
-As of this writing, the model card template is only available for R Markdown.
-:::
+:::{.panel-tabset}
+## R
 
 To use the vetiver model card template from RStudio, access through `File -> New File -> R Markdown`.
 This will open the dialog box where you can select from one of the available templates:
@@ -48,6 +77,17 @@ rmarkdown::draft(
     package = "vetiver"
 )
 ```
+
+## Python
+
+To use a model card template with Python, you will need to have [Quarto](https://quarto.org/) installed. Then, use the `vetiver.model_card()` function to generate the template.
+
+```python
+vetiver.model_card(path = ".")
+```
+
+:::
+
 
 ## Model card outline
 
