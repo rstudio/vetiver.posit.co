@@ -25,3 +25,10 @@ For a deeper understanding of each implementation, please refer to the [R functi
 | Metadata constructors for vetiver model object                        | `vetiver_meta()` `vetiver_create_meta()`                 | `VetiverHandler.create_meta()` `vetiver_create_meta()` |
 | Create a vetiver input data prototype                                 | `vetiver_ptype()` `vetiver_create_ptype()`               | `vetiver_create_ptype()`                               |
 | Convert new data at prediction time using input data prototype        | `vetiver_type_convert()`                                 |                                                        |
+| Compute and aggregrate model metrics over time for monitoring         | `vetiver_compute_metrics()`                              | `compute_metrics()`                                    |
+| Update and save model metrics over time for monitoring                | `vetiver_pin_metrics()`                                  | `pin_metrics()`                                        |
+| Plot model metrics over time for monitoring                           | `vetiver_plot_metrics()`                                 | `plot_metrics()`                                       |
+| Plot model metrics over time for monitoring                           | `vetiver_plot_metrics()`                                 | `plot_metrics()`                                       |
+| Plot model metrics over time for monitoring                           | `vetiver_plot_metrics()`                                 | `plot_metrics()`                                       |
+| Generate template for model monitoring dashboard                      | `vetiver_dashboard()`                                    |                                                        |
+| Generate template for model card                                      |                                                          | `model_card()`                                         |
