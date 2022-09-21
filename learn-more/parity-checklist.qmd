@@ -29,4 +29,4 @@ For a deeper understanding of each implementation, please refer to the [R functi
 | Update and save model metrics over time for monitoring                | `vetiver_pin_metrics()`                                  | `pin_metrics()`                                        |
 | Plot model metrics over time for monitoring                           | `vetiver_plot_metrics()`                                 | `plot_metrics()`                                       |
 | Generate template for model monitoring dashboard                      | `vetiver_dashboard()`                                    |                                                        |
-| Generate template for model card                                      |                                                          | `model_card()`                                         |
+| Generate template for model card                                      | Use `"vetiver_model_card"` template                      | `model_card()`                                         |
