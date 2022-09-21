@@ -28,7 +28,5 @@ For a deeper understanding of each implementation, please refer to the [R functi
 | Compute and aggregrate model metrics over time for monitoring         | `vetiver_compute_metrics()`                              | `compute_metrics()`                                    |
 | Update and save model metrics over time for monitoring                | `vetiver_pin_metrics()`                                  | `pin_metrics()`                                        |
 | Plot model metrics over time for monitoring                           | `vetiver_plot_metrics()`                                 | `plot_metrics()`                                       |
-| Plot model metrics over time for monitoring                           | `vetiver_plot_metrics()`                                 | `plot_metrics()`                                       |
-| Plot model metrics over time for monitoring                           | `vetiver_plot_metrics()`                                 | `plot_metrics()`                                       |
 | Generate template for model monitoring dashboard                      | `vetiver_dashboard()`                                    |                                                        |
 | Generate template for model card                                      |                                                          | `model_card()`                                         |
