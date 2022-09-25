@@ -33,9 +33,9 @@ from vetiver import VetiverModel
 from sklearn import linear_model
 
 car_mod = linear_model.LinearRegression().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
-
+                 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
-                 save_ptype = True, ptype_data = mtcars)
+                 save_ptype = True, ptype_data = mtcars.drop(columns="mpg"))
 ```
 :::
 
