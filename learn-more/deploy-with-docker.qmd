@@ -230,7 +230,7 @@ vetiver.predict(endpoint=endpoint, data=X_test)
 ```{r}
 #| eval: false
 new_ads <- superbowl_ads %>% 
-    select(-like_count) %>% 
+    select(-like_count)
 
 endpoint <- vetiver_endpoint("http://0.0.0.0:8080/predict")
 
