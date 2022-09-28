@@ -358,7 +358,7 @@ library(plumber)
 library(rapidoc)
 library(vetiver)
 b &lt;- board_folder(path = "pins-r")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220926T184827Z-057de")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220928T150126Z-1df19")
 
 #* @plumber
 function(pr) {
@@ -380,7 +380,7 @@ import pins
 
 
 b = pins.board_folder('pins-py', allow_pickle_read=True)
-v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220926T184830Z-22f6e')
+v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220928T150129Z-80f9f')
 
 vetiver_api = vetiver.VetiverAPI(v)
 api = vetiver_api.app</code></pre>
