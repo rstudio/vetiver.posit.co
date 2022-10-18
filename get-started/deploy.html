@@ -341,7 +341,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p><br></p>
-<p>FastAPI and Plumber APIs such as these can be hosted in a variety of ways. You can create a ready-to-go file for deployment that is especially suited for <a href="https://www.rstudio.com/products/connect/">RStudio Connect</a>.</p>
+<p>FastAPI and Plumber APIs such as these can be hosted in a variety of ways. For <a href="https://www.rstudio.com/products/connect/">RStudio Connect</a>, you can deploy your versioned model with a single function, either <code>vetiver_deploy_rsconnect()</code> for R or <code>vetiver.deploy_rsconnect()</code> for Python. For more on these options, see the <a href="https://docs.rstudio.com/connect/user/vetiver/">Connect documentation for using vetiver</a>.</p>
+<p>For other hosting options, you can create a ready-to-go file for deployment.</p>
 <div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content" data-group="language">
@@ -358,7 +359,7 @@ library(plumber)
 library(rapidoc)
 library(vetiver)
 b &lt;- board_folder(path = "pins-r")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20220928T150126Z-1df19")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20221018T191534Z-76401")
 
 #* @plumber
 function(pr) {
@@ -366,7 +367,6 @@ function(pr) {
 }</code></pre>
 </div>
 </div>
-<p>For RStudio Connect, you can streamline this deployment process even more by using <code>vetiver_deploy_rsconnect(model_board, "cars_mpg")</code>.</p>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
@@ -380,7 +380,7 @@ import pins
 
 
 b = pins.board_folder('pins-py', allow_pickle_read=True)
-v = VetiverModel.from_pin(b, 'cars_mpg', version = '20220928T150129Z-80f9f')
+v = VetiverModel.from_pin(b, 'cars_mpg', version = '20221018T191537Z-ef892')
 
 vetiver_api = vetiver.VetiverAPI(v)
 api = vetiver_api.app</code></pre>
@@ -439,7 +439,9 @@ RUN apt-get update -qq &amp;&amp; apt-get install -y --no-install-recommends \
   libicu-dev \
   libsodium-dev \
   libssl-dev \
-  make
+  make \
+  zlib1g-dev \
+  &amp;&amp; apt-get clean
 
 COPY vetiver_renv.lock renv.lock
 RUN Rscript -e "install.packages('renv')"
