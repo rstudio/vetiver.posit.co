@@ -3,6 +3,14 @@ title: "About vetiver"
 subtitle: "MLOps for R and Python"
 ---
 
+## What is MLOps?
+
+Machine learning operations, or MLOps, is a set of practices to deploy and maintain machine learning models in production reliably and efficiently.
+
+## What tasks are included in MLOps practices?
+
+Some MLOps tasks are: experiment tracking, model versioning, model deployment, model monitoring, and model workflows. Vetiver focuses on the tasks of **versioning**, **deploying**, and **monitoring**.
+
 ## Who is developing vetiver?
 
 Development of vetiver is sponsored by [RStudio, PBC](https://www.rstudio.com).

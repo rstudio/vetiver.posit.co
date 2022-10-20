@@ -4,7 +4,7 @@ format:
     toc: false
 ---
 
-The vetiver framework is for MLOps tasks in Python and R.
+Machine learning operations, or MLOps, is a set of practices to deploy and maintain machine learning models in production reliably and efficiently. The vetiver framework is for MLOps tasks in Python and R.
 
 > *Vetiver, the oil of tranquility, is used as a stabilizing ingredient in perfumery to preserve more volatile fragrances.*
 
@@ -53,3 +53,4 @@ v = VetiverModel(model, model_name = "cars_linear",
 v.description
 ```
 :::
+
