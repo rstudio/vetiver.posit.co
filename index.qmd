@@ -53,4 +53,3 @@ v = VetiverModel(model, model_name = "cars_linear",
 v.description
 ```
 :::
-
