@@ -75,6 +75,7 @@ website:
       contents:
         - href: learn-more/parity-checklist.qmd
         - href: learn-more/model-card.qmd
+        - href: learn-more/deploy-with-docker.qmd
 
 filters:
   - grouped-tabsets
