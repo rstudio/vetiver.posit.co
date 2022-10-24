@@ -87,6 +87,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../learn-more/deploy-with-docker.html" rel="next">
 <link href="../learn-more/parity-checklist.html" rel="prev">
 <link href="../images/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -202,6 +203,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../learn-more/model-card.html" class="sidebar-item-text sidebar-link active">Model cards for transparent, responsible reporting</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learn-more/deploy-with-docker.html" class="sidebar-item-text sidebar-link">Deploy with Docker</a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -254,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(cars_lm, <span class="st">"cars_linear"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_pin_write</span>(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20221018T191453Z-2bb55'
+<pre><code>Creating new version '20221024T184647Z-2bb55'
 Writing to pin 'cars_linear'
 
 Create a Model Card for your published model
@@ -284,7 +290,7 @@ Create a Model Card for your published model
  with vetiver.model_card()
 Writing pin:
 Name: 'cars_linear'
-Version: 20221018T191458Z-64c37</code></pre>
+Version: 20221024T184651Z-64c37</code></pre>
 </div>
 </div>
 <p>To silence this message,</p>
@@ -451,6 +457,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../learn-more/deploy-with-docker.html" class="pagination-link">
+        <span class="nav-page-text">Deploy with Docker</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
