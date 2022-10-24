@@ -7,13 +7,13 @@ subtitle: "MLOps for R and Python"
 
 Machine learning operations, or MLOps, is a set of practices to deploy and maintain machine learning models in production reliably and efficiently.
 
-## What tasks are included in MLOps practices?
+## What tasks are involved in MLOps practices?
 
-Some MLOps tasks are: experiment tracking, model versioning, model deployment, model monitoring, and model workflows. Vetiver focuses on the tasks of **versioning**, **deploying**, and **monitoring**.
+Some MLOps tasks are data versioning, tuning/training models, experiment tracking, model versioning, model deployment, model monitoring, and workflow orchestration. The vetiver framework focuses on the tasks of **versioning**, **deploying**, and **monitoring** an ML model.
 
 ## How can I tell if I am on the right track while building an MLOps system?
 
-You can use the rubric in “[The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/aad9f93b86b7addfea4c419b9100c6cdd26cacea.pdf)” by E. Breck, et al to understand how ready a machine learning system is for production. This rubric outlines 28 specific tests plus a grading scale to score how robust a deployment strategy is.
+You can use the rubric in "[The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction](https://research.google/pubs/pub46555/)" by Breck et al to understand how ready a machine learning system is for production. This rubric outlines 28 specific tests plus a grading scale to score how robust a deployment strategy is.
 
 ## Who is developing vetiver?
 
