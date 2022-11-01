@@ -35,7 +35,7 @@ from sklearn import linear_model
 car_mod = linear_model.LinearRegression().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
                  
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
-                 save_ptype = True, ptype_data = mtcars.drop(columns="mpg"))
+                 ptype_data = mtcars.drop(columns="mpg"))
 ```
 :::
 
@@ -101,7 +101,7 @@ from sklearn import tree
 car_mod = tree.DecisionTreeRegressor().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
-                 save_ptype = True, ptype_data = mtcars)
+                 ptype_data = mtcars.drop(columns="mpg"))
 vetiver_pin_write(model_board, v)
 ```
 :::
