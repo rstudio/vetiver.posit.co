@@ -41,7 +41,7 @@ from pins import board_folder
 car_mod = tree.DecisionTreeRegressor().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
-                 save_ptype = True, ptype_data = mtcars.drop(columns="mpg"))
+                 ptype_data = mtcars.drop(columns="mpg"))
 
 model_board = board_folder("pins-py", allow_pickle_read=True)
 vetiver_pin_write(model_board, v)

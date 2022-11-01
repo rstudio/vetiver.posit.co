@@ -40,9 +40,9 @@ from sklearn.linear_model import LinearRegression
 
 model_board = pins.board_temp(allow_pickle_read=True)
 
-model = LinearRegression().fit(mtcars, mtcars["mpg"])
+model = LinearRegression().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 v = vetiver.VetiverModel(model, model_name = "cars_linear", 
-                 save_ptype = True, ptype_data = mtcars)
+                 ptype_data = mtcars.drop(columns="mpg"))
 
 vetiver.vetiver_pin_write(model_board, v)
 ```
