@@ -260,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(cars_lm, <span class="st">"cars_linear"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_pin_write</span>(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20221024T184647Z-2bb55'
+<pre><code>Creating new version '20221101T163303Z-ca8d1'
 Writing to pin 'cars_linear'
 
 Create a Model Card for your published model
@@ -279,9 +279,9 @@ Create a Model Card for your published model
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>model_board <span class="op">=</span> pins.board_temp(allow_pickle_read<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(mtcars, mtcars[<span class="st">"mpg"</span>])</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>), mtcars[<span class="st">"mpg"</span>])</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> vetiver.VetiverModel(model, model_name <span class="op">=</span> <span class="st">"cars_linear"</span>, </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                 save_ptype <span class="op">=</span> <span class="va">True</span>, ptype_data <span class="op">=</span> mtcars)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                 ptype_data <span class="op">=</span> mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>))</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>vetiver.vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -290,7 +290,7 @@ Create a Model Card for your published model
  with vetiver.model_card()
 Writing pin:
 Name: 'cars_linear'
-Version: 20221024T184651Z-64c37</code></pre>
+Version: 20221101T163309Z-7bf48</code></pre>
 </div>
 </div>
 <p>To silence this message,</p>
