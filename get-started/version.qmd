@@ -61,6 +61,8 @@ model_board <- board_temp(versioned = TRUE)
 model_board %>% vetiver_pin_write(v)
 ```
 
+To read the vetiver model object from your board, use `model_board %>% vetiver_pin_read("cars_mpg")`.
+
 ## Python
 
 ```{python}
@@ -70,6 +72,8 @@ from vetiver import vetiver_pin_write
 model_board = board_temp(versioned = True, allow_pickle_read = True)
 vetiver_pin_write(model_board, v)
 ```
+
+To read the vetiver model object from your board, use `VetiverModel.from_pin(model_board, "cars_mpg")`.
 :::
 
 Let's train a new kind of model for `mtcars`, a decision tree instead of our original linear model.
