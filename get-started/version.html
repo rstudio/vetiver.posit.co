@@ -310,6 +310,7 @@ Note
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model_board <span class="ot">&lt;-</span> <span class="fu">board_temp</span>(<span class="at">versioned =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>model_board <span class="sc">%&gt;%</span> <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>To read the vetiver model object from your board, use <code>model_board %&gt;% vetiver_pin_read("cars_mpg")</code>.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
@@ -318,6 +319,7 @@ Note
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>model_board <span class="op">=</span> board_temp(versioned <span class="op">=</span> <span class="va">True</span>, allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>To read the vetiver model object from your board, use <code>VetiverModel.from_pin(model_board, "cars_mpg")</code>.</p>
 </div>
 </div>
 </div>
@@ -362,8 +364,8 @@ Note
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20221101T163332Z-60d1c 2022-11-01 16:33:32 60d1c
-2 20221101T163336Z-b087d 2022-11-01 16:33:36 b087d</code></pre>
+1 20221102T181457Z-60d1c 2022-11-02 18:14:57 60d1c
+2 20221102T181500Z-e7842 2022-11-02 18:15:00 e7842</code></pre>
 </div>
 </div>
 </div>
@@ -372,8 +374,8 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              created   hash                 version
-0 2022-11-01 16:33:34  7bf48  20221101T163334Z-7bf48
-1 2022-11-01 16:33:38  f0c20  20221101T163338Z-f0c20</code></pre>
+0 2022-11-02 18:14:59  7bf48  20221102T181459Z-7bf48
+1 2022-11-02 18:15:02  a31ad  20221102T181502Z-a31ad</code></pre>
 </div>
 </div>
 </div>
