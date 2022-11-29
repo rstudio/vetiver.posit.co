@@ -5,17 +5,9 @@ format:
     toc: true
 ---
 
-Once a model is [deployed](/get-started/deploy.html), it is important to monitor its statistical performance. Machine learning can break quietly; a model can continue returning predictions without error, even if it is performing poorly. Without monitoring for degradation, this silent failure can continue undiagnosed. The vetiver framework offers functions to fluently compute, store, and plot model metrics. These functions are particularly suited to monitoring your model using multiple performance metrics over time.
+Once a model is [deployed](/get-started/deploy.html), it is important to monitor its statistical performance. Machine learning can break quietly; a model can continue returning predictions without error, even if it is performing poorly. Often these quiet performance problems are discussed as types of **model drift**; data drift can occur when the statistical distribution of an input feature changes, or concept drift occurs when there is change in the relationship between the input features and the outcome.
 
-When a model is deployed, new data comes in over time, even if time is not a feature for prediction. Even if your model does not explicitly use any dates, a measure of time like a date can affect your model performance.
-
-::: callout-tip
-## How does my model use time?
-
-- Your model **sometimes** uses date-time quantities as features for prediction. 
-- Monitoring **always** involves a date-time quantity, not necessarily as a feature, but as a dimension along which you are monitoring.
-
-:::
+Without monitoring for degradation, this silent failure can continue undiagnosed. The vetiver framework offers functions to fluently compute, store, and plot model metrics. These functions are particularly suited to monitoring your model using multiple performance metrics over time. Effective model monitoring is not "one size fits all", but instead depends on choosing appropriate metrics and time aggregation for a given application.
 
 ## Build a model
 
@@ -52,7 +44,20 @@ v = VetiverModel.from_pin(model_board, "cars_mpg")
 
 ## Compute metrics
 
-Let's say we collect new data on fuel efficiency in cars and we want to monitor the performance of our model over time. We can compute multiple metrics at once over a certain time aggregation.
+Let's say we collect new data on fuel efficiency in cars and we want to monitor the performance of our model over time. 
+
+When a model is deployed, new data comes in over time, even if time is not a feature for prediction. Even if your model does not explicitly use any dates as features, changes (or "drift") in your machine learning system mean that your model performance can change with time.
+
+::: callout-tip
+
+## How does my model use time?
+
+- Your model **sometimes** uses date-time quantities as features for prediction. 
+- Monitoring **always** involves a date-time quantity, not necessarily as a feature, but as a dimension along which you are monitoring.
+
+:::
+
+We can compute multiple metrics at once over a certain time aggregation. 
 
 ::: {.panel-tabset group="language"}
 ## R
@@ -106,6 +111,8 @@ original_metrics
 ```
 
 :::
+
+You can specify which metrics to use for monitoring, and even provide your own custom metrics. You can choose appropriate metrics for what matters in your use case.
 
 ## Pin metrics
 
@@ -214,6 +221,8 @@ p.show()
 ![](../images/pythonmonitor.png)
 
 :::
+
+It doesn't look like there is performance degradation in this small example. You can use these basic functions as composable building blocks for more sophisticated monitoring, including approaches such as [equivocal zones](https://www.tmwr.org/trust.html#equivocal-zones) or [applicability domains](https://www.tmwr.org/trust.html#applicability-domains).
 
 ## Build a dashboard
 
