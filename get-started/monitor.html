@@ -249,24 +249,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Once a model is <a href="../get-started/deploy.html">deployed</a>, it is important to monitor its statistical performance. Machine learning can break quietly; a model can continue returning predictions without error, even if it is performing poorly. Without monitoring for degradation, this silent failure can continue undiagnosed. The vetiver framework offers functions to fluently compute, store, and plot model metrics. These functions are particularly suited to monitoring your model using multiple performance metrics over time.</p>
-<p>When a model is deployed, new data comes in over time, even if time is not a feature for prediction. Even if your model does not explicitly use any dates, a measure of time like a date can affect your model performance.</p>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-How does my model use time?
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Your model <strong>sometimes</strong> uses date-time quantities as features for prediction.</li>
-<li>Monitoring <strong>always</strong> involves a date-time quantity, not necessarily as a feature, but as a dimension along which you are monitoring.</li>
-</ul>
-</div>
-</div>
+<p>Once a model is <a href="../get-started/deploy.html">deployed</a>, it is important to monitor its statistical performance. Machine learning can break quietly; a model can continue returning predictions without error, even if it is performing poorly. Often these quiet performance problems are discussed as types of <strong>model drift</strong>; data drift can occur when the statistical distribution of an input feature changes, or concept drift occurs when there is change in the relationship between the input features and the outcome.</p>
+<p>Without monitoring for degradation, this silent failure can continue undiagnosed. The vetiver framework offers functions to fluently compute, store, and plot model metrics. These functions are particularly suited to monitoring your model using multiple performance metrics over time. Effective model monitoring is not “one size fits all”, but instead depends on choosing appropriate metrics and time aggregation for a given application.</p>
 <section id="build-a-model" class="level2">
 <h2 class="anchored" data-anchor-id="build-a-model">Build a model</h2>
 <div class="panel-tabset" data-group="language">
@@ -302,7 +286,25 @@ How does my model use time?
 </section>
 <section id="compute-metrics" class="level2">
 <h2 class="anchored" data-anchor-id="compute-metrics">Compute metrics</h2>
-<p>Let’s say we collect new data on fuel efficiency in cars and we want to monitor the performance of our model over time. We can compute multiple metrics at once over a certain time aggregation.</p>
+<p>Let’s say we collect new data on fuel efficiency in cars and we want to monitor the performance of our model over time.</p>
+<p>When a model is deployed, new data comes in over time, even if time is not a feature for prediction. Even if your model does not explicitly use any dates as features, changes (or “drift”) in your machine learning system mean that your model performance can change with time.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+How does my model use time?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Your model <strong>sometimes</strong> uses date-time quantities as features for prediction.</li>
+<li>Monitoring <strong>always</strong> involves a date-time quantity, not necessarily as a feature, but as a dimension along which you are monitoring.</li>
+</ul>
+</div>
+</div>
+<p>We can compute multiple metrics at once over a certain time aggregation.</p>
 <div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content" data-group="language">
@@ -363,17 +365,18 @@ How does my model use time?
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>original_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       index  n               metric   estimate
-0 2022-03-24  7  mean_absolute_error   3.185466
-1 2022-03-24  7   mean_squared_error  11.961984
-2 2022-03-24  7             r2_score   0.375424
-3 2022-03-31  7  mean_absolute_error   2.225676
-4 2022-03-31  7   mean_squared_error   7.881437
-5 2022-03-31  7             r2_score   0.766537</code></pre>
+0 2022-03-24  7  mean_absolute_error   3.314037
+1 2022-03-24  7   mean_squared_error  12.604943
+2 2022-03-24  7             r2_score   0.341853
+3 2022-03-31  7  mean_absolute_error   2.311390
+4 2022-03-31  7   mean_squared_error   8.122302
+5 2022-03-31  7             r2_score   0.759403</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
+<p>You can specify which metrics to use for monitoring, and even provide your own custom metrics. You can choose appropriate metrics for what matters in your use case.</p>
 </section>
 <section id="pin-metrics" class="level2">
 <h2 class="anchored" data-anchor-id="pin-metrics">Pin metrics</h2>
@@ -469,6 +472,7 @@ How does my model use time?
 </div>
 </div>
 </div>
+<p>It doesn’t look like there is performance degradation in this small example. You can use these basic functions as composable building blocks for more sophisticated monitoring, including approaches such as <a href="https://www.tmwr.org/trust.html#equivocal-zones">equivocal zones</a> or <a href="https://www.tmwr.org/trust.html#applicability-domains">applicability domains</a>.</p>
 </section>
 <section id="build-a-dashboard" class="level2">
 <h2 class="anchored" data-anchor-id="build-a-dashboard">Build a dashboard</h2>
