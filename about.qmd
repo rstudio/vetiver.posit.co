@@ -15,9 +15,29 @@ Some MLOps tasks are data versioning, tuning/training models, experiment trackin
 
 You can use the rubric in "[The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction](https://research.google/pubs/pub46555/)" by Breck et al to understand how ready a machine learning system is for production. This rubric outlines 28 specific tests plus a grading scale to score how robust a deployment strategy is.
 
+## How does vetiver compare to other MLOps tools?
+
+### 😌 vetiver is a **focused** framework for data **practitioners**
+
+The vetiver framework does not aim to be an all-in-one solution for all parts of the MLOps life cycle. Instead, vetiver provides tooling to [version](https://vetiver.rstudio.com/get-started/version.html), [deploy](https://vetiver.rstudio.com/get-started/deploy.html), and [monitor](https://vetiver.rstudio.com/get-started/monitor.html) ML models. This focus allows vetiver to provide a better user experience and composability as organizations mature in their MLOps needs. Tools like MLFlow and managed cloud offerings like SageMaker and AzureML are designed to be comprehensive; this can be the right choice in some situations but comes with usability challenges and a steeper learning curve.
+
+The vetiver framework is built to be used by practitioners like data scientists and data analysts, the people who develop models. We believe that the person who develops a model is the right person to operationalize that model. This is in contrast to MLFlow, which is most comfortable for a software engineering persona (rather than data analysis persona).
+
+### 🐍 vetiver supports both Python and R
+
+Existing tools for MLOps tasks overwhelmingly support Python only, or provide poor or incomplete support other languages like R. Even cloud offerings like SageMaker and AzureML have very few meaningful native options for practitioners that want flexibility in their ML choices, with the ability to use their model implementation of choice for a specific problem. Data science teams that use both R and Python are an important focus for Posit, and we aim to provide the best possible tools for these bilingual teams.
+
+The design of vetiver can be extended in the future to other languages. The underlying technologies (REST APIs, binary storage, dashboards) are language agnostic and could be extended to, for example, Julia.
+
+### 🚀 vetiver is for getting started with MLOps
+
+In terms of MLOps maturity, it is still early days for many organizations and practitioners. These folks need a tool that provides a fluent experience as they get started with their MLOps tasks and grow their institutional knowledge about model deployment and management. The vetiver framework is uniquely positioned for teams getting started with MLOps, in terms of our attention to user experience and focus on documentation.
+
+Other existing tools like [BentoML](https://www.bentoml.com/) are similar to vetiver in that they are focused solutions built for practitioners, but BentoML provides advanced functionality and is less appropriate for a team just getting started. We aim to provide a tool that grows with users and then supports a smooth transition when you need more features.
+
 ## Who is developing vetiver?
 
-Development of vetiver is sponsored by [RStudio, PBC](https://www.rstudio.com).
+Development of vetiver is sponsored by [Posit PBC](https://posit.co/).
 
 ## Is vetiver open source?
 
