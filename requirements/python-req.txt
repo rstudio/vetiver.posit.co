@@ -1,4 +1,7 @@
-vetiver>0.1.6
 scikit-learn
 pins
 pandas
+git+https://github.com/machow/quartodoc.git@feat-builder
+git+https://github.com/rstudio/vetiver-python.git@main
+jupyter
+jupyterlab

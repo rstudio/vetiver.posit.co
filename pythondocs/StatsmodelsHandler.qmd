@@ -1,0 +1,11 @@
+## StatsmodelsHandler { #StatsmodelsHandler }
+
+`StatsmodelsHandler()`
+
+Handler class for creating VetiverModels with statsmodels.
+
+### Parameters
+
+| Name    | Type            | Description                         | Default   |
+|---------|-----------------|-------------------------------------|-----------|
+| `model` | statsmodels.api | a trained and fit statsmodels model | required  |

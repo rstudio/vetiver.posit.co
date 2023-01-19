@@ -1,0 +1,46 @@
+# Function reference
+
+## 
+
+
+
+| | |
+| --- | --- |
+| [](`vetiver.VetiverModel`) | Create VetiverModel class for serving. |
+| [](`vetiver.vetiver_pin_write`) | Pin a trained VetiverModel along with other model metadata. |
+| [](`vetiver.vetiver_create_prototype`) | Create zero row structure to save data types |
+| [](`vetiver.model_card.model_card`) | Create a model card for documentation |
+
+## Deploy
+
+
+
+| | |
+| --- | --- |
+| [](`vetiver.VetiverAPI`) | Create model aware API |
+| [](`vetiver.vetiver_endpoint`) | Wrap url where VetiverModel will be deployed |
+| [](`vetiver.predict`) | Make a prediction from model endpoint |
+| [](`vetiver.write_app`) | Write VetiverAPI app to a file |
+| [](`vetiver.write_docker.write_docker`) | Writes a Dockerfile to run VetiverAPI in a container |
+| [](`vetiver.deploy_rsconnect`) | Deploy to Posit Connect |
+
+## Monitor
+
+
+
+| | |
+| --- | --- |
+| [](`vetiver.compute_metrics`) | Compute metrics for given time period |
+| [](`vetiver.pin_metrics`) | Update an existing pin storing model metrics over time |
+| [](`vetiver.plot_metrics`) | Plot metrics over a given time period |
+
+## Model Handlers
+
+
+
+| | |
+| --- | --- |
+| [](`vetiver.SKLearnHandler`) | Handler class for creating VetiverModels with sklearn. |
+| [](`vetiver.TorchHandler`) | Handler class for creating VetiverModels with torch. |
+| [](`vetiver.StatsmodelsHandler`) | Handler class for creating VetiverModels with statsmodels. |
+| [](`vetiver.XGBoostHandler`) | Handler class for creating VetiverModels with xgboost. |

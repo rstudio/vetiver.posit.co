@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.35">
+<meta name="generator" content="quarto-1.2.313">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -53,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -66,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -87,6 +92,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../learn-more/model-card.html" rel="prev">
 <link href="../images/favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -128,29 +134,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../index.html">
-    <img src="../images/logo_small.png" alt="">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/logo_small.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">MLOps with vetiver</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">Home</a>
+    <a class="nav-link" href="../index.html">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../get-started/index.html">Get Started</a>
+    <a class="nav-link" href="../get-started/index.html">
+ <span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-learn-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">Learn More</a>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-learn-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Learn More</span>
+    </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-learn-more">    
         <li>
     <a class="dropdown-item" href="../learn-more/parity-checklist.html">
@@ -167,23 +181,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="https://rstudio.github.io/vetiver-r/reference/">R Function Reference</a>
+    <a class="nav-link" href="https://rstudio.github.io/vetiver-r/reference/">
+ <span class="menu-text">R Function Reference</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://rstudio.github.io/vetiver-python/">Python Function Reference</a>
+    <a class="nav-link" href="https://rstudio.github.io/vetiver-python/">
+ <span class="menu-text">Python Function Reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../pythondocs/index.html">
+ <span class="menu-text">Python Docs</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Deploy with Docker</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learn-more/parity-checklist.html" class="sidebar-item-text sidebar-link">Function parity for R and Python</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learn-more/model-card.html" class="sidebar-item-text sidebar-link">Model cards for transparent, responsible reporting</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learn-more/deploy-with-docker.html" class="sidebar-item-text sidebar-link active">Deploy with Docker</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -194,11 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#create-api-and-docker-artifacts" id="toc-create-api-and-docker-artifacts" class="nav-link" data-scroll-target="#create-api-and-docker-artifacts">Create API and Docker artifacts</a></li>
   <li><a href="#build-and-run-your-dockerfile" id="toc-build-and-run-your-dockerfile" class="nav-link" data-scroll-target="#build-and-run-your-dockerfile">Build and run your Dockerfile</a></li>
   <li><a href="#make-predictions-from-docker-container" id="toc-make-predictions-from-docker-container" class="nav-link" data-scroll-target="#make-predictions-from-docker-container">Make predictions from Docker container</a></li>
-  <li><a href="#what-if-i-dont-know-how-to-use-docker" id="toc-what-if-i-dont-know-how-to-use-docker" class="nav-link" data-scroll-target="#what-if-i-dont-know-how-to-use-docker">What if I don’t know how to use Docker?</a>
-  <ul class="collapse">
-  <li><a href="#getting-started-with-docker-and-r" id="toc-getting-started-with-docker-and-r" class="nav-link" data-scroll-target="#getting-started-with-docker-and-r">Getting started with Docker and R</a></li>
-  <li><a href="#getting-started-with-docker-and-python" id="toc-getting-started-with-docker-and-python" class="nav-link" data-scroll-target="#getting-started-with-docker-and-python">Getting started with Docker and Python</a></li>
-  </ul></li>
+  <li><a href="#what-if-i-dont-know-how-to-use-docker" id="toc-what-if-i-dont-know-how-to-use-docker" class="nav-link" data-scroll-target="#what-if-i-dont-know-how-to-use-docker">What if I don’t know how to use Docker?</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rstudio/vetiver.rstudio.com/edit/main/learn-more/deploy-with-docker.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rstudio/vetiver.rstudio.com/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -207,7 +252,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Deploy with Docker</h1>
+<h1 class="title d-none d-lg-block">Deploy with Docker</h1>
 </div>
 
 
@@ -215,6 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -350,7 +396,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-── superbowl_rf ─ &lt;butchered_workflow&gt; model for deployment 
+── superbowl_rf ─ &lt;bundled_workflow&gt; model for deployment 
 A ranger regression modeling workflow using 6 features</code></pre>
 </div>
 </div>
@@ -386,7 +432,7 @@ A ranger regression modeling workflow using 6 features</code></pre>
 </div>
 </div>
 </div>
-<p>Here we are using <code>board_rsconnect()</code>, but you can use other boards such as <code>board_s3()</code>. <a href="https://vetiver.rstudio.com/get-started/version.html">Read more</a> about how to store and version your vetiver</p>
+<p>Here we are using <code>board_rsconnect()</code>, but you can use other boards such as <code>board_s3()</code>. <a href="https://vetiver.rstudio.com/get-started/version.html">Read more</a> about how to store and version your vetiver model.</p>
 </section>
 <section id="create-api-and-docker-artifacts" class="level2">
 <h2 class="anchored" data-anchor-id="create-api-and-docker-artifacts">Create API and Docker artifacts</h2>
@@ -495,7 +541,7 @@ Tip
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>new_ads <span class="ot">&lt;-</span> superbowl_ads <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>like_count) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>like_count)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://0.0.0.0:8080/predict"</span>)</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -512,22 +558,17 @@ Tip
 <section id="what-if-i-dont-know-how-to-use-docker" class="level2">
 <h2 class="anchored" data-anchor-id="what-if-i-dont-know-how-to-use-docker">What if I don’t know how to use Docker?</h2>
 <p>Docker is a great tool for data scientists, so learning the basics is a good idea. These resources can help you get started:</p>
-<section id="getting-started-with-docker-and-r" class="level3">
-<h3 class="anchored" data-anchor-id="getting-started-with-docker-and-r">Getting started with Docker and R</h3>
 <ul>
-<li><a href="https://jsta.github.io/r-docker-tutorial/">Docker tutorial for reproducible research</a></li>
-<li><a href="https://github.com/noamross/nyhackr-docker-talk">Docker for the UseR</a></li>
 <li><a href="https://seankross.com/2017/09/17/Enough-Docker-to-be-Dangerous.html">Enough Docker to be Dangerous</a></li>
-</ul>
-</section>
-<section id="getting-started-with-docker-and-python" class="level3">
-<h3 class="anchored" data-anchor-id="getting-started-with-docker-and-python">Getting started with Docker and Python</h3>
-<ul>
-<li>tktk</li>
+<li><a href="https://github.com/noamross/nyhackr-docker-talk">Docker for the UseR</a></li>
+<li><a href="https://jsta.github.io/r-docker-tutorial/">Docker tutorial for reproducible research</a></li>
+<li><a href="https://zetcode.com/python/docker/">Python Docker</a></li>
+<li><a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008316">Ten simple rules for writing Dockerfiles for reproducible data science</a></li>
+<li><a href="https://www.youtube.com/watch?v=Jq68axbKIbg">Docker and Python: making them play nicely and securely for Data Science and ML</a></li>
+<li><a href="https://solutions.rstudio.com/environments/docker/">Docker info from RStudio Solutions Engineering</a></li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -572,7 +613,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -600,34 +658,62 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../learn-more/model-card.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Model cards for transparent, responsible reporting</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

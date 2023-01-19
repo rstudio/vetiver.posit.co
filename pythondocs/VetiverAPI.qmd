@@ -1,0 +1,30 @@
+## VetiverAPI { #VetiverAPI }
+
+`VetiverAPI(self, model: VetiverModel, check_prototype: bool = True, app_factory=FastAPI, kwargs)`
+
+Create model aware API
+
+### Parameters
+
+| Name              | Type         | Description                                    | Default   |
+|-------------------|--------------|------------------------------------------------|-----------|
+| `model`           | VetiverModel | Model to be deployed in API                    | required  |
+| `check_prototype` | bool         | Determine if data prototype should be enforced | `True`    |
+| `app_factory`     |              | Type of API to be deployed                     | `FastAPI` |
+| `**kwargs`        |              | Deprecated parameters.                         | `{}`      |
+
+### Examples
+
+```python
+>>> import vetiver as vt
+>>> X, y = vt.get_mock_data()
+>>> model = vt.get_mock_model().fit(X, y)
+>>> v = vt.VetiverModel(model = model, model_name = "my_model", prototype_data = X)
+>>> v_api = vt.VetiverAPI(model = v, check_prototype = True)
+```
+
+
+Notes
+-----
+Parameter `check_ptype` was changed to `check_prototype`. Handling of `check_ptype`
+will be removed in a future version.

@@ -1,0 +1,17 @@
+## vetiver_create_prototype { #vetiver_create_prototype }
+
+`vetiver_create_prototype(data)`
+
+Create zero row structure to save data types
+
+### Parameters
+
+| Name   | Type   | Description                                                         | Default   |
+|--------|--------|---------------------------------------------------------------------|-----------|
+| `data` | object | An object with information (data) whose layout is to be determined. | required  |
+
+### Returns
+
+| Type              | Description    |
+|-------------------|----------------|
+| vetiver.Prototype | Data prototype |

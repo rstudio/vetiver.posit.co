@@ -1,0 +1,11 @@
+## TorchHandler { #TorchHandler }
+
+`TorchHandler()`
+
+Handler class for creating VetiverModels with torch.
+
+### Parameters
+
+| Name    | Type      | Description           | Default   |
+|---------|-----------|-----------------------|-----------|
+| `model` | nn.Module | a trained torch model | required  |

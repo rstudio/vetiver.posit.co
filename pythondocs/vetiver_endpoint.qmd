@@ -1,0 +1,24 @@
+## vetiver_endpoint { #vetiver_endpoint }
+
+`vetiver_endpoint(url: str = 'http://127.0.0.1:8000/predict')`
+
+Wrap url where VetiverModel will be deployed
+
+### Parameters
+
+| Name   | Type   | Description          | Default                           |
+|--------|--------|----------------------|-----------------------------------|
+| `url`  | str    | URI path to endpoint | `'http://127.0.0.1:8000/predict'` |
+
+### Returns
+
+| Type   | Description          |
+|--------|----------------------|
+| str    | URI path to endpoint |
+
+### Examples
+
+```python
+>>> import vetiver
+>>> endpoint = vetiver.vetiver_endpoint(url='http://127.0.0.1:8000/predict')
+```

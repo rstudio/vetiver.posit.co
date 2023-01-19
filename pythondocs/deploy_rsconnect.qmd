@@ -1,0 +1,45 @@
+## deploy_rsconnect { #deploy_rsconnect }
+
+`deploy_rsconnect(connect_server, board, pin_name: str, version: str = None, extra_files: typing.List[str] = None, new: bool = False, app_id: int = None, title: str = None, python: str = None, conda_mode: bool = False, force_generate: bool = False, log_callback: typing.Callable = None, image: str = None)`
+
+Deploy to Posit Connect
+
+### Parameters
+
+| Name             | Type                          | Description                                            | Default   |
+|------------------|-------------------------------|--------------------------------------------------------|-----------|
+| `connect_server` | rsconnect.api.RSConnectServer | Posit Connect Server                                   | required  |
+| `board`          |                               | Pins board                                             | required  |
+| `pin_name`       | str                           | Name of pin                                            | required  |
+| `version`        | str                           | Version of pin                                         | `None`    |
+| `extra_files`    | typing.List[str]              | Any extra files to include                             | `None`    |
+| `new`            | bool                          | Force as a new deploy                                  | `False`   |
+| `app_id`         | int                           | ID of an existing application to deploy new files for. | `None`    |
+| `title`          | str                           | Optional title for the deploy.                         | `None`    |
+| `python`         | str                           | Optional name of a Python executable                   | `None`    |
+| `conda_mode`     | bool                          | Use conda to build an environment.yml                  | `False`   |
+| `force_generate` | bool                          | Force generating requirements.txt or environment.yml   | `False`   |
+| `log_callback`   | typing.Callable               | Callback to use to write the log to                    | `None`    |
+| `image`          | str                           | Docker image to be specified for off-host execution    | `None`    |
+
+### Examples
+
+```python
+>>> import vetiver
+>>> import pins
+>>> import rsconnect
+>>> board = pins.board_temp(allow_pickle_read=True)
+>>> connect_server = rsconnect.api.RSConnectServer(
+...    url = url,
+...    api_key = api_key)
+>>> X, y = vetiver.get_mock_data()
+>>> model = vetiver.get_mock_model().fit(X, y)
+>>> v = vetiver.VetiverModel(model = model,
+...    model_name = "my_model",
+...    prototype_data = X)
+>>> vetiver.deploy_rsconnect(
+...    connect_server = connect_server,
+...    board = board,
+...    pin_name = "my_model"
+... )
+```

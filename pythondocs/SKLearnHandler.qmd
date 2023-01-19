@@ -1,0 +1,11 @@
+## SKLearnHandler { #SKLearnHandler }
+
+`SKLearnHandler()`
+
+Handler class for creating VetiverModels with sklearn.
+
+### Parameters
+
+| Name    | Type                       | Description             | Default   |
+|---------|----------------------------|-------------------------|-----------|
+| `model` | sklearn.base.BaseEstimator | a trained sklearn model | required  |

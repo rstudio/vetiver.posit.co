@@ -1,0 +1,42 @@
+## VetiverModel { #VetiverModel }
+
+`VetiverModel(self, model, model_name: str, prototype_data=None, versioned=None, description: str = None, metadata: dict = None, kwargs)`
+
+Create VetiverModel class for serving.
+
+### Parameters
+
+| Name             | Type                   | Description                                                                             | Default   |
+|------------------|------------------------|-----------------------------------------------------------------------------------------|-----------|
+| `model`          |                        | A trained model, such as an sklearn or torch model                                      | required  |
+| `model_name`     | string                 | Model name or ID                                                                        | required  |
+| `prototype_data` | pd.DataFrame, np.array | Sample of data model should expect when it is being served                              | `None`    |
+| `versioned`      |                        | Should the model be versioned when created?                                             | `None`    |
+| `description`    | str                    | A detailed description of the model. If omitted, a brief description will be generated. | `None`    |
+| `metadata`       | dict                   | Other details to be saved and accessed for serving                                      | `None`    |
+| `**kwargs`       |                        | Deprecated parameters.                                                                  | `{}`      |
+
+### Attributes
+
+| Name            | Type              | Description                                     |
+|-----------------|-------------------|-------------------------------------------------|
+| prototype       | vetiver.Prototype | Data prototype                                  |
+| handler_predict | Callable          | Method to make predictions from a trained model |
+
+Notes
+-----
+VetiverModel can also take an initialized custom VetiverHandler
+as a model, for advanced use cases or non-supported model types.
+Parameter `ptype_data` was changed to `prototype_data`. Handling of `ptype_data`
+will be removed in a future version.
+
+### Examples
+
+```python
+>>> from vetiver import mock, VetiverModel
+>>> X, y = mock.get_mock_data()
+>>> model = mock.get_mock_model().fit(X, y)
+>>> v = VetiverModel(model = model, model_name = "my_model", prototype_data = X)
+>>> v.description
+'A scikit-learn DummyRegressor model'
+```

@@ -1,0 +1,11 @@
+## XGBoostHandler { #XGBoostHandler }
+
+`XGBoostHandler()`
+
+Handler class for creating VetiverModels with xgboost.
+
+### Parameters
+
+| Name    | Type   | Description                     | Default   |
+|---------|--------|---------------------------------|-----------|
+| `model` |        | a trained and fit xgboost model | required  |

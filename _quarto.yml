@@ -11,6 +11,7 @@ project:
     - get-started/version.qmd
     - get-started/deploy.qmd
     - get-started/monitor.qmd
+    - pythondocs/*
 
 website:
   title: "MLOps with vetiver"
@@ -53,8 +54,9 @@ website:
             text: "Deploy with Docker"
       - href: https://rstudio.github.io/vetiver-r/reference/
         text: R Function Reference
-      - href: https://rstudio.github.io/vetiver-python/
+      - href: pythondocs/index.qmd
         text: Python Function Reference
+
 
   sidebar:
     - id: get-started
@@ -77,8 +79,92 @@ website:
         - href: learn-more/model-card.qmd
         - href: learn-more/deploy-with-docker.qmd
 
+    - id: pythondocs
+      title: Python Docs
+      contents:
+        - href: pythondocs/index.qmd
+          text: Vetiver for Python
+        - section: "Version"
+          contents:
+            - pythondocs/VetiverModel.qmd
+            - pythondocs/vetiver_pin_write.qmd
+            - pythondocs/vetiver_create_prototype.qmd
+        - section: "Deploy"
+          contents:
+            - pythondocs/VetiverAPI.qmd
+            - pythondocs/vetiver_endpoint.qmd
+            - pythondocs/predict.qmd
+            - pythondocs/write_app.qmd
+            - pythondocs/write_docker.qmd
+            - pythondocs/deploy_rsconnect.qmd
+        - section: "Monitor"
+          contents:
+            - pythondocs/compute_metrics.qmd
+            - pythondocs/pin_metrics.qmd
+            - pythondocs/plot_metrics.qmd
+        - section: "Handlers"
+          contents:
+            #- pythondocs/BaseHandler.qmd
+            - pythondocs/SKLearnHandler.qmd
+            - pythondocs/TorchHandler.qmd
+            - pythondocs/StatsmodelsHandler.qmd
+            - pythondocs/XGBoostHandler.qmd
+        - section: "Advanced Usage"
+          contents: 
+            - pythondocs/custom_handler.md
+
+quartodoc:
+  style: pkgdown
+  dir: pythondocs
+  out_index: _api_index.qmd
+  package: vetiver
+  sections:
+    # TODO: figure out preface and Advanced Usage section
+    - title: ""
+      desc: ""
+      contents:
+        - VetiverModel
+        - vetiver_pin_write
+        - vetiver_create_prototype
+        - model_card.model_card
+
+    - title: Deploy
+      desc: ""
+      contents:
+        - VetiverAPI
+        # - VetiverAPI.run
+        # - VetiverAPI.vetiver_post
+        - vetiver_endpoint
+        - predict
+        - write_app
+        - write_docker.write_docker
+        - deploy_rsconnect
+
+    - title: Monitor
+      desc: ""
+      contents:
+        - compute_metrics
+        - pin_metrics
+        - plot_metrics
+
+    - title: Model Handlers
+      desc: ""
+      contents:
+        - SKLearnHandler
+        - TorchHandler
+        - StatsmodelsHandler
+        - XGBoostHandler
+
 filters:
   - grouped-tabsets
+  - interlinks
+
+interlinks:
+  sources:
+    vetiver:
+      url: "/"
+      inv: null
+      fallback: objects.json
 
 format:
   html:

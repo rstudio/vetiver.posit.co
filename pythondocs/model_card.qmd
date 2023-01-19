@@ -1,0 +1,16 @@
+## model_card { #model_card }
+
+`model_card(path='.')`
+
+Create a model card for documentation
+
+### Parameters
+
+| Name   | Type   | Description             | Default   |
+|--------|--------|-------------------------|-----------|
+| `path` | str    | Path to save model card | `'.'`     |
+
+Notes
+-----
+This model card is generated as a Quarto document. For more info on
+Quarto, visit https://quarto.org/

@@ -1,0 +1,27 @@
+## predict { #predict }
+
+`predict(endpoint, data: Union[dict, pd.DataFrame, pd.Series], kw)`
+
+Make a prediction from model endpoint
+
+### Parameters
+
+| Name       | Type                                 | Description          | Default   |
+|------------|--------------------------------------|----------------------|-----------|
+| `endpoint` |                                      | URI path to endpoint | required  |
+| `data`     | Union[dict, pd.DataFrame, pd.Series] | Name of endpoint     | required  |
+
+### Returns
+
+| Type   | Description                                  |
+|--------|----------------------------------------------|
+| dict   | Endpoint_name and list of endpoint_fx output |
+
+### Examples
+
+```python
+>>> import vetiver
+>>> X, y = vetiver.get_mock_data()
+>>> endpoint = vetiver.vetiver_endpoint(url='http://127.0.0.1:8000/predict')
+>>> vetiver.predict(endpoint, X)
+```
