@@ -38,6 +38,7 @@ website:
     background: primary
     pinned: true
     logo: "images/logo_small.png"
+    logo-alt: "vetiver - Home"
     left:
       - href: index.qmd
         text: Home
