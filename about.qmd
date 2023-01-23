@@ -5,18 +5,25 @@ subtitle: "MLOps for R and Python"
 
 ## What is MLOps?
 
+<details>
 Machine learning operations, or MLOps, is a set of practices to deploy and maintain machine learning models in production reliably and efficiently.
+</details>
 
 ## What tasks are involved in MLOps practices?
 
+<details>
 Some MLOps tasks are data versioning, tuning/training models, experiment tracking, model versioning, model deployment, model monitoring, and workflow orchestration. The vetiver framework focuses on the tasks of **versioning**, **deploying**, and **monitoring** an ML model.
+</details>
 
 ## How can I tell if I am on the right track while building an MLOps system?
 
+<details>
 You can use the rubric in "[The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction](https://research.google/pubs/pub46555/)" by Breck et al to understand how ready a machine learning system is for production. This rubric outlines 28 specific tests plus a grading scale to score how robust a deployment strategy is.
+</details>
 
 ## How does vetiver compare to other MLOps tools?
 
+<details>
 ### 😌 vetiver is a **focused** framework for data **practitioners**
 
 The vetiver framework does not aim to be an all-in-one solution for all parts of the MLOps life cycle. Instead, vetiver provides tooling to [version](https://vetiver.rstudio.com/get-started/version.html), [deploy](https://vetiver.rstudio.com/get-started/deploy.html), and [monitor](https://vetiver.rstudio.com/get-started/monitor.html) ML models. This focus allows vetiver to provide a better user experience and composability as organizations mature in their MLOps needs. Tools like MLFlow and managed cloud offerings like SageMaker and AzureML are designed to be comprehensive; this can be the right choice in some situations but comes with usability challenges and a steeper learning curve.
@@ -80,3 +87,4 @@ Before you submit a pull request to vetiver, always file an issue and confirm th
 
 We use the [tidyverse style guide](https://style.tidyverse.org/) for R and the [PEP 8 style guide](https://peps.python.org/pep-0008/) for Python.
 Using a style guide keeps your new code and documentation matching the existing style, and makes the review process much smoother.
+</details>
