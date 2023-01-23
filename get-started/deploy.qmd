@@ -79,7 +79,7 @@ You can interact with your vetiver API via automatically generated, detailed vis
 <br>
 
 FastAPI and Plumber APIs such as these can be hosted in a variety of ways.
-For [RStudio Connect](https://www.rstudio.com/products/connect/), you can deploy your versioned model with a single function, either `vetiver_deploy_rsconnect()` for R or `vetiver.deploy_rsconnect()` for Python. For more on these options, see the [Connect documentation for using vetiver](https://docs.rstudio.com/connect/user/vetiver/).
+For [RStudio Connect](https://posit.co/products/enterprise/connect/), you can deploy your versioned model with a single function, either `vetiver_deploy_rsconnect()` for R or `vetiver.deploy_rsconnect()` for Python. For more on these options, see the [Connect documentation for using vetiver](https://docs.posit.co/connect/user/vetiver/).
 
 For other hosting options, you can create a ready-to-go file for deployment.
 
@@ -213,7 +213,7 @@ endpoint
 ```
 :::
 
-If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via [a background job in the RStudio IDE](https://solutions.rstudio.com/r/jobs/)), you can make predictions with that deployed model and new data in another, separate process[^1].
+If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via [a background job in the RStudio IDE](https://docs.posit.co/ide/user/ide/guide/tools/jobs.html)), you can make predictions with that deployed model and new data in another, separate process[^1].
 
 [^1]: Keep in mind that the R and Python models have different values for the decision tree hyperparameters.
 
