@@ -341,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p><br></p>
-<p>FastAPI and Plumber APIs such as these can be hosted in a variety of ways. For <a href="https://www.rstudio.com/products/connect/">RStudio Connect</a>, you can deploy your versioned model with a single function, either <code>vetiver_deploy_rsconnect()</code> for R or <code>vetiver.deploy_rsconnect()</code> for Python. For more on these options, see the <a href="https://docs.rstudio.com/connect/user/vetiver/">Connect documentation for using vetiver</a>.</p>
+<p>FastAPI and Plumber APIs such as these can be hosted in a variety of ways. For <a href="https://posit.co/products/enterprise/connect/">RStudio Connect</a>, you can deploy your versioned model with a single function, either <code>vetiver_deploy_rsconnect()</code> for R or <code>vetiver.deploy_rsconnect()</code> for Python. For more on these options, see the <a href="https://docs.posit.co/connect/user/vetiver/">Connect documentation for using vetiver</a>.</p>
 <p>For other hosting options, you can create a ready-to-go file for deployment.</p>
 <div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
@@ -359,7 +359,7 @@ library(plumber)
 library(rapidoc)
 library(vetiver)
 b &lt;- board_folder(path = "pins-r")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20230123T181729Z-c92c7")
+v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20230123T183335Z-a5958")
 
 #* @plumber
 function(pr) {
@@ -380,7 +380,7 @@ import pins
 
 
 b = pins.board_folder('pins-py', allow_pickle_read=True)
-v = VetiverModel.from_pin(b, 'cars_mpg', version = '20230123T181732Z-d5646')
+v = VetiverModel.from_pin(b, 'cars_mpg', version = '20230123T183338Z-68eb3')
 
 vetiver_api = vetiver.VetiverAPI(v)
 api = vetiver_api.app</code></pre>
@@ -532,7 +532,7 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 </div>
 </div>
-<p>If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via <a href="https://solutions.rstudio.com/r/jobs/">a background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate process<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via <a href="https://docs.posit.co/ide/user/ide/guide/tools/jobs.html">a background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate process<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content" data-group="language">
@@ -690,7 +690,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Proudly supported by <a href="https://www.rstudio.com"><img src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg" class="img-fluid" alt="RStudio" width="65"></a></div>   
+    <div class="nav-footer-left">Proudly supported by <a href="https://posit.co/"><img src="https://www.rstudio.com/assets/img/posit-logo-fullcolor-TM.svg" class="img-fluid" alt="Posit PBC" width="65"></a></div>   
       <div class="nav-footer-center">
         <ul class="footer-items list-unstyled">
     <li class="nav-item">
