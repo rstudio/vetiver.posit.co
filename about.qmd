@@ -33,18 +33,24 @@ The design of vetiver can be extended in the future to other languages. The unde
 
 In terms of MLOps maturity, it is still early days for many organizations and practitioners. These folks need a tool that provides a fluent experience as they get started with their MLOps tasks and grow their institutional knowledge about model deployment and management. The vetiver framework is uniquely positioned for teams getting started with MLOps, in terms of our attention to user experience and focus on documentation.
 
-Other existing tools like [BentoML](https://www.bentoml.com/) are similar to vetiver in that they are focused solutions built for practitioners, but BentoML provides advanced functionality and is less appropriate for a team just getting started. We aim to provide a tool that grows with users and then supports a smooth transition when you need more features.
+Other existing tools like [BentoML](https://www.bentoml.com/) are similar to vetiver in that they are focused solutions built for practitioners, but BentoML provides advanced functionality and is less appropriate for a team just getting started.
+</details>
 
 ## Who is developing vetiver?
 
+<details>
 Development of vetiver is sponsored by [Posit PBC](https://posit.co/).
+</details>
 
 ## Is vetiver open source?
 
+<details>
 The vetiver [Python](https://github.com/rstudio/vetiver-python) and [R](https://github.com/rstudio/vetiver-r) packages are released under the [MIT license](https://opensource.org/licenses/MIT).
+</details>
 
 ## What are different ways you can contribute?
 
+<details>
 ### Answer questions
 
 You can help others use and learn vetiver by answering questions on the [RStudio community site](https://community.rstudio.com/), [Stack Overflow](https://stackoverflow.com/questions/tagged/vetiver?sort=newest), and [Twitter](https://twitter.com/search?q=%23vetiver&f=live).
