@@ -5,7 +5,7 @@ format:
     toc: true
 ---
 
-If you plan to bring vetiver to a public or private cloud outside of [RStudio Connect](https://www.rstudio.com/products/connect/), [Docker](https://www.docker.com/) containers are a highly portable solution. Using vetiver makes Dockerfile creation easy by generating the files you need from your trained models.
+If you plan to bring vetiver to a public or private cloud outside of [RStudio Connect](https://posit.co/products/enterprise/connect/), [Docker](https://www.docker.com/) containers are a highly portable solution. Using vetiver makes Dockerfile creation easy by generating the files you need from your trained models.
 
 ## Import data
 
@@ -255,6 +255,6 @@ Docker is a great tool for data scientists, so learning the basics is a good ide
 - [Python Docker](https://zetcode.com/python/docker/)
 - [Ten simple rules for writing Dockerfiles for reproducible data science](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008316)
 - [Docker and Python: making them play nicely and securely for Data Science and ML](https://www.youtube.com/watch?v=Jq68axbKIbg)
-- [Docker info from RStudio Solutions Engineering](https://solutions.rstudio.com/environments/docker/)
+- [Docker info from RStudio Solutions Engineering](https://solutions.posit.co/envs-pkgs/environments/docker/)
 
 
