@@ -98,14 +98,12 @@ vetiver_deploy_rsconnect(model_board, "user.name/cars_mpg")
 
 ```{python}
 #| eval: false
-import os
-from dotenv import load_dotenv, find_dotenv
 import rsconnect
 
-load_dotenv(find_dotenv())
-rsc_key = os.getenv("API_KEY")
-rsc_url = os.getenv("RSC_URL")
-connect_server = RSConnectServer(url = rsc_url, api_key = rsc_key)
+connect_server = RSConnectServer(
+    url=server_url, # load from an .env file
+    api_key=api_key # load from an .env file 
+)
 
 vetiver.deploy_rsconnect(
     connect_server = connect_server,
