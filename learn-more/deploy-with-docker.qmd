@@ -5,7 +5,7 @@ format:
     toc: true
 ---
 
-If you plan to bring vetiver to a public or private cloud outside of [RStudio Connect](https://posit.co/products/enterprise/connect/), [Docker](https://www.docker.com/) containers are a highly portable solution. Using vetiver makes Dockerfile creation easy by generating the files you need from your trained models.
+If you plan to bring vetiver to a public or private cloud rather than [Posit Connect](https://posit.co/products/enterprise/connect/), [Docker](https://www.docker.com/) containers are a highly portable solution. Using vetiver makes Dockerfile creation easy by generating the files you need from your trained models.
 
 ## Import data
 
@@ -94,7 +94,7 @@ import vetiver
 
 v = vetiver.VetiverModel(
     rf_pipe, 
-    ptype_data=X_train, 
+    prototype_data=X_train, 
     model_name = "superbowl_rf"
 )
 v.description
@@ -112,7 +112,7 @@ v
 
 ## Version your model
 
-We pin our vetiver model to a board to version it. We will also use this board later to create artifacts to run our Dockerfile. 
+We pin our vetiver model to a board to version it. We will also use this board later to create artifacts for our Dockerfile. 
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -136,53 +136,47 @@ vetiver.vetiver_pin_write(board, v)
 #| eval: false
 #| message: false
 library(pins)
-board <- board_rsconnect() # authenticates via environment variables
+board <- board_connect() # authenticates via environment variables
 vetiver_pin_write(board, v)
 ```
 :::
 
-Here we are using `board_rsconnect()`, but you can use other boards such as `board_s3()`. [Read more](https://vetiver.rstudio.com/get-started/version.html) about how to store and version your vetiver model.
+Here we are using `board_connect()`, but you can use other boards such as `board_s3()`. [Read more](https://vetiver.rstudio.com/get-started/version.html) about how to store and version your vetiver model.
 
-## Create API and Docker artifacts
+## Create Docker artifacts
 
-Next, let's create an `app.py` or `plumber.R` file. This file contains the [information to create a vetiver REST API](https://vetiver.rstudio.com/get-started/deploy.html#create-a-rest-api-for-deployment) and will be running inside your Docker container. 
+To build a Docker image that can serve your model, you need three artifacts:
 
-Once you have this file, vetiver can help you write a Dockerfile.
+- the Dockerfile itself,
+- a `requirements.txt` or `renv.lock` to capture your model dependencies, and
+- an `app.py` or `plumber.R` file containing the information to serve a vetiver REST API.
+
+You can create all the needed files with one function.
 
 ::: {.panel-tabset group="language"}
 ## Python
 
 ```{python}
 #| eval: false
-vetiver.write_app(
+vetiver.prepare_docker(
     board, 
-    "isabel.zimmerman/superbowl_rf", 
-    version = "20220901T144702Z-fd402"
+    "isabel.zimmerman/superbowl_rf",
+    version = "20220901T144702Z-fd402",
+    port = 8080
 )
-vetiver.write_docker()
 ```
 
-:::{.callout-note}
-You may need to edit the `app.py` file to load a `.env` file for authorization, if necessary.
-
-Docker also needs a requirements file. You can generate your own, or use `vetiver.load_pkgs()` to generate a file named `vetiver_req.txt` with the packages necessary for prediction.
-:::
 
 ## R
 
 ```{r}
 #| eval: false
-vetiver_write_plumber(board, "julia.silge/superbowl_rf")
-vetiver_write_docker(v, port=8080)
+vetiver_write_plumber(board, "julia.silge/superbowl_rf", port = 8080)
 ```
 
-:::{.callout-note}
-When you run `vetiver_write_docker()`, you generate *two* files: the Dockerfile itself and [the `vetiver_renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html) to capture your model dependencies.
 :::
 
-:::
-
-You have now created all the artifacts to run your Docker container!
+You have now created all the files needed to build your Docker image!
 
 ## Build and run your Dockerfile
 
@@ -196,7 +190,7 @@ docker build -t superbowlads .
 
 
 :::{.callout-tip}
-If you are on an ARM architecture locally and deploying an R model, use `--platform linux/amd64` for RSPM's fast installation of binaries.
+If you are on an ARM architecture locally and deploying an R model, use `--platform linux/amd64` for RSPM's fast installation of R package binaries.
 :::
 
 Now run! To authenticate to your board (to get the pinned vetiver model from, for example, RStudio Connect), pass in a file supplying environment variables.
