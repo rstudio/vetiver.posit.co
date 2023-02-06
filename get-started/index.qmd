@@ -113,7 +113,7 @@ v
 ```{python}
 from vetiver import VetiverModel
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
-                 ptype_data = mtcars.drop(columns="mpg"))
+                 prototype_data = mtcars.drop(columns="mpg"))
 v.description
 ```
 :::

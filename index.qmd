@@ -49,7 +49,7 @@ from sklearn.linear_model import LinearRegression
 
 model = LinearRegression().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 v = VetiverModel(model, model_name = "cars_linear", 
-                 ptype_data = mtcars.drop(columns="mpg"))
+                 prototype_data = mtcars.drop(columns="mpg"))
 v.description
 ```
 :::
