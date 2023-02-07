@@ -160,7 +160,7 @@ vetiver.prepare_docker(model_board, "cars_mpg")
 ```{python}
 #| echo: false
 #| comment: ""
-from vetiver import write_docker
+from vetiver import write_docker, write_app
 import tempfile
 
 with tempfile.TemporaryDirectory() as temp:
