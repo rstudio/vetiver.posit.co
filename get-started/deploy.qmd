@@ -137,6 +137,9 @@ vetiver_prepare_docker(model_board, "cars_mpg")
 #| message: false
 #| comment: ""
 options(renv.verbose = FALSE)
+docker_dir <- fs::path_real(tempdir())
+tmp_plumber <- fs::path(docker_dir, "plumber.R")
+vetiver_write_plumber(model_board, "cars_mpg", file = tmp_plumber, rsconnect = FALSE)
 vetiver_write_docker(v, tmp_plumber, docker_dir)
 docker_contents <- readr::read_lines(fs::path(docker_dir, "Dockerfile"))
 rel_dir <- fs::path_rel(docker_dir)
