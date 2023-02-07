@@ -256,10 +256,10 @@ An OLS linear regression model using 10 features</code></pre>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>), mtcars[<span class="st">"mpg"</span>])</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(model, model_name <span class="op">=</span> <span class="st">"cars_linear"</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                 ptype_data <span class="op">=</span> mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                 prototype_data <span class="op">=</span> mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>))</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>v.description</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>"Scikit-learn &lt;class 'sklearn.linear_model._base.LinearRegression'&gt; model"</code></pre>
+<pre><code>'A scikit-learn LinearRegression model'</code></pre>
 </div>
 </div>
 </div>

@@ -122,10 +122,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="MLOps with vetiver - Deploy with Docker">
-<meta property="og:description" content="If you plan to bring vetiver to a public or private cloud outside of RStudio Connect, Docker containers are a highly portable solution.">
+<meta property="og:description" content="If you plan to bring vetiver to a public or private cloud rather than Posit Connect, Docker containers are a highly portable solution.">
 <meta property="og:site-name" content="MLOps with vetiver">
 <meta name="twitter:title" content="MLOps with vetiver - Deploy with Docker">
-<meta name="twitter:description" content="If you plan to bring vetiver to a public or private cloud outside of RStudio Connect, Docker containers are a highly portable solution.">
+<meta name="twitter:description" content="If you plan to bring vetiver to a public or private cloud rather than Posit Connect, Docker containers are a highly portable solution.">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -221,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#build-a-model" id="toc-build-a-model" class="nav-link" data-scroll-target="#build-a-model">Build a model</a></li>
   <li><a href="#create-a-vetiver-model" id="toc-create-a-vetiver-model" class="nav-link" data-scroll-target="#create-a-vetiver-model">Create a vetiver model</a></li>
   <li><a href="#version-your-model" id="toc-version-your-model" class="nav-link" data-scroll-target="#version-your-model">Version your model</a></li>
-  <li><a href="#create-api-and-docker-artifacts" id="toc-create-api-and-docker-artifacts" class="nav-link" data-scroll-target="#create-api-and-docker-artifacts">Create API and Docker artifacts</a></li>
+  <li><a href="#create-docker-artifacts" id="toc-create-docker-artifacts" class="nav-link" data-scroll-target="#create-docker-artifacts">Create Docker artifacts</a></li>
   <li><a href="#build-and-run-your-dockerfile" id="toc-build-and-run-your-dockerfile" class="nav-link" data-scroll-target="#build-and-run-your-dockerfile">Build and run your Dockerfile</a></li>
   <li><a href="#make-predictions-from-docker-container" id="toc-make-predictions-from-docker-container" class="nav-link" data-scroll-target="#make-predictions-from-docker-container">Make predictions from Docker container</a></li>
   <li><a href="#what-if-i-dont-know-how-to-use-docker" id="toc-what-if-i-dont-know-how-to-use-docker" class="nav-link" data-scroll-target="#what-if-i-dont-know-how-to-use-docker">What if I don’t know how to use Docker?</a></li>
@@ -247,7 +247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>If you plan to bring vetiver to a public or private cloud outside of <a href="https://posit.co/products/enterprise/connect/">RStudio Connect</a>, <a href="https://www.docker.com/">Docker</a> containers are a highly portable solution. Using vetiver makes Dockerfile creation easy by generating the files you need from your trained models.</p>
+<p>If you plan to bring vetiver to a public or private cloud rather than <a href="https://posit.co/products/enterprise/connect/">Posit Connect</a>, <a href="https://www.docker.com/">Docker</a> containers are a highly portable solution. Using vetiver makes Dockerfile creation easy by generating the files you need from your trained models.</p>
 <section id="import-data" class="level2">
 <h2 class="anchored" data-anchor-id="import-data">Import data</h2>
 <p>For this demo, we will use data from <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-02">Tidy Tuesday</a> to predict the number of YouTube likes a television commercial played during the <a href="https://en.wikipedia.org/wiki/Super_Bowl">Super Bowl</a> will get, based on qualities such as if the ad included any animals, if the ad was funny, if the ad had any elements of danger, etc.</p>
@@ -359,12 +359,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> vetiver.VetiverModel(</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    rf_pipe, </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    ptype_data<span class="op">=</span>X_train, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    prototype_data<span class="op">=</span>X_train, </span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    model_name <span class="op">=</span> <span class="st">"superbowl_rf"</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>v.description</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>"Scikit-learn &lt;class 'sklearn.pipeline.Pipeline'&gt; model"</code></pre>
+<pre><code>'A scikit-learn Pipeline model'</code></pre>
 </div>
 </div>
 </div>
@@ -386,7 +386,7 @@ A ranger regression modeling workflow using 6 features</code></pre>
 </section>
 <section id="version-your-model" class="level2">
 <h2 class="anchored" data-anchor-id="version-your-model">Version your model</h2>
-<p>We pin our vetiver model to a board to version it. We will also use this board later to create artifacts to run our Dockerfile.</p>
+<p>We pin our vetiver model to a board to version it. We will also use this board later to create artifacts for our Dockerfile.</p>
 <div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">R</a></li></ul>
 <div class="tab-content" data-group="language">
@@ -406,67 +406,44 @@ A ranger regression modeling workflow using 6 features</code></pre>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pins)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>board <span class="ot">&lt;-</span> <span class="fu">board_rsconnect</span>() <span class="co"># authenticates via environment variables</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>board <span class="ot">&lt;-</span> <span class="fu">board_connect</span>() <span class="co"># authenticates via environment variables</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_pin_write</span>(board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
-<p>Here we are using <code>board_rsconnect()</code>, but you can use other boards such as <code>board_s3()</code>. <a href="https://vetiver.rstudio.com/get-started/version.html">Read more</a> about how to store and version your vetiver model.</p>
+<p>Here we are using <code>board_connect()</code>, but you can use other boards such as <code>board_s3()</code>. <a href="https://vetiver.rstudio.com/get-started/version.html">Read more</a> about how to store and version your vetiver model.</p>
 </section>
-<section id="create-api-and-docker-artifacts" class="level2">
-<h2 class="anchored" data-anchor-id="create-api-and-docker-artifacts">Create API and Docker artifacts</h2>
-<p>Next, let’s create an <code>app.py</code> or <code>plumber.R</code> file. This file contains the <a href="https://vetiver.rstudio.com/get-started/deploy.html#create-a-rest-api-for-deployment">information to create a vetiver REST API</a> and will be running inside your Docker container.</p>
-<p>Once you have this file, vetiver can help you write a Dockerfile.</p>
+<section id="create-docker-artifacts" class="level2">
+<h2 class="anchored" data-anchor-id="create-docker-artifacts">Create Docker artifacts</h2>
+<p>To build a Docker image that can serve your model, you need three artifacts:</p>
+<ul>
+<li>the Dockerfile itself,</li>
+<li>a <code>requirements.txt</code> or <code>renv.lock</code> to capture your model dependencies, and</li>
+<li>an <code>app.py</code> or <code>plumber.R</code> file containing the information to serve a vetiver REST API.</li>
+</ul>
+<p>You can create all the needed files with one function.</p>
 <div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">R</a></li></ul>
 <div class="tab-content" data-group="language">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vetiver.write_app(</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vetiver.prepare_docker(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    board, </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"isabel.zimmerman/superbowl_rf"</span>, </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    version <span class="op">=</span> <span class="st">"20220901T144702Z-fd402"</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>vetiver.write_docker()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You may need to edit the <code>app.py</code> file to load a <code>.env</code> file for authorization, if necessary.</p>
-<p>Docker also needs a requirements file. You can generate your own, or use <code>vetiver.load_pkgs()</code> to generate a file named <code>vetiver_req.txt</code> with the packages necessary for prediction.</p>
-</div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"isabel.zimmerman/superbowl_rf"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    version <span class="op">=</span> <span class="st">"20220901T144702Z-fd402"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    port <span class="op">=</span> <span class="dv">8080</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_plumber</span>(board, <span class="st">"julia.silge/superbowl_rf"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_docker</span>(v, <span class="at">port=</span><span class="dv">8080</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>When you run <code>vetiver_write_docker()</code>, you generate <em>two</em> files: the Dockerfile itself and <a href="https://rstudio.github.io/renv/articles/lockfile.html">the <code>vetiver_renv.lock</code> file</a> to capture your model dependencies.</p>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_plumber</span>(board, <span class="st">"julia.silge/superbowl_rf"</span>, <span class="at">port =</span> <span class="dv">8080</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
-</div>
-<p>You have now created all the artifacts to run your Docker container!</p>
+<p>You have now created all the files needed to build your Docker image!</p>
 </section>
 <section id="build-and-run-your-dockerfile" class="level2">
 <h2 class="anchored" data-anchor-id="build-and-run-your-dockerfile">Build and run your Dockerfile</h2>
@@ -484,7 +461,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you are on an ARM architecture locally and deploying an R model, use <code>--platform linux/amd64</code> for RSPM’s fast installation of binaries.</p>
+<p>If you are on an ARM architecture locally and deploying an R model, use <code>--platform linux/amd64</code> for RSPM’s fast installation of R package binaries.</p>
 </div>
 </div>
 <p>Now run! To authenticate to your board (to get the pinned vetiver model from, for example, RStudio Connect), pass in a file supplying environment variables.</p>

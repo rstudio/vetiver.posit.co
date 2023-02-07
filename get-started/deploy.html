@@ -225,7 +225,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#review-of-previous-steps" id="toc-review-of-previous-steps" class="nav-link active" data-scroll-target="#review-of-previous-steps">Review of previous steps</a></li>
   <li><a href="#create-a-rest-api-for-deployment" id="toc-create-a-rest-api-for-deployment" class="nav-link" data-scroll-target="#create-a-rest-api-for-deployment">Create a REST API for deployment</a></li>
-  <li><a href="#generate-a-dockerfile" id="toc-generate-a-dockerfile" class="nav-link" data-scroll-target="#generate-a-dockerfile">Generate a Dockerfile</a></li>
+  <li><a href="#deploy-to-connect" id="toc-deploy-to-connect" class="nav-link" data-scroll-target="#deploy-to-connect">Deploy to Connect</a></li>
+  <li><a href="#prepare-a-dockerfile" id="toc-prepare-a-dockerfile" class="nav-link" data-scroll-target="#prepare-a-dockerfile">Prepare a Dockerfile</a></li>
   <li><a href="#predict-from-your-model-endpoint" id="toc-predict-from-your-model-endpoint" class="nav-link" data-scroll-target="#predict-from-your-model-endpoint">Predict from your model endpoint</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rstudio/vetiver.rstudio.com/edit/main/get-started/deploy.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rstudio/vetiver.rstudio.com/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -283,7 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>car_mod <span class="op">=</span> tree.DecisionTreeRegressor().fit(mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>), mtcars[<span class="st">"mpg"</span>])</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> VetiverModel(car_mod, model_name <span class="op">=</span> <span class="st">"cars_mpg"</span>, </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                 ptype_data <span class="op">=</span> mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                 prototype_data <span class="op">=</span> mtcars.drop(columns<span class="op">=</span><span class="st">"mpg"</span>))</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>model_board <span class="op">=</span> board_folder(<span class="st">"pins-py"</span>, allow_pickle_read<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -323,6 +324,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverAPI</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> VetiverAPI(v, check_ptype <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;string&gt;:1: DeprecationWarning:
+
+argument for checking input data prototype has changed to check_prototype, from check_ptype</code></pre>
+</div>
 </div>
 <p>To start a server using this object, use <code>app.run(port = 8080)</code> or your port of choice.</p>
 </div>
@@ -341,72 +347,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p><br></p>
-<p>FastAPI and Plumber APIs such as these can be hosted in a variety of ways. For <a href="https://posit.co/products/enterprise/connect/">RStudio Connect</a>, you can deploy your versioned model with a single function, either <code>vetiver_deploy_rsconnect()</code> for R or <code>vetiver.deploy_rsconnect()</code> for Python. For more on these options, see the <a href="https://docs.posit.co/connect/user/vetiver/">Connect documentation for using vetiver</a>.</p>
-<p>For other hosting options, you can create a ready-to-go file for deployment.</p>
+<p>FastAPI and Plumber APIs such as these can be hosted in a variety of ways. Let’s walk through two options: deploying to Posit Connect or with Docker.</p>
+</section>
+<section id="deploy-to-connect" class="level2">
+<h2 class="anchored" data-anchor-id="deploy-to-connect">Deploy to Connect</h2>
+<p>For <a href="https://posit.co/products/enterprise/connect/">Posit Connect</a>, you can deploy your versioned model with a single function.</p>
 <div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content" data-group="language">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_plumber</span>(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># Generated by the vetiver package; edit with care
-
-library(pins)
-library(plumber)
-library(rapidoc)
-library(vetiver)
-b &lt;- board_folder(path = "pins-r")
-v &lt;- vetiver_pin_read(b, "cars_mpg", version = "20230123T183915Z-33c30")
-
-#* @plumber
-function(pr) {
-    pr %&gt;% vetiver_api(v)
-}</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># authenticates via environment variables:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_deploy_rsconnect</span>(model_board, <span class="st">"user.name/cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>app_file <span class="op">=</span> vetiver.write_app(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>from vetiver import VetiverModel
-import vetiver
-import pins
-
-
-b = pins.board_folder('pins-py', allow_pickle_read=True)
-v = VetiverModel.from_pin(b, 'cars_mpg', version = '20230123T183918Z-e37a6')
-
-vetiver_api = vetiver.VetiverAPI(v)
-api = vetiver_api.app</code></pre>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rsconnect.api <span class="im">import</span> RSConnectServer</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>connect_server <span class="op">=</span> RSConnectServer(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    url<span class="op">=</span>server_url, <span class="co"># load from an .env file</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    api_key<span class="op">=</span>api_key <span class="co"># load from an .env file </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>vetiver.deploy_rsconnect(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    connect_server <span class="op">=</span> connect_server,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    board <span class="op">=</span> model_board,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    pin_name <span class="op">=</span> <span class="st">"user.name/cars_mpg"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
-</div>
-<p>In a real-world situation, you would see something like <code>board_rsconnect()</code> or <code>board_s3()</code> here instead of our temporary demo board.</p>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Notice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected.</p>
-</div>
-</div>
+<p>In this case, you probably want <code>model_board</code> to be a Connect pins board (<code>board_connect()</code>). For more on deploying to Connect, see the <a href="https://docs.posit.co/connect/user/vetiver/">Connect documentation for using vetiver</a>.</p>
 </section>
-<section id="generate-a-dockerfile" class="level2">
-<h2 class="anchored" data-anchor-id="generate-a-dockerfile">Generate a Dockerfile</h2>
-<p>For deploying a vetiver API to infrastructure other than RStudio Connect, such as <a href="https://cloud.google.com/run/docs/deploying">Google Cloud Run</a>, <a href="https://docs.aws.amazon.com/AmazonECS/latest/userguide/create-container-image.html">AWS</a>, or <a href="https://docs.microsoft.com/en-us/azure/container-instances/container-instances-quickstart">Azure</a>, you likely will want to build a Docker container.</p>
+<section id="prepare-a-dockerfile" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-a-dockerfile">Prepare a Dockerfile</h2>
+<p>For deploying a vetiver API to infrastructure other than Posit Connect, such as <a href="https://cloud.google.com/run/docs/deploying">Google Cloud Run</a>, <a href="https://docs.aws.amazon.com/AmazonECS/latest/userguide/create-container-image.html">AWS</a>, or <a href="https://docs.microsoft.com/en-us/azure/container-instances/container-instances-quickstart">Azure</a>, you likely will want to build a Docker container.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -417,7 +394,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You can use any pins board with Docker, like <code>board_folder()</code> or <code>board_rsconnect()</code>, as long as your Docker container can authenticate to your pins board.</p>
+<p>You can use any pins board with Docker, like <code>board_folder()</code> or <code>board_connect()</code>, as long as your Docker container can authenticate to your pins board.</p>
 </div>
 </div>
 <div class="panel-tabset" data-group="language">
@@ -425,7 +402,7 @@ Note
 <div class="tab-content" data-group="language">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_write_docker</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_prepare_docker</span>(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -451,11 +428,11 @@ EXPOSE 8000
 ENTRYPOINT ["R", "-e", "pr &lt;- plumber::plumb('/opt/ml/plumber.R'); pr$run(host = '0.0.0.0', port = 8000)"]</code></pre>
 </div>
 </div>
-<p>When you run <code>vetiver_write_docker()</code>, you generate <em>two</em> files: the Dockerfile itself and <a href="https://rstudio.github.io/renv/articles/lockfile.html">the <code>vetiver_renv.lock</code> file</a> to capture your model dependencies.</p>
+<p>When you run <code>vetiver_prepare_docker()</code>, you generate <em>three</em> files needed to build a Docker image: the Dockerfile itself, a Plumber file serving your REST API, and <a href="https://rstudio.github.io/renv/articles/lockfile.html">the <code>vetiver_renv.lock</code> file</a> to capture your model dependencies.</p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>vetiver.write_docker(app_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vetiver.prepare_docker(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -473,7 +450,7 @@ COPY vetiver_requirements.txt /vetiver/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /vetiver/requirements.txt
 
 # copy app file
-COPY ./app.py /vetiver/app
+COPY ./app.py /vetiver/app/./app.py
 
 # expose port
 EXPOSE 8080
@@ -482,7 +459,7 @@ EXPOSE 8080
 CMD ["uvicorn", "app.app:api", "--host", "0.0.0.0", "--port", "8080"]</code></pre>
 </div>
 </div>
-<p>To build the Docker image, you need <em>two</em> files: the Dockerfile itself generated via <code>vetiver_write_docker()</code> and <a href="https://pip.pypa.io/en/stable/reference/requirements-file-format/">a <code>requirements.txt</code> file</a> to capture your model dependencies. If you don’t already have a requirements file for your project, <code>vetiver.load_pkgs()</code> will generate one for you, with the name <code>vetiver_requirements.txt</code>.</p>
+<p>When you run <code>vetiver.prepare_docker()</code>, you generate <em>three</em> files needed to build a Docker image: the Dockerfile itself, a FastAPI app file serving your REST API, and <a href="https://pip.pypa.io/en/stable/reference/requirements-file-format/">a <code>requirements.txt</code> file</a> to capture your model dependencies.</p>
 </div>
 </div>
 </div>
@@ -499,6 +476,7 @@ Tip
 <ul>
 <li><p>When you build such a Docker container <a href="https://docs.docker.com/engine/reference/commandline/build/">with <code>docker build</code></a>, all the packages needed to make a prediction with your model are installed into the container.</p></li>
 <li><p>When you run the Docker container, you can pass in environment variables (for authentication to your pins board, for example) with <code>docker run --env-file .Renviron</code>.</p></li>
+<li><p>Learn more about <a href="https://vetiver.rstudio.com/learn-more/deploy-with-docker.html">deploying with Docker</a>.</p></li>
 </ul>
 </div>
 </div>
@@ -511,8 +489,8 @@ Tip
 <div class="tab-content" data-group="language">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ── A model API endpoint for prediction: 
@@ -522,9 +500,9 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver.server <span class="im">import</span> predict, vetiver_endpoint</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> vetiver_endpoint(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver.server <span class="im">import</span> predict, vetiver_endpoint</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> vetiver_endpoint(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'http://127.0.0.1:8080/predict'</code></pre>
 </div>
@@ -532,18 +510,18 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 </div>
 </div>
-<p>If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via <a href="https://docs.posit.co/ide/user/ide/guide/tools/jobs.html">a background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate process<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via Docker or <a href="https://docs.posit.co/ide/user/ide/guide/tools/jobs.html">a background job in the RStudio IDE</a>), you can make predictions with that deployed model and new data in another, separate process<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <div class="panel-tabset" data-group="language">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content" data-group="language">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>new_car <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cyl =</span> <span class="dv">4</span>,  <span class="at">disp =</span> <span class="dv">200</span>, </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hp =</span> <span class="dv">100</span>, <span class="at">drat =</span> <span class="dv">3</span>,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">wt =</span> <span class="dv">3</span>,   <span class="at">qsec =</span> <span class="dv">17</span>, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vs =</span> <span class="dv">0</span>,   <span class="at">am =</span> <span class="dv">1</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gear =</span> <span class="dv">4</span>, <span class="at">carb =</span> <span class="dv">2</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>new_car <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cyl =</span> <span class="dv">4</span>,  <span class="at">disp =</span> <span class="dv">200</span>, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hp =</span> <span class="dv">100</span>, <span class="at">drat =</span> <span class="dv">3</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">wt =</span> <span class="dv">3</span>,   <span class="at">qsec =</span> <span class="dv">17</span>, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vs =</span> <span class="dv">0</span>,   <span class="at">am =</span> <span class="dv">1</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gear =</span> <span class="dv">4</span>, <span class="at">carb =</span> <span class="dv">2</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code># A tibble: 11 × 1
    .pred
@@ -552,14 +530,14 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>new_car_dict <span class="op">=</span> {<span class="st">"cyl"</span>: [<span class="dv">4</span>], <span class="st">"disp"</span>: [<span class="dv">200</span>], </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"hp"</span>: [<span class="dv">100</span>], <span class="st">"drat"</span>: [<span class="dv">3</span>],</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"wt"</span>: [<span class="dv">3</span>], <span class="st">"qsec"</span>: [<span class="dv">17</span>], </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"vs"</span>: [<span class="dv">0</span>], <span class="st">"am"</span>: [<span class="dv">1</span>],</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"gear"</span>: [<span class="dv">4</span>], <span class="st">"carb"</span>: [<span class="dv">2</span>]}</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>new_car <span class="op">=</span> pd.DataFrame(new_car_dict)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>predict(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>new_car_dict <span class="op">=</span> {<span class="st">"cyl"</span>: [<span class="dv">4</span>], <span class="st">"disp"</span>: [<span class="dv">200</span>], </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"hp"</span>: [<span class="dv">100</span>], <span class="st">"drat"</span>: [<span class="dv">3</span>],</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"wt"</span>: [<span class="dv">3</span>], <span class="st">"qsec"</span>: [<span class="dv">17</span>], </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"vs"</span>: [<span class="dv">0</span>], <span class="st">"am"</span>: [<span class="dv">1</span>],</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"gear"</span>: [<span class="dv">4</span>], <span class="st">"carb"</span>: [<span class="dv">2</span>]}</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>new_car <span class="op">=</span> pd.DataFrame(new_car_dict)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>predict(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>  prediction
 0       21.0</code></pre>
