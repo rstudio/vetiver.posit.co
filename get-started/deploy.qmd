@@ -98,7 +98,7 @@ vetiver_deploy_rsconnect(model_board, "user.name/cars_mpg")
 
 ```{python}
 #| eval: false
-import rsconnect
+from rsconnect.api import RSConnectServer
 
 connect_server = RSConnectServer(
     url=server_url, # load from an .env file
