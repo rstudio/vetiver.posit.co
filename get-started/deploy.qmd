@@ -171,7 +171,6 @@ print(contents.replace(temp, "."))
 ```
 
 When you run `vetiver.prepare_docker()`, you generate *three* files needed to build a Docker image: the Dockerfile itself, a FastAPI app file serving your REST API, and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies.
-If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you, with the name `vetiver_requirements.txt`.
 :::
 
 ::: callout-tip
