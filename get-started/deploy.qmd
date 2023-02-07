@@ -41,7 +41,7 @@ from pins import board_folder
 car_mod = tree.DecisionTreeRegressor().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
 
 v = VetiverModel(car_mod, model_name = "cars_mpg", 
-                 ptype_data = mtcars.drop(columns="mpg"))
+                 prototype_data = mtcars.drop(columns="mpg"))
 
 model_board = board_folder("pins-py", allow_pickle_read=True)
 vetiver_pin_write(model_board, v)
@@ -78,62 +78,50 @@ You can interact with your vetiver API via automatically generated, detailed vis
 <script src="https://fast.wistia.com/embed/medias/w7p0op712v.jsonp" async></script><script src="https://fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:107.92% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_w7p0op712v videoFoam=true" style="height:100%;position:relative;width:100%"><div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;"><img src="https://fast.wistia.com/embed/medias/w7p0op712v/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" /></div></div></div></div>
 <br>
 
-FastAPI and Plumber APIs such as these can be hosted in a variety of ways.
-For [RStudio Connect](https://posit.co/products/enterprise/connect/), you can deploy your versioned model with a single function, either `vetiver_deploy_rsconnect()` for R or `vetiver.deploy_rsconnect()` for Python. For more on these options, see the [Connect documentation for using vetiver](https://docs.posit.co/connect/user/vetiver/).
+FastAPI and Plumber APIs such as these can be hosted in a variety of ways. Let's walk through two options: deploying to Posit Connect or with Docker.
 
-For other hosting options, you can create a ready-to-go file for deployment.
+## Deploy to Connect
+
+For [Posit Connect](https://posit.co/products/enterprise/connect/), you can deploy your versioned model with a single function.
+
 
 ::: {.panel-tabset group="language"}
 ## R
 
 ```{r}
 #| eval: false
-vetiver_write_plumber(model_board, "cars_mpg")
+# authenticates via environment variables:
+vetiver_deploy_rsconnect(model_board, "user.name/cars_mpg")
 ```
-
-```{r}
-#| echo: false
-#| comment: ""
-docker_dir <- fs::path_real(tempdir())
-tmp_plumber <- fs::path(docker_dir, "plumber.R")
-vetiver_write_plumber(model_board, "cars_mpg", file = tmp_plumber, rsconnect = FALSE)
-cat(readr::read_lines(tmp_plumber), sep = "\n")
-```
-
-
 
 ## Python
 
 ```{python}
 #| eval: false
-app_file = vetiver.write_app(model_board, "cars_mpg")
+from rsconnect.api import RSConnectServer
+
+connect_server = RSConnectServer(
+    url=server_url, # load from an .env file
+    api_key=api_key # load from an .env file 
+)
+
+vetiver.deploy_rsconnect(
+    connect_server = connect_server,
+    board = model_board,
+    pin_name = "user.name/cars_mpg",
+)
 ```
 
-```{python}
-#| echo: false
-#| comment: ""
-from vetiver import write_app
-import tempfile
-with tempfile.TemporaryDirectory() as temp:
-  tmp = temp + "app.py"
-  write_app(model_board, "cars_mpg", file=tmp)
-  contents = open(tmp).read()
-print(contents.replace(temp, "."))
-```
 :::
 
-In a real-world situation, you would see something like `board_rsconnect()` or `board_s3()` here instead of our temporary demo board.
+In this case, you probably want `model_board` to be a Connect pins board (`board_connect()`). For more on deploying to Connect, see the [Connect documentation for using vetiver](https://docs.posit.co/connect/user/vetiver/).
 
-::: callout-important
-Notice that the deployment is strongly linked to a specific version of the pinned model; if you pin another version of the model after you deploy your model, your deployed model will not be affected.
-:::
+## Prepare a Dockerfile
 
-## Generate a Dockerfile
-
-For deploying a vetiver API to infrastructure other than RStudio Connect, such as [Google Cloud Run](https://cloud.google.com/run/docs/deploying), [AWS](https://docs.aws.amazon.com/AmazonECS/latest/userguide/create-container-image.html), or [Azure](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-quickstart), you likely will want to build a Docker container.
+For deploying a vetiver API to infrastructure other than Posit Connect, such as [Google Cloud Run](https://cloud.google.com/run/docs/deploying), [AWS](https://docs.aws.amazon.com/AmazonECS/latest/userguide/create-container-image.html), or [Azure](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-quickstart), you likely will want to build a Docker container.
 
 ::: callout-note
-You can use any pins board with Docker, like `board_folder()` or `board_rsconnect()`, as long as your Docker container can authenticate to your pins board.
+You can use any pins board with Docker, like `board_folder()` or `board_connect()`, as long as your Docker container can authenticate to your pins board.
 :::
 
 ::: {.panel-tabset group="language"}
@@ -141,7 +129,7 @@ You can use any pins board with Docker, like `board_folder()` or `board_rsconnec
 
 ```{r}
 #| eval: false
-vetiver_write_docker(v)
+vetiver_prepare_docker(model_board, "cars_mpg")
 ```
 
 ```{r}
@@ -157,13 +145,13 @@ docker_contents <- gsub(paste0(docker_dir, "/"), "", docker_contents, fixed = TR
 cat(docker_contents, sep = "\n")
 ```
 
-When you run `vetiver_write_docker()`, you generate *two* files: the Dockerfile itself and [the `vetiver_renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html) to capture your model dependencies.
+When you run `vetiver_prepare_docker()`, you generate *three* files needed to build a Docker image: the Dockerfile itself, a Plumber file serving your REST API, and [the `vetiver_renv.lock` file](https://rstudio.github.io/renv/articles/lockfile.html) to capture your model dependencies.
 
 ## Python
 
 ```{python}
 #| eval: false
-vetiver.write_docker(app_file)
+vetiver.prepare_docker(model_board, "cars_mpg")
 ```
 
 ```{python}
@@ -182,14 +170,15 @@ print(contents.replace(temp, "."))
 
 ```
 
-To build the Docker image, you need *two* files: the Dockerfile itself generated via `vetiver_write_docker()` and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies.
-If you don't already have a requirements file for your project, `vetiver.load_pkgs()` will generate one for you, with the name `vetiver_requirements.txt`.
+When you run `vetiver.prepare_docker()`, you generate *three* files needed to build a Docker image: the Dockerfile itself, a FastAPI app file serving your REST API, and [a `requirements.txt` file](https://pip.pypa.io/en/stable/reference/requirements-file-format/) to capture your model dependencies.
 :::
 
 ::: callout-tip
 -   When you build such a Docker container [with `docker build`](https://docs.docker.com/engine/reference/commandline/build/), all the packages needed to make a prediction with your model are installed into the container.
 
 -   When you run the Docker container, you can pass in environment variables (for authentication to your pins board, for example) with `docker run --env-file .Renviron`.
+
+-   Learn more about [deploying with Docker](https://vetiver.rstudio.com/learn-more/deploy-with-docker.html).
 :::
 
 ## Predict from your model endpoint
@@ -213,7 +202,7 @@ endpoint
 ```
 :::
 
-If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via [a background job in the RStudio IDE](https://docs.posit.co/ide/user/ide/guide/tools/jobs.html)), you can make predictions with that deployed model and new data in another, separate process[^1].
+If such a deployed model endpoint is running via one process (either remotely on a server or locally, perhaps via Docker or [a background job in the RStudio IDE](https://docs.posit.co/ide/user/ide/guide/tools/jobs.html)), you can make predictions with that deployed model and new data in another, separate process[^1].
 
 [^1]: Keep in mind that the R and Python models have different values for the decision tree hyperparameters.
 
