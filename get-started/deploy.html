@@ -323,12 +323,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverAPI</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> VetiverAPI(v, check_ptype <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;string&gt;:1: DeprecationWarning:
-
-argument for checking input data prototype has changed to check_prototype, from check_ptype</code></pre>
-</div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> VetiverAPI(v, check_prototype <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To start a server using this object, use <code>app.run(port = 8080)</code> or your port of choice.</p>
 </div>
@@ -357,24 +352,24 @@ argument for checking input data prototype has changed to check_prototype, from 
 <div class="tab-content" data-group="language">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># authenticates via environment variables:</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_deploy_rsconnect</span>(model_board, <span class="st">"user.name/cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># authenticates via environment variables:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_deploy_rsconnect</span>(model_board, <span class="st">"user.name/cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rsconnect.api <span class="im">import</span> RSConnectServer</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>connect_server <span class="op">=</span> RSConnectServer(</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    url<span class="op">=</span>server_url, <span class="co"># load from an .env file</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    api_key<span class="op">=</span>api_key <span class="co"># load from an .env file </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>vetiver.deploy_rsconnect(</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    connect_server <span class="op">=</span> connect_server,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    board <span class="op">=</span> model_board,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    pin_name <span class="op">=</span> <span class="st">"user.name/cars_mpg"</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rsconnect.api <span class="im">import</span> RSConnectServer</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>connect_server <span class="op">=</span> RSConnectServer(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    url<span class="op">=</span>server_url, <span class="co"># load from an .env file</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    api_key<span class="op">=</span>api_key <span class="co"># load from an .env file </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>vetiver.deploy_rsconnect(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    connect_server <span class="op">=</span> connect_server,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    board <span class="op">=</span> model_board,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    pin_name <span class="op">=</span> <span class="st">"user.name/cars_mpg"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -402,7 +397,7 @@ Note
 <div class="tab-content" data-group="language">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_prepare_docker</span>(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_prepare_docker</span>(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -432,7 +427,7 @@ ENTRYPOINT ["R", "-e", "pr &lt;- plumber::plumb('/opt/ml/plumber.R'); pr$run(hos
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vetiver.prepare_docker(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>vetiver.prepare_docker(model_board, <span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -489,8 +484,8 @@ Tip
 <div class="tab-content" data-group="language">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>endpoint <span class="ot">&lt;-</span> <span class="fu">vetiver_endpoint</span>(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ── A model API endpoint for prediction: 
@@ -500,9 +495,9 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver.server <span class="im">import</span> predict, vetiver_endpoint</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> vetiver_endpoint(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vetiver.server <span class="im">import</span> predict, vetiver_endpoint</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>endpoint <span class="op">=</span> vetiver_endpoint(<span class="st">"http://127.0.0.1:8080/predict"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>endpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'http://127.0.0.1:8080/predict'</code></pre>
 </div>
@@ -516,12 +511,12 @@ http://127.0.0.1:8080/predict</code></pre>
 <div class="tab-content" data-group="language">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>new_car <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cyl =</span> <span class="dv">4</span>,  <span class="at">disp =</span> <span class="dv">200</span>, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hp =</span> <span class="dv">100</span>, <span class="at">drat =</span> <span class="dv">3</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">wt =</span> <span class="dv">3</span>,   <span class="at">qsec =</span> <span class="dv">17</span>, </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vs =</span> <span class="dv">0</span>,   <span class="at">am =</span> <span class="dv">1</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gear =</span> <span class="dv">4</span>, <span class="at">carb =</span> <span class="dv">2</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>new_car <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">cyl =</span> <span class="dv">4</span>,  <span class="at">disp =</span> <span class="dv">200</span>, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">hp =</span> <span class="dv">100</span>, <span class="at">drat =</span> <span class="dv">3</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">wt =</span> <span class="dv">3</span>,   <span class="at">qsec =</span> <span class="dv">17</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vs =</span> <span class="dv">0</span>,   <span class="at">am =</span> <span class="dv">1</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gear =</span> <span class="dv">4</span>, <span class="at">carb =</span> <span class="dv">2</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code># A tibble: 11 × 1
    .pred
@@ -530,14 +525,14 @@ http://127.0.0.1:8080/predict</code></pre>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>new_car_dict <span class="op">=</span> {<span class="st">"cyl"</span>: [<span class="dv">4</span>], <span class="st">"disp"</span>: [<span class="dv">200</span>], </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"hp"</span>: [<span class="dv">100</span>], <span class="st">"drat"</span>: [<span class="dv">3</span>],</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"wt"</span>: [<span class="dv">3</span>], <span class="st">"qsec"</span>: [<span class="dv">17</span>], </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"vs"</span>: [<span class="dv">0</span>], <span class="st">"am"</span>: [<span class="dv">1</span>],</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"gear"</span>: [<span class="dv">4</span>], <span class="st">"carb"</span>: [<span class="dv">2</span>]}</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>new_car <span class="op">=</span> pd.DataFrame(new_car_dict)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>predict(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>new_car_dict <span class="op">=</span> {<span class="st">"cyl"</span>: [<span class="dv">4</span>], <span class="st">"disp"</span>: [<span class="dv">200</span>], </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"hp"</span>: [<span class="dv">100</span>], <span class="st">"drat"</span>: [<span class="dv">3</span>],</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"wt"</span>: [<span class="dv">3</span>], <span class="st">"qsec"</span>: [<span class="dv">17</span>], </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"vs"</span>: [<span class="dv">0</span>], <span class="st">"am"</span>: [<span class="dv">1</span>],</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"gear"</span>: [<span class="dv">4</span>], <span class="st">"carb"</span>: [<span class="dv">2</span>]}</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>new_car <span class="op">=</span> pd.DataFrame(new_car_dict)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>predict(endpoint, new_car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>  prediction
 0       21.0</code></pre>
