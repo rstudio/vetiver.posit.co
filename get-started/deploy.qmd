@@ -67,7 +67,7 @@ To start a server using this object, pipe (`%>%`) to `pr_run(port = 8080)` or yo
 
 ```{python}
 from vetiver import VetiverAPI
-app = VetiverAPI(v, check_ptype = True)
+app = VetiverAPI(v, check_prototype = True)
 ```
 
 To start a server using this object, use `app.run(port = 8080)` or your port of choice.
