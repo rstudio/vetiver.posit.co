@@ -67,7 +67,7 @@ To start a server using this object, pipe (`%>%`) to `pr_run(port = 8080)` or yo
 
 ```{python}
 from vetiver import VetiverAPI
-app = VetiverAPI(v, check_prototype = True)
+app = VetiverAPI(v, check_prototype=True)
 ```
 
 To start a server using this object, use `app.run(port = 8080)` or your port of choice.
@@ -160,16 +160,14 @@ vetiver.prepare_docker(model_board, "cars_mpg")
 ```{python}
 #| echo: false
 #| comment: ""
-from vetiver import write_docker, write_app
+from vetiver import prepare_docker
 import tempfile
 
 with tempfile.TemporaryDirectory() as temp:
-  tmp_app = temp + "/app.py"
   tmp_docker = temp + "/Dockerfile"
-  write_app(model_board, "cars_mpg", file=tmp_app)
-  write_docker(app_file=tmp_app, path=temp+"/")
+  prepare_docker(model_board, "cars_mpg", path=temp)
   contents = open(tmp_docker).read()
-print(contents.replace(temp, "."))
+print(contents)
 
 ```
 
