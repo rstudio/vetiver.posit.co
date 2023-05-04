@@ -1,7 +1,0 @@
-title: Grouped Tabsets
-author: Carlos Scheidegger
-version: 0.0.1
-contributes:
-  filters:
-    - grouped-tabsets.lua
-  
