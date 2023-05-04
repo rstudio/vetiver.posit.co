@@ -24,8 +24,6 @@ website:
   favicon: "images/favicon.ico"
   google-analytics:
     tracking-id: "GTM-KHBDBW7"
-    version: 4
-  cookie-consent: true
   page-footer:
     left: |
       Proudly supported by
@@ -81,9 +79,6 @@ website:
         - href: learn-more/parity-checklist.qmd
         - href: learn-more/model-card.qmd
         - href: learn-more/deploy-with-docker.qmd
-
-filters:
-  - grouped-tabsets
 
 format:
   html:
