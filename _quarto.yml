@@ -22,6 +22,10 @@ website:
   repo-actions: [edit, issue]
   page-navigation: true
   favicon: "images/favicon.ico"
+  google-analytics:
+    tracking-id: "GTM-KHBDBW7"
+    version: 4
+  cookie-consent: true
   page-footer:
     left: |
       Proudly supported by
