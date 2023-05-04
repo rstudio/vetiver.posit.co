@@ -89,6 +89,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <meta name="quarto:offset" content="../">
 <link href="../get-started/deploy.html" rel="prev">
 <link href="../images/favicon.ico" rel="icon">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -118,6 +120,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=GTM-KHBDBW7"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GTM-KHBDBW7', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -364,13 +391,13 @@ How does my model use time?
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>original_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       index  n               metric   estimate
-0 2022-03-24  7  mean_absolute_error   3.450000
-1 2022-03-24  7   mean_squared_error  13.387700
-2 2022-03-24  7             r2_score   0.300983
-3 2022-03-31  7  mean_absolute_error   1.898966
-4 2022-03-31  7   mean_squared_error   7.365669
-5 2022-03-31  7             r2_score   0.781815</code></pre>
+<pre><code>       index  n               metric  estimate
+0 2022-03-24  7  mean_absolute_error  2.668882
+1 2022-03-24  7   mean_squared_error  8.637267
+2 2022-03-24  7             r2_score  0.549019
+3 2022-03-31  7  mean_absolute_error  1.984680
+4 2022-03-31  7   mean_squared_error  7.458848
+5 2022-03-31  7             r2_score  0.779055</code></pre>
 </div>
 </div>
 </div>
@@ -604,7 +631,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <a class="nav-link" href="../about.html">About</a>
   </li>  
 </ul>
-      </div>
+      <div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
