@@ -16,7 +16,10 @@ Imports:
     ranger,
     reticulate,
     rmarkdown,
+    rsample (>= 1.1.1),
     tidymodels,
     tidyverse,
     vetiver
 Encoding: UTF-8
+Remotes:  
+    tidymodels/rsample
