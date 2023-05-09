@@ -1,0 +1,200 @@
+---
+title: "Store model metrics as metadata"
+format:
+  html:
+    toc: true
+---
+
+The vetiver framework creates some metadata automatically for your trained model, such as the packages used to train your model and a description. You can also store any custom metadata you need for your particular MLOps use case, for example, the model metrics you observed while developing your model. When you store and version these metrics together with your model, you make them available to later analysis.
+
+## Metrics from model development
+
+For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not. Predicting this quantity from our dataset requires _both_ feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will handle these components together. ([Why are we doing this?](https://www.tmwr.org/workflows.html#begin-model-end))
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn import model_selection, preprocessing, pipeline
+from sklearn.ensemble import RandomForestClassifier
+
+np.random.seed(500)
+
+raw = pd.read_csv("https://tidymodels.org/start/case-study/hotels.csv")
+df = pd.DataFrame(raw)
+df["arrival_date"] = pd.to_datetime(df["arrival_date"])
+df["arrival_month"] = df["arrival_date"].dt.month
+df["arrival_dow"] = df["arrival_date"].dt.dayofweek
+df = df.drop(columns="arrival_date").dropna()
+X, y = df.drop(columns="children"), df["children"]
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+    X, y, test_size=0.25
+)
+
+le = preprocessing.OrdinalEncoder().fit(X_train)
+rf = RandomForestClassifier().fit(le.transform(X_train), y_train)
+rf_pipe = pipeline.Pipeline([('le', le), ('rf', rf)])
+```
+
+## R
+
+```{r}
+#| message: false
+library(tidyverse)
+library(tidymodels)
+
+hotels <- read_csv('https://tidymodels.org/start/case-study/hotels.csv') %>%
+    mutate(across(where(is.character), as.factor))
+
+set.seed(123)
+hotel_split <- initial_split(hotels, strata = children)
+hotel_train <- training(hotel_split)
+hotel_test  <- testing(hotel_split)
+
+rf_recipe <- 
+  recipe(children ~ ., data = hotel_train) %>% 
+  step_date(arrival_date) %>% 
+  step_holiday(arrival_date, keep_original_cols = FALSE)
+rf_spec <- rand_forest(mode = "classification")
+
+set.seed(234)
+rf_fit <-
+    workflow(rf_recipe, rf_spec) %>%
+    fit(hotel_train)
+```
+:::
+
+Now that our model is trained, we can estimate the model performance we expect to see on new data using our testing data.
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+## predict on test data and compute metrics
+## possible to do accuracy, kappa, log loss, roc auc into one dataframe?
+```
+
+## R
+```{r}
+#| message: false
+hotel_metrics <-
+    augment(rf_fit, new_data = hotel_test) %>%
+    metrics(children, .pred_class, .pred_children)
+
+hotel_metrics
+```
+:::
+
+::: {.callout-note}
+Metrics to estimate model performance can be computed using different datasets. Notice that these are metrics computed when you are **developing** the model using the **testing** data; these tell you how well you expect the model to perform in the future. Another common way to compute metrics in MLOps use cases is [when **monitoring** using **new** data](https://vetiver.rstudio.com/get-started/monitor.html); these tell you how well your model is performing in practice.
+:::
+
+
+## Create a vetiver model
+
+Next, let's create a deployable model object with vetiver, including our metrics computed during model development.
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+import vetiver
+
+v = vetiver.VetiverModel(
+    rf_pipe, 
+    prototype_data = X_train, 
+    model_name = "hotel-rf",
+    metadata = hotel_metrics.to_dict()
+)
+v.description
+```
+
+## R
+```{r}
+#| message: false
+library(vetiver)
+
+v <- vetiver_model(
+    rf_fit, 
+    "hotel-rf", 
+    metadata = list(metrics = hotel_metrics)
+)
+v
+```
+:::
+
+## Version your model
+
+We pin our vetiver model to a board to version it. The metadata, including our metrics, are versioned along with the model.
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+#| output: false
+from pins import board_temp
+from vetiver import vetiver_pin_write
+model_board = board_temp(versioned = True, allow_pickle_read = True)
+vetiver_pin_write(model_board, v)
+```
+
+## R
+
+```{r}
+#| output: false
+library(pins)
+model_board <- board_temp(versioned = TRUE)
+model_board %>% vetiver_pin_write(v)
+```
+:::
+
+If we trained this model again with different data and new values for these metrics, we could store it again as a new version and have access to both sets of metrics.
+
+::: callout-tip
+Like in our article on [versioning](https://vetiver.rstudio.com/get-started/version.html), we are using a temporary board that will be automatically deleted for this demo. For your real work, you will want to choose the best board for your particular infrastructure.
+:::
+
+## Extract your metrics metadata
+
+So far, we have walked through how to store metadata, but how do we extract our metrics out to use them?
+
+You can use `pin_meta()` to retrieve metadata from your board. All custom metadata is stored in a `"user"` slot; remember that other metadata is also automatically stored for you as well.
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+metadata = model_board.pin_meta("hotel-rf")
+## Nicest way to get metrics dataframe back here?
+```
+
+## R
+
+```{r}
+metadata <- model_board %>% pin_meta("hotel-rf")
+metadata %>% pluck("user", "metrics") %>% as_tibble()
+```
+:::
+
+::: callout-tip
+Use the `version` argument to `pin_meta()` to get the metadata for a specific model version.
+:::
+
+If you already have your vetiver model available, you can also retrieve the metadata directly:
+
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+## Nicest way to get metrics back out of vetiver object?
+```
+
+## R
+
+```{r}
+v %>% pluck("metadata", "user", "metrics")
+```
+:::
+
