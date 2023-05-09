@@ -208,6 +208,15 @@ v %>% pluck("metadata", "user", "metrics")
 
 Now that we have `extracted_metrics`, we can use them, for example, when plotting model monitoring metrics.
 
+::: {.panel-tabset group="language"}
+## Python
+
+```{python}
+## Use model monitoring functions together with validation data to show an example plot
+```
+
+## R
+
 ```{r}
 ## use validation data for monitoring example:
 augment(rf_fit, new_data = hotel_validation) %>%
@@ -219,4 +228,4 @@ augment(rf_fit, new_data = hotel_validation) %>%
                data = extracted_metrics,
                linewidth = 1.5, alpha = 0.7, lty = 2)
 ```
-
+:::
