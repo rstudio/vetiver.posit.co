@@ -15,7 +15,7 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.2.475
+          version: 1.3.340
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
@@ -28,7 +28,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.10
 
       - name: Python dependencies
         run: |
