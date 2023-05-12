@@ -17,25 +17,48 @@ For this example, let's work with data on [hotel bookings](https://www.tidymodel
 ```{python}
 import pandas as pd
 import numpy as np
-from sklearn import model_selection, preprocessing, pipeline
+from sklearn import model_selection, preprocessing, pipeline, compose
 from sklearn.ensemble import RandomForestClassifier
 
 np.random.seed(500)
 
-raw = pd.read_csv("https://tidymodels.org/start/case-study/hotels.csv")
-df = pd.DataFrame(raw)
+df = pd.read_csv("https://tidymodels.org/start/case-study/hotels.csv").dropna()
 df["arrival_date"] = pd.to_datetime(df["arrival_date"])
 df["arrival_month"] = df["arrival_date"].dt.month
 df["arrival_dow"] = df["arrival_date"].dt.dayofweek
-df = df.drop(columns="arrival_date").dropna()
+df["children"] = df["children"].map({"none": 0, "children": 1}).astype("int64")
+
+# for monitoring example
+validation = df.sample(frac=0.10)
+df = df.drop(index=validation.index).drop(columns=["arrival_date"])
+
 X, y = df.drop(columns="children"), df["children"]
 X_train, X_test, y_train, y_test = model_selection.train_test_split(
     X, y, test_size=0.25
 )
 
-le = preprocessing.OrdinalEncoder().fit(X_train)
-rf = RandomForestClassifier().fit(le.transform(X_train), y_train)
-rf_pipe = pipeline.Pipeline([('le', le), ('rf', rf)])
+categorical_features = X_train.columns.drop(
+    [
+        "lead_time",
+        "stays_in_weekend_nights",
+        "stays_in_week_nights",
+        "adults",
+        "average_daily_rate",
+        "total_of_special_requests",
+    ]
+).to_list()
+
+oe = compose.make_column_transformer(
+    (
+        preprocessing.OrdinalEncoder(
+            handle_unknown="use_encoded_value", unknown_value=-1
+        ),
+        categorical_features,
+    ),
+    remainder="passthrough",
+).fit(X_train)
+rf = RandomForestClassifier().fit(oe.transform(X_train), y_train)
+rf_pipe = pipeline.Pipeline([("oe", oe), ("rf", rf)])
 ```
 
 ## R
@@ -75,8 +98,24 @@ Now that our model is trained, we can estimate the model performance we expect t
 ## Python
 
 ```{python}
-## predict on test data and compute metrics
-## possible to do accuracy, kappa, log loss, roc auc into one dataframe?
+from sklearn import metrics
+
+metric_set = [metrics.accuracy_score, metrics.log_loss, metrics.r2_score]
+
+hotel_metrics = pd.DataFrame()
+for metric in metric_set:
+    metric_name = str(metric.__name__)
+    metric_output = metric(y_test, rf_pipe.predict(X_test))
+    hotel_metrics = pd.concat(
+        (
+            hotel_metrics,
+            pd.DataFrame({"name": [metric_name],
+                          "score": [metric_output]}),
+        ),
+        axis=0,
+    )
+
+hotel_metrics.reset_index(inplace=True, drop=True)
 ```
 
 ## R
@@ -104,14 +143,14 @@ Next, let's create a deployable model object with vetiver, including our metrics
 
 ```{python}
 import vetiver
-
+hotel_metrics.to_dict()
 v = vetiver.VetiverModel(
-    rf_pipe, 
-    prototype_data = X_train, 
-    model_name = "hotel-rf",
-    metadata = hotel_metrics.to_dict()
+    rf_pipe,
+    prototype_data=X_train,
+    model_name="hotel-rf",
+    metadata=hotel_metrics.to_dict(),
 )
-v.description
+v.metadata
 ```
 
 ## R
@@ -136,10 +175,11 @@ We pin our vetiver model to a board to version it. The metadata, including our m
 ## Python
 
 ```{python}
-#| output: false
+# | output: false
 from pins import board_temp
 from vetiver import vetiver_pin_write
-model_board = board_temp(versioned = True, allow_pickle_read = True)
+
+model_board = board_temp(versioned=True, allow_pickle_read=True)
 vetiver_pin_write(model_board, v)
 ```
 
@@ -170,7 +210,8 @@ You can use `pin_meta()` to retrieve metadata from your board. All custom metada
 
 ```{python}
 metadata = model_board.pin_meta("hotel-rf")
-## Nicest way to get metrics dataframe back here?
+extracted_metrics = pd.DataFrame(metadata.user.get("user"))
+extracted_metrics
 ```
 
 ## R
@@ -196,7 +237,7 @@ If you already have your vetiver model available, you can alternatively retrieve
 ## Python
 
 ```{python}
-## Nicest way to get metrics back out of vetiver object?
+pd.DataFrame(v.metadata.user)
 ```
 
 ## R
@@ -213,6 +254,31 @@ Now that we have `extracted_metrics`, we can use them, for example, when plottin
 
 ```{python}
 ## Use model monitoring functions together with validation data to show an example plot
+from datetime import timedelta
+td = timedelta(weeks= 4)
+
+validation["preds"] = v.model.predict(validation.drop(columns=["children"]))
+
+td_metrics = vetiver.compute_metrics(
+    data = validation, 
+    date_var = "arrival_date", 
+    period = td, 
+    metric_set = metric_set, 
+    truth = "children", 
+    estimate = "preds"
+)
+
+fig = vetiver.plot_metrics(td_metrics)
+
+# this does not assert preservation
+# AAA r2 and log loss are swapped on the plot??!?
+
+for i in range(len(extracted_metrics)):
+    metric = extracted_metrics.iloc[i,1]
+    annotation = extracted_metrics.iloc[i,0]
+    fig.add_hline(y=metric, line_dash="dot", row=i,annotation_text="baseline " + annotation, annotation_position="bottom right")
+
+fig.update_yaxes(matches=None)
 ```
 
 ## R
