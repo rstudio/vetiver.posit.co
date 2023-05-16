@@ -9,7 +9,7 @@ The vetiver framework creates some metadata automatically for your trained model
 
 ## Metrics from model development
 
-For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not. Predicting this quantity from our dataset requires _both_ feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will handle these components together. ([Why are we doing this?](https://www.tmwr.org/workflows.html#begin-model-end))
+For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not, using both feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will deploy th
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -79,15 +79,13 @@ hotel_test  <- testing(hotel_split)
 ## to use for monitoring example:
 hotel_validation <- validation(hotel_split)
 
-rf_recipe <- 
-  recipe(children ~ ., data = hotel_train) %>% 
-  step_date(arrival_date) %>% 
-  step_holiday(arrival_date, keep_original_cols = FALSE)
-rf_spec <- rand_forest(mode = "classification")
-
 set.seed(234)
 rf_fit <-
-    workflow(rf_recipe, rf_spec) %>%
+    workflow(
+        children ~ average_daily_rate + reserved_room_type + 
+            lead_time + country + adults, 
+        rand_forest(mode = "classification", trees = 1e3)
+        ) %>%
     fit(hotel_train)
 ```
 :::
@@ -121,9 +119,11 @@ hotel_metrics.reset_index(inplace=True, drop=True)
 ## R
 ```{r}
 #| message: false
+
+hotel_metric_set <- metric_set(accuracy, mn_log_loss, f_meas)
 hotel_metrics <-
     augment(rf_fit, new_data = hotel_test) %>%
-    metrics(children, .pred_class, .pred_children)
+    hotel_metric_set(truth = children, estimate = .pred_class, .pred_children)
 
 hotel_metrics
 ```
@@ -288,7 +288,8 @@ fig.update_yaxes(matches=None)
 augment(rf_fit, new_data = hotel_validation) %>%
     arrange(arrival_date) %>%
     vetiver_compute_metrics(arrival_date, "month", 
-                            children, .pred_class, .pred_children) %>%
+                            children, .pred_class, .pred_children,
+                            metric_set = hotel_metric_set) %>%
     vetiver_plot_metrics() +
     geom_hline(aes(yintercept = .estimate, color = .metric), 
                data = extracted_metrics,
