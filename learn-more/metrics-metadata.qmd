@@ -23,9 +23,9 @@ from sklearn.ensemble import RandomForestClassifier
 np.random.seed(500)
 
 df = pd.read_csv("https://tidymodels.org/start/case-study/hotels.csv").dropna()
-df["arrival_date"] = pd.to_datetime(df["arrival_date"])
-df["arrival_month"] = df["arrival_date"].dt.month
-df["arrival_dow"] = df["arrival_date"].dt.dayofweek
+df = df[['arrival_date', 'children', 'average_daily_rate', 'reserved_room_type', 'lead_time', 'country', 'adults']]
+df
+
 df["children"] = df["children"].map({"none": 0, "children": 1}).astype("int64")
 
 # for monitoring example
@@ -37,16 +37,7 @@ X_train, X_test, y_train, y_test = model_selection.train_test_split(
     X, y, test_size=0.25
 )
 
-categorical_features = X_train.columns.drop(
-    [
-        "lead_time",
-        "stays_in_weekend_nights",
-        "stays_in_week_nights",
-        "adults",
-        "average_daily_rate",
-        "total_of_special_requests",
-    ]
-).to_list()
+categorical_features = ["country", "reserved_room_type"]
 
 oe = compose.make_column_transformer(
     (
@@ -270,13 +261,12 @@ td_metrics = vetiver.compute_metrics(
 
 fig = vetiver.plot_metrics(td_metrics)
 
-# this does not assert preservation
-# AAA r2 and log loss are swapped on the plot??!?
-
+j = 3 # plotly counts rows from the bottom up
 for i in range(len(extracted_metrics)):
     metric = extracted_metrics.iloc[i,1]
     annotation = extracted_metrics.iloc[i,0]
-    fig.add_hline(y=metric, line_dash="dot", row=i,annotation_text="baseline " + annotation, annotation_position="bottom right")
+    fig.add_hline(y=metric, line_dash="dot", row=j,annotation_text="baseline " + annotation, annotation_position="bottom right")
+    j=j-1
 
 fig.update_yaxes(matches=None)
 ```
