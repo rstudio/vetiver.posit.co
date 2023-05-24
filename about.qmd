@@ -1,6 +1,9 @@
 ---
 title: "About vetiver"
 subtitle: "MLOps for R and Python"
+format:
+  html:
+    toc: true
 ---
 
 ## What is MLOps?
