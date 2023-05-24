@@ -166,7 +166,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Python Function Reference</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -309,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pr</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vetiver_api</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Plumber router with 2 endpoints, 4 filters, and 1 sub-router.
+<pre><code># Plumber router with 3 endpoints, 4 filters, and 1 sub-router.
 # Use `pr_run()` on this object to start the API.
 ├──[queryString]
 ├──[body]
@@ -317,6 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ├──[sharedSecret]
 ├──/logo
 │  │ # Plumber static router serving from directory: /home/runner/work/_temp/Library/vetiver
+├──/metadata (GET)
 ├──/ping (GET)
 └──/predict (POST)</code></pre>
 </div>
@@ -804,11 +811,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-footer">
     <div class="nav-footer-left">Proudly supported by <a href="https://posit.co/"><img src="https://www.rstudio.com/assets/img/posit-logo-fullcolor-TM.svg" class="img-fluid" alt="Posit PBC" width="65"></a></div>   
     <div class="nav-footer-center">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item">
-    <a class="nav-link" href="../about.html">About</a>
-  </li>  
-</ul>
+      &nbsp;
     </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
