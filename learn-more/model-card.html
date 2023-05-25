@@ -216,6 +216,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Deploy with Docker</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../learn-more/metrics-metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Store model metrics as metadata</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -273,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(cars_lm, <span class="st">"cars_linear"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">vetiver_pin_write</span>(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Creating new version '20230524T194319Z-9db11'
+<pre><code>Creating new version '20230525T192152Z-9db11'
 Writing to pin 'cars_linear'
 
 Create a Model Card for your published model
@@ -303,7 +309,7 @@ Create a Model Card for your published model
  with vetiver.model_card()
 Writing pin:
 Name: 'cars_linear'
-Version: 20230524T194323Z-dc1c1</code></pre>
+Version: 20230525T192156Z-dc1c1</code></pre>
 </div>
 </div>
 <p>To silence this message,</p>
