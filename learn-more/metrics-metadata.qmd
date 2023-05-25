@@ -267,8 +267,8 @@ for i, j in zip(range(3), range(3, 0, -1)):
     annotation = extracted_metrics.iloc[i,0]
     fig.add_hline(y=metric, line_dash="dot", row=j)
 
-fig.update_layout(yaxis_title=None, xaxis_title=None)
-fig.update_yaxes(matches=None)
+fig.update_layout(xaxis_title=None)
+fig.update_yaxes(matches=None, title = None)
 ```
 
 ## R
