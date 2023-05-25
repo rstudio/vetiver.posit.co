@@ -261,12 +261,11 @@ td_metrics = vetiver.compute_metrics(
 
 fig = vetiver.plot_metrics(td_metrics)
 
-j = 3 # plotly counts rows from the bottom up
-for i in range(len(extracted_metrics)):
+# plotly rows are counted from 3 to 1
+for i, j in zip(range(3), range(3, 0, -1)):
     metric = extracted_metrics.iloc[i,1]
     annotation = extracted_metrics.iloc[i,0]
     fig.add_hline(y=metric, line_dash="dot", row=j,annotation_text="baseline " + annotation, annotation_position="bottom right")
-    j=j-1
 
 fig.update_yaxes(matches=None)
 ```
