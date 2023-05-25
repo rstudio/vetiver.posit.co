@@ -79,6 +79,7 @@ website:
         - href: learn-more/parity-checklist.qmd
         - href: learn-more/model-card.qmd
         - href: learn-more/deploy-with-docker.qmd
+        - href: learn-more/metrics-metadata.qmd
 
 format:
   html:
