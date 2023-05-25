@@ -7,11 +7,6 @@ format:
 
 The vetiver framework creates some metadata automatically for your trained model, such as the packages used to train your model and a description. You can also store any custom metadata you need for your particular MLOps use case, for example, the model metrics you observed while developing your model. When you store and version these metrics together with your model, you make them available to later analysis.
 
-```{python}
-import plotly.io as pio
-pio.renderers.default = "plotly_mimetype+notebook_connected"
-```
-
 ## Metrics from model development
 
 For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not, using both feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will deploy these pieces together.
@@ -248,8 +243,7 @@ Now that we have `extracted_metrics`, we can use them, for example, when plottin
 ## Python
 
 ```{python}
-#| fig-width: 6
-#| fig-height: 7
+#| eval: false
 ## Use model monitoring functions together with validation data to show an example plot
 from datetime import timedelta
 td = timedelta(weeks= 4)
@@ -276,6 +270,42 @@ for i, j in zip(range(3), range(3, 0, -1)):
 fig = fig.update_layout(xaxis_title=None)
 fig = fig.update_yaxes(matches=None, title = None)
 fig.show()
+```
+
+```{python}
+#| echo: false
+import plotly as pl
+
+from datetime import timedelta
+td = timedelta(weeks= 4)
+
+validation["preds"] = v.model.predict(validation.drop(columns=["children"]))
+
+td_metrics = vetiver.compute_metrics(
+    data = validation, 
+    date_var = "arrival_date", 
+    period = td, 
+    metric_set = metric_set, 
+    truth = "children", 
+    estimate = "preds"
+)
+
+fig = vetiver.plot_metrics(td_metrics)
+
+# plotly rows are counted from 3 to 1
+for i, j in zip(range(3), range(3, 0, -1)):
+    metric = extracted_metrics.iloc[i,1]
+    annotation = extracted_metrics.iloc[i,0]
+    fig = fig.add_hline(y=metric, line_dash="dot", row=j)
+
+fig = fig.update_layout(xaxis_title=None)
+fig = fig.update_yaxes(matches=None, title = None)
+pl.io.write_html(fig, file="metrics-metadata-python.html", auto_open=False)
+```
+
+```{r}
+#| echo: false
+htmltools::includeHTML("metrics-metadata-python.html")
 ```
 
 ## R
