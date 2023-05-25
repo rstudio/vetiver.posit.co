@@ -297,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="store-and-version-your-model" class="level2">
 <h2 class="anchored" data-anchor-id="store-and-version-your-model">Store and version your model</h2>
-<p>You can store and version your model by choosing a <a href="https://pins.rstudio.com/">pins</a> “board” for it. Your board for model pins can be set up to use a local folder, RStudio Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.</p>
+<p>You can store and version your model by choosing a <a href="https://pins.rstudio.com/">pins</a> “board” for it. Your board for model pins can be set up to use a local folder, Posit Connect, Amazon S3, and more. When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model’s input data prototype for checking new data at prediction time.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -372,8 +372,8 @@ Note
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20230525T214356Z-b7182 2023-05-25 21:43:56 b7182
-2 20230525T214358Z-424d1 2023-05-25 21:43:58 424d1</code></pre>
+1 20230525T215011Z-b7182 2023-05-25 21:50:11 b7182
+2 20230525T215013Z-30bc2 2023-05-25 21:50:13 30bc2</code></pre>
 </div>
 </div>
 </div>
@@ -382,8 +382,8 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              created   hash                 version
-0 2023-05-25 21:43:56  dc1c1  20230525T214356Z-dc1c1
-1 2023-05-25 21:43:59  4c8a2  20230525T214359Z-4c8a2</code></pre>
+0 2023-05-25 21:50:11  dc1c1  20230525T215011Z-dc1c1
+1 2023-05-25 21:50:13  a9338  20230525T215013Z-a9338</code></pre>
 </div>
 </div>
 </div>
