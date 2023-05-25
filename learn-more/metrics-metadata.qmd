@@ -252,6 +252,8 @@ Now that we have `extracted_metrics`, we can use them, for example, when plottin
 #| fig-height: 7
 ## Use model monitoring functions together with validation data to show an example plot
 from datetime import timedelta
+from IPython.display import Image
+
 td = timedelta(weeks= 4)
 
 validation["preds"] = v.model.predict(validation.drop(columns=["children"]))
@@ -275,7 +277,9 @@ for i, j in zip(range(3), range(3, 0, -1)):
 
 fig = fig.update_layout(xaxis_title=None)
 fig = fig.update_yaxes(matches=None, title = None)
-fig.show()
+img = fig.to_image()
+
+Image(img)
 ```
 
 ## R
