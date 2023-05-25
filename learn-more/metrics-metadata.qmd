@@ -313,6 +313,7 @@ htmltools::includeHTML("metrics-metadata-python.html")
 ```{r}
 #| fig-width: 6
 #| fig-height: 7
+#| fig-align: center
 ## use validation data for monitoring example:
 augment(rf_fit, new_data = hotel_validation) %>%
     arrange(arrival_date) %>%
