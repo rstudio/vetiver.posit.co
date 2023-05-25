@@ -49,6 +49,8 @@ website:
             text: "Model cards for transparent, responsible reporting"
           - href: learn-more/deploy-with-docker.qmd
             text: "Deploy with Docker"
+          - href: learn-more/metrics-metadata.qmd
+            text: "Store model metrics as metadata"
       - href: https://rstudio.github.io/vetiver-r/reference/
         text: R Function Reference
         target: _blank
