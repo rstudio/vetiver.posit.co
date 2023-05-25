@@ -7,6 +7,11 @@ format:
 
 The vetiver framework creates some metadata automatically for your trained model, such as the packages used to train your model and a description. You can also store any custom metadata you need for your particular MLOps use case, for example, the model metrics you observed while developing your model. When you store and version these metrics together with your model, you make them available to later analysis.
 
+```{python}
+import plotly.io as pio
+pio.renderers.default = "plotly_mimetype+notebook_connected"
+```
+
 ## Metrics from model development
 
 For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not, using both feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will deploy these pieces together.
@@ -270,7 +275,7 @@ for i, j in zip(range(3), range(3, 0, -1)):
 
 fig = fig.update_layout(xaxis_title=None)
 fig = fig.update_yaxes(matches=None, title = None)
-fig
+fig.show()
 ```
 
 ## R
