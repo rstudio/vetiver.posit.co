@@ -311,7 +311,7 @@ htmltools::includeHTML("metrics-metadata-python.html")
 ## R
 
 ```{r}
-#| fig-width: 6
+#| fig-width: 7
 #| fig-height: 7
 #| fig-align: center
 ## use validation data for monitoring example:
