@@ -2,3 +2,4 @@ vetiver>0.1.6
 scikit-learn
 pins
 pandas
+ipython
