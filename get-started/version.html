@@ -153,6 +153,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../learn-more/deploy-with-docker.html" rel="" target="">
  <span class="dropdown-text">Deploy with Docker</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../learn-more/metrics-metadata.html" rel="" target="">
+ <span class="dropdown-text">Store model metrics as metadata</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -368,8 +372,8 @@ Note
 <pre><code># A tibble: 2 × 3
   version                created             hash 
   &lt;chr&gt;                  &lt;dttm&gt;              &lt;chr&gt;
-1 20230525T192214Z-b7182 2023-05-25 19:22:14 b7182
-2 20230525T192216Z-58482 2023-05-25 19:22:16 58482</code></pre>
+1 20230525T200141Z-b7182 2023-05-25 20:01:41 b7182
+2 20230525T200143Z-51585 2023-05-25 20:01:43 51585</code></pre>
 </div>
 </div>
 </div>
@@ -378,8 +382,8 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model_board.pin_versions(<span class="st">"cars_mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              created   hash                 version
-0 2023-05-25 19:22:15  dc1c1  20230525T192215Z-dc1c1
-1 2023-05-25 19:22:17  86a5f  20230525T192217Z-86a5f</code></pre>
+0 2023-05-25 20:01:41  dc1c1  20230525T200141Z-dc1c1
+1 2023-05-25 20:01:43  39ba9  20230525T200143Z-39ba9</code></pre>
 </div>
 </div>
 </div>
