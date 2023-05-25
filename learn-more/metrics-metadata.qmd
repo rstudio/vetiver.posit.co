@@ -9,7 +9,7 @@ The vetiver framework creates some metadata automatically for your trained model
 
 ## Metrics from model development
 
-For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not, using both feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will deploy th
+For this example, let's work with data on [hotel bookings](https://www.tidymodels.org/start/case-study/) to predict which hotel stays included children and which did not, using both feature engineering and model estimation. We put these two steps into a single function, such as a [pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) or [workflow](https://workflows.tidymodels.org/), and will deploy these pieces together.
 
 ::: {.panel-tabset group="language"}
 ## Python
@@ -24,8 +24,6 @@ np.random.seed(500)
 
 df = pd.read_csv("https://tidymodels.org/start/case-study/hotels.csv").dropna()
 df = df[['arrival_date', 'children', 'average_daily_rate', 'reserved_room_type', 'lead_time', 'country', 'adults']]
-df
-
 df["children"] = df["children"].map({"none": 0, "children": 1}).astype("int64")
 
 # for monitoring example
@@ -89,7 +87,7 @@ Now that our model is trained, we can estimate the model performance we expect t
 ```{python}
 from sklearn import metrics
 
-metric_set = [metrics.accuracy_score, metrics.log_loss, metrics.r2_score]
+metric_set = [metrics.accuracy_score, metrics.f1_score, metrics.log_loss]
 
 hotel_metrics = pd.DataFrame()
 for metric in metric_set:
@@ -105,6 +103,7 @@ for metric in metric_set:
     )
 
 hotel_metrics.reset_index(inplace=True, drop=True)
+hotel_metrics
 ```
 
 ## R
@@ -120,6 +119,8 @@ hotel_metrics
 ```
 :::
 
+There are differences in the metrics reported for R and Python because the models have different values for the random forest hyperparameters.
+
 ::: {.callout-note}
 Metrics to estimate model performance can be computed using different datasets. Notice that these are metrics computed when you are **developing** the model using the **testing** data; these tell you how well you expect the model to perform in the future. Another common way to compute metrics in MLOps use cases is [when **monitoring** using **new** data](https://vetiver.rstudio.com/get-started/monitor.html); these tell you how well your model is performing in practice.
 :::
@@ -134,21 +135,19 @@ Next, let's create a deployable model object with vetiver, including our metrics
 
 ```{python}
 import vetiver
-hotel_metrics.to_dict()
 v = vetiver.VetiverModel(
     rf_pipe,
     prototype_data=X_train,
     model_name="hotel-rf",
     metadata=hotel_metrics.to_dict(),
 )
-v.metadata
+v.description
 ```
 
 ## R
 ```{r}
 #| message: false
 library(vetiver)
-
 v <- vetiver_model(
     rf_fit, 
     "hotel-rf", 
@@ -166,7 +165,7 @@ We pin our vetiver model to a board to version it. The metadata, including our m
 ## Python
 
 ```{python}
-# | output: false
+#| output: false
 from pins import board_temp
 from vetiver import vetiver_pin_write
 
@@ -244,6 +243,8 @@ Now that we have `extracted_metrics`, we can use them, for example, when plottin
 ## Python
 
 ```{python}
+#| fig-width: 6
+#| fig-height: 7
 ## Use model monitoring functions together with validation data to show an example plot
 from datetime import timedelta
 td = timedelta(weeks= 4)
@@ -265,15 +266,18 @@ fig = vetiver.plot_metrics(td_metrics)
 for i, j in zip(range(3), range(3, 0, -1)):
     metric = extracted_metrics.iloc[i,1]
     annotation = extracted_metrics.iloc[i,0]
-    fig.add_hline(y=metric, line_dash="dot", row=j)
+    fig = fig.add_hline(y=metric, line_dash="dot", row=j)
 
-fig.update_layout(xaxis_title=None)
-fig.update_yaxes(matches=None, title = None)
+fig = fig.update_layout(xaxis_title=None)
+fig = fig.update_yaxes(matches=None, title = None)
+fig
 ```
 
 ## R
 
 ```{r}
+#| fig-width: 6
+#| fig-height: 7
 ## use validation data for monitoring example:
 augment(rf_fit, new_data = hotel_validation) %>%
     arrange(arrival_date) %>%
