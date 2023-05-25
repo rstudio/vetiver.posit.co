@@ -42,7 +42,7 @@ v = VetiverModel(car_mod, model_name = "cars_mpg",
 ## Store and version your model
 
 You can store and version your model by choosing a [pins](https://pins.rstudio.com/) "board" for it.
-Your board for model pins can be set up to use a local folder, RStudio Connect, Amazon S3, and more.
+Your board for model pins can be set up to use a local folder, Posit Connect, Amazon S3, and more.
 When we write the vetiver model to our board, the binary model object is stored on our board together with necessary metadata, like the packages needed to make a prediction and the model's input data prototype for checking new data at prediction time.
 
 ::: callout-note

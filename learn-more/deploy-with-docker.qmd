@@ -193,7 +193,7 @@ docker build -t superbowlads .
 If you are on an ARM architecture locally and deploying an R model, use `--platform linux/amd64` for RSPM's fast installation of R package binaries.
 :::
 
-Now run! To authenticate to your board (to get the pinned vetiver model from, for example, RStudio Connect), pass in a file supplying environment variables.
+Now run! To authenticate to your board (to get the pinned vetiver model from, for example, Posit Connect), pass in a file supplying environment variables.
 
 ```{bash}
 #| eval: false
@@ -249,6 +249,6 @@ Docker is a great tool for data scientists, so learning the basics is a good ide
 - [Python Docker](https://zetcode.com/python/docker/)
 - [Ten simple rules for writing Dockerfiles for reproducible data science](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008316)
 - [Docker and Python: making them play nicely and securely for Data Science and ML](https://www.youtube.com/watch?v=Jq68axbKIbg)
-- [Docker info from RStudio Solutions Engineering](https://solutions.posit.co/envs-pkgs/environments/docker/)
+- [Docker info from Posit Solutions Engineering](https://solutions.posit.co/envs-pkgs/environments/docker/)
 
 
