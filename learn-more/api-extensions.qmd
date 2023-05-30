@@ -1,0 +1,132 @@
+---
+title: Extending your vetiver API
+---
+
+For advanced use cases, it may be necessary to create new endpoints in your model's REST API. These endpoints could be for pre or post processing predictions, adding explainability methods to a model, finding applicability scores, or other tasks.
+
+When generating a REST API, an instance of the the VetiverAPI class includes a GET /ping endpoint to ping the API, a GET /metadata endpoint to view the metadata on your VetiverModel, a GET /prototype endpoint to view the prototype scheme, a GET /pin_url endpoint to retrieve the pin URL if applicable, and a POST endpoint /predict to make predictions to your model.
+
+Vetiver API
+    ├──/ping (GET)
+    ├──/metadata (GET)
+    └──/predict (POST)
+
+
+## Create and version a model
+
+```{r}
+# create model and basic API (VERSION MODEL)
+library(tidymodels)
+library(vetiver)
+library(plumber)
+
+car_mod <-
+    workflow(mpg ~ ., decision_tree(mode = "regression")) %>%
+    fit(mtcars)
+v <- vetiver_model(car_mod, "cars_mpg")
+```
+
+```{python}
+# create model and basic API (VERSION MODEL)
+from vetiver import VetiverModel, VetiverAPI
+from vetiver.data import mtcars
+
+from sklearn import tree
+
+car_mod = tree.DecisionTreeRegressor().fit(mtcars.drop(columns="mpg"), mtcars["mpg"])
+v = VetiverModel(car_mod, model_name = "cars_mpg", 
+                 prototype_data = mtcars.drop(columns="mpg"))
+
+```
+
+## Explain your model
+
+For this example, we will add an explainer called [SHAP](https://shap.readthedocs.io/en/latest/example_notebooks/overviews/An%20introduction%20to%20explainable%20AI%20with%20Shapley%20values.html#An-introduction-to-explainable-AI-with-Shapley-values). This explainer creates values ...
+
+We first start by using the `DALEXtra` package in R and `shap` package in Python to build the explainer. Once built, we can version our explainer, similar to the model above.
+
+```{r}
+# create explainer and version
+library(DALEXtra)
+vip_features <- c("JobSatisfaction", "MonthlyIncome", "OverTime", "Department")
+explainer_rf <- 
+    explain_tidymodels(
+        rf_fit, 
+        data = att_train %>% select(all_of(vip_features)), 
+        y = as.integer(att_train$Attrition)
+    )
+set.seed(555)
+shap_values <-
+    predict_parts(
+        explainer = explainer_rf, 
+        new_observation = att_test[111,], 
+        type = "shap",
+        B = 20
+    )
+# pin
+```
+
+```{python}
+# create explainer and version
+import shap
+
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(Xd)
+```
+
+
+## Generate deployable files
+
+With the necessary pieces in hand, we can think about deploying this model. We will want a `plumber.R` or `app.py` file to create the API we want. There are some helper functions `vetiver.write_app()` in Python and `vetiver_write_plumber()` in R to get you started.
+
+::: callout-important
+The most important thing to remember is that vetiver is generating code. These files are meant to act as a baseline and can be modified as necessary for more advanced use cases.
+:::
+
+```{r}
+vetiver_write_plumber()
+# output below
+```
+
+```{python}
+vetiver.write_app()
+```
+
+
+## Adding new endpoints
+
+Next, we can add this onto our model from above using the `vetiver_post` method in Python or `pr_post()` in R. These functions will define a new POST endpoint with the same input data prototype as our model.
+
+```{r}
+
+```
+
+```{python}
+
+```
+
+Our API router now has a new endpoint called `/shap` to explain predictions. 
+
+Vetiver API
+    ├──/ping (GET)
+    ├──/metadata (GET)
+    ├──/shap (POST)
+    └──/predict (POST)
+
+## Tying it all together
+
+We might want to try out this endpoint locally to start. We can run each file by adding `api.run()` or `pr() %>% run()` to the end of the app.py or plumber.r file. Then we can view the API visual documentation at `localhost:8080` or use the `predict()` function to test it out.
+
+```{r}
+predict()
+```
+
+```{python}
+vetiver.predict()
+```
+
+We can run this file locally, or deploy it to other infrastructure such as Docker containers, SageMaker, or Posit Connect.
+
+## More resources
+
+- A [blog post by Isabel Zimmerman](https://isabelizimm.github.io/posts/multiple-models-api/models.html) on deploying multiple models to one endpoint.
