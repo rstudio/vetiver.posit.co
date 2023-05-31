@@ -145,7 +145,9 @@ Here we are using `board_connect()`, but you can use other boards such as `board
 
 ::: {.callout-note collapse="true"}
 ## Using local boards with Docker
-Local boards such as `board_folder()` will not be immediately available to Docker images created by vetiver. To make local boards available, the Dockerfile must either [`COPY`](https://docs.docker.com/engine/reference/builder/#copy) the folder and model into the Docker container or mount the folder as a [`VOLUME`](https://docs.docker.com/engine/reference/builder/#volume). 
+Local boards such as `board_folder()` will not be immediately available to Docker images created by vetiver. We don't recommend that you store your model _inside_ your container, but (if appropriate to your use case) it is possible to edit the generated Dockerfile and [`COPY`](https://docs.docker.com/engine/reference/builder/#copy) the folder and model into the container. Alternatively, you can mount the folder as a [`VOLUME`](https://docs.docker.com/engine/reference/builder/#volume). 
+
+Learn more about why we recommend storing your versioned model binaries outside Docker containers [in this talk](https://youtu.be/HYvZ3HDJlf4).
 :::
 
 ## Create Docker artifacts
