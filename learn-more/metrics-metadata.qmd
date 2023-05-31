@@ -3,7 +3,7 @@ title: "Store model metrics as metadata"
 format:
   html:
     toc: true
-    image: "images/vetiver-social.jpeg"
+    image: "../images/vetiver-social.jpeg"
 ---
 
 The vetiver framework creates some metadata automatically for your trained model, such as the packages used to train your model and a description. You can also store any custom metadata you need for your particular MLOps use case, for example, the model metrics you observed while developing your model. When you store and version these metrics together with your model, you make them available to later analysis.
