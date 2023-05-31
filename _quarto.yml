@@ -16,9 +16,9 @@ website:
   title: "MLOps with vetiver"
   description: "Version, share, deploy, and monitor your R and Python models"
   open-graph:
-    image: "images/social.png"
+    image: "images/vetiver-social.jpeg"
   twitter-card:
-    image: "images/social.png"
+    image: "images/vetiver-social.jpeg"
   site-url: https://vetiver.rstudio.com
   repo-url: https://github.com/rstudio/vetiver.rstudio.com
   repo-actions: [edit, issue]
