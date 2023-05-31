@@ -21,6 +21,7 @@ website:
   repo-url: https://github.com/rstudio/vetiver.rstudio.com
   repo-actions: [edit, issue]
   page-navigation: true
+  image: "images/social.png"
   favicon: "images/favicon.ico"
   page-footer:
     left: |
