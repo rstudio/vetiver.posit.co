@@ -3,6 +3,7 @@ title: "Model cards for transparent, responsible reporting"
 format:
   html:
     toc: true
+    image: "../images/vetiver-social.jpeg"
 ---
 
 ## What is a "Model Card"?
