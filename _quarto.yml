@@ -15,13 +15,14 @@ project:
 website:
   title: "MLOps with vetiver"
   description: "Version, share, deploy, and monitor your R and Python models"
-  open-graph: true
-  twitter-card: true
+  open-graph:
+    image: "images/social.png"
+  twitter-card:
+    image: "images/social.png"
   site-url: https://vetiver.rstudio.com
   repo-url: https://github.com/rstudio/vetiver.rstudio.com
   repo-actions: [edit, issue]
   page-navigation: true
-  image: "images/social.png"
   favicon: "images/favicon.ico"
   page-footer:
     left: |
