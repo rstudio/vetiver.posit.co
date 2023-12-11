@@ -178,7 +178,11 @@ vetiver.prepare_docker(
 
 ```{r}
 #| eval: false
-vetiver_prepare_docker(board, "julia.silge/superbowl_rf", port = 8080)
+vetiver_prepare_docker(
+    board, 
+    "julia.silge/superbowl_rf", 
+    docker_args = list(port = 8080)
+)
 ```
 
 :::
