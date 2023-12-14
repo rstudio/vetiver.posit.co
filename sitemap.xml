@@ -2,42 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://vetiver.rstudio.com/about.html</loc>
-    <lastmod>2023-12-11T16:43:00.074Z</lastmod>
+    <lastmod>2023-12-14T17:35:44.320Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/index.html</loc>
-    <lastmod>2023-12-11T16:43:18.234Z</lastmod>
+    <lastmod>2023-12-14T17:35:58.652Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/learn-more/deploy-with-docker.html</loc>
-    <lastmod>2023-12-11T16:43:25.994Z</lastmod>
+    <lastmod>2023-12-14T17:36:06.236Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/learn-more/metrics-metadata.html</loc>
-    <lastmod>2023-12-11T16:44:07.954Z</lastmod>
+    <lastmod>2023-12-14T17:36:47.885Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/learn-more/model-card.html</loc>
-    <lastmod>2023-12-11T16:44:13.350Z</lastmod>
+    <lastmod>2023-12-14T17:36:53.045Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/learn-more/parity-checklist.html</loc>
-    <lastmod>2023-12-11T16:44:13.742Z</lastmod>
+    <lastmod>2023-12-14T17:36:53.389Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/get-started/index.html</loc>
-    <lastmod>2023-12-11T16:44:20.586Z</lastmod>
+    <lastmod>2023-12-14T17:36:59.753Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/get-started/version.html</loc>
-    <lastmod>2023-12-11T16:44:29.998Z</lastmod>
+    <lastmod>2023-12-14T17:37:08.909Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/get-started/deploy.html</loc>
-    <lastmod>2023-12-11T16:44:47.494Z</lastmod>
+    <lastmod>2023-12-14T17:37:27.265Z</lastmod>
   </url>
   <url>
     <loc>https://vetiver.rstudio.com/get-started/monitor.html</loc>
-    <lastmod>2023-12-11T16:44:55.998Z</lastmod>
+    <lastmod>2023-12-14T17:37:35.757Z</lastmod>
   </url>
 </urlset>
