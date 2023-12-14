@@ -7,7 +7,7 @@ format:
 
 This page is a translation guide for users interested in the operational parity between the R and Python versions of vetiver.
 Vetiver aims to provide users with a similar experience in each language.
-For a deeper understanding of each implementation, please refer to the [R function reference](https://vetiver.tidymodels.org/reference/) or [Python function reference](https://tidymodels.github.io/vetiver-python).
+For a deeper understanding of each implementation, please refer to the [R function reference](https://rstudio.github.io/vetiver-r/reference/) or [Python function reference](https://rstudio.github.io/vetiver-python/stable/reference/).
 
 | Function                                                              | R                                                        | Python                                                 |
 |-----------------------------------------------------------------------|----------------------------------------------------------|--------------------------------------------------------|
