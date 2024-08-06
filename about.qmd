@@ -50,7 +50,7 @@ The vetiver [Python](https://github.com/rstudio/vetiver-python) and [R](https://
 
 ### Answer questions
 
-You can help others use and learn vetiver by answering questions on the [RStudio community site](https://community.rstudio.com/), [Stack Overflow](https://stackoverflow.com/questions/tagged/vetiver?sort=newest), and [Twitter](https://twitter.com/search?q=%23vetiver&f=live).
+You can help others use and learn vetiver by answering questions on the [Posit community site](https://forum.posit.co/), [Stack Overflow](https://stackoverflow.com/questions/tagged/vetiver?sort=newest), and [Twitter](https://twitter.com/search?q=%23vetiver&f=live).
 Many people asking for help with vetiver don't know what a reproducible example or ["reprex"](https://www.tidyverse.org/help#reprex) is, or how to craft one.
 Acknowledging an individual's problem, showing them how to build a reprex, and pointing them to helpful resources are all enormously beneficial, even if you don't immediately solve their problem.
 
