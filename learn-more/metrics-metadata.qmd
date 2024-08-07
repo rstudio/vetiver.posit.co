@@ -123,7 +123,7 @@ hotel_metrics
 There are differences in the metrics reported for R and Python because the models have different values for the random forest hyperparameters.
 
 ::: {.callout-note}
-Metrics to estimate model performance can be computed using different datasets. Notice that these are metrics computed when you are **developing** the model using the **testing** data; these tell you how well you expect the model to perform in the future. Another common way to compute metrics in MLOps use cases is [when **monitoring** using **new** data](https://vetiver.rstudio.com/get-started/monitor.html); these tell you how well your model is performing in practice.
+Metrics to estimate model performance can be computed using different datasets. Notice that these are metrics computed when you are **developing** the model using the **testing** data; these tell you how well you expect the model to perform in the future. Another common way to compute metrics in MLOps use cases is [when **monitoring** using **new** data](https://vetiver.posit.co/get-started/monitor.html); these tell you how well your model is performing in practice.
 :::
 
 
@@ -187,7 +187,7 @@ model_board %>% vetiver_pin_write(v)
 If we trained this model again with different data and new values for these metrics, we could store it again as a new version and have access to both sets of metrics.
 
 ::: callout-tip
-Like in our article on [versioning](https://vetiver.rstudio.com/get-started/version.html), we are using a temporary board that will be automatically deleted for this demo. For your real work, you will want to choose the best board for your particular infrastructure.
+Like in our article on [versioning](https://vetiver.posit.co/get-started/version.html), we are using a temporary board that will be automatically deleted for this demo. For your real work, you will want to choose the best board for your particular infrastructure.
 :::
 
 ## Extract your metrics metadata

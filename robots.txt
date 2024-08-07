@@ -1,1 +1,1 @@
-Sitemap: https://vetiver.rstudio.com/sitemap.xml
+Sitemap: https://vetiver.posit.co/sitemap.xml

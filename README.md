@@ -1,10 +1,10 @@
-# vetiver.rstudio.com
+# vetiver.posit.co
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-This repo builds the documentation site <https://vetiver.rstudio.com>.
+This repo builds the documentation site <https://vetiver.posit.co>.
 To build the site, you will need to install:
 
 -   [Quarto](https://quarto.org/)

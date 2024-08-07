@@ -141,7 +141,7 @@ vetiver_pin_write(board, v)
 ```
 :::
 
-Here we are using `board_connect()`, but you can use other boards such as `board_s3()`. [Read more](https://vetiver.rstudio.com/get-started/version.html) about how to store and version your vetiver model. 
+Here we are using `board_connect()`, but you can use other boards such as `board_s3()`. [Read more](https://vetiver.posit.co/get-started/version.html) about how to store and version your vetiver model. 
 
 ::: {.callout-note collapse="true"}
 ## Using local boards with Docker
@@ -219,7 +219,7 @@ The Docker container is now running locally! You can interact with it, such as b
 
 ## Make predictions from Docker container
 
-Running a Docker container locally is a great way to test that you can [make predictions from your endpoint](https://vetiver.rstudio.com/get-started/deploy.html#predict-from-your-model-endpoint) as expected, using R or Python.
+Running a Docker container locally is a great way to test that you can [make predictions from your endpoint](https://vetiver.posit.co/get-started/deploy.html#predict-from-your-model-endpoint) as expected, using R or Python.
 
 ::: {.panel-tabset group="language"}
 ## Python

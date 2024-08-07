@@ -179,7 +179,7 @@ When you run `vetiver.prepare_docker()`, you generate *three* files needed to bu
 
 -   When you run the Docker container, you can pass in environment variables (for authentication to your pins board, for example) with `docker run --env-file .Renviron`.
 
--   Learn more about [deploying with Docker](https://vetiver.rstudio.com/learn-more/deploy-with-docker.html).
+-   Learn more about [deploying with Docker](https://vetiver.posit.co/learn-more/deploy-with-docker.html).
 :::
 
 ## Predict from your model endpoint

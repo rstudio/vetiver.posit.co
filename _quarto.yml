@@ -17,7 +17,7 @@ website:
   description: "Version, share, deploy, and monitor your R and Python models"
   open-graph: true
   twitter-card: true
-  site-url: https://vetiver.rstudio.com
+  site-url: https://vetiver.posit.co
   repo-url: https://github.com/rstudio/vetiver.rstudio.com
   repo-actions: [edit, issue]
   page-navigation: true
