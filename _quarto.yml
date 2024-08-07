@@ -18,7 +18,7 @@ website:
   open-graph: true
   twitter-card: true
   site-url: https://vetiver.posit.co
-  repo-url: https://github.com/rstudio/vetiver.rstudio.com
+  repo-url: https://github.com/rstudio/vetiver.posit.co
   repo-actions: [edit, issue]
   page-navigation: true
   image: "images/vetiver-social.jpeg"
@@ -29,7 +29,7 @@ website:
       [![](https://www.rstudio.com/assets/img/posit-logo-fullcolor-TM.svg){fig-alt="Posit PBC" width=65px}](https://posit.co/)
     right:
       - icon: github
-        href: https://github.com/rstudio/vetiver.rstudio.com
+        href: https://github.com/rstudio/vetiver.posit.co
         aria-label: Vetiver site GitHub
 
   navbar:
