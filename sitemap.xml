@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vetiver.rstudio.com/about.html</loc>
-    <lastmod>2024-08-06T19:25:02.461Z</lastmod>
+    <loc>https://vetiver.posit.co/about.html</loc>
+    <lastmod>2024-08-07T19:05:02.595Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/index.html</loc>
-    <lastmod>2024-08-06T19:25:18.769Z</lastmod>
+    <loc>https://vetiver.posit.co/index.html</loc>
+    <lastmod>2024-08-07T19:05:20.635Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/learn-more/deploy-with-docker.html</loc>
-    <lastmod>2024-08-06T19:25:25.909Z</lastmod>
+    <loc>https://vetiver.posit.co/learn-more/deploy-with-docker.html</loc>
+    <lastmod>2024-08-07T19:05:27.611Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/learn-more/metrics-metadata.html</loc>
-    <lastmod>2024-08-06T19:26:06.270Z</lastmod>
+    <loc>https://vetiver.posit.co/learn-more/metrics-metadata.html</loc>
+    <lastmod>2024-08-07T19:06:08.127Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/learn-more/model-card.html</loc>
-    <lastmod>2024-08-06T19:26:11.258Z</lastmod>
+    <loc>https://vetiver.posit.co/learn-more/model-card.html</loc>
+    <lastmod>2024-08-07T19:06:13.091Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/learn-more/parity-checklist.html</loc>
-    <lastmod>2024-08-06T19:26:11.606Z</lastmod>
+    <loc>https://vetiver.posit.co/learn-more/parity-checklist.html</loc>
+    <lastmod>2024-08-07T19:06:13.435Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/get-started/index.html</loc>
-    <lastmod>2024-08-06T19:26:17.674Z</lastmod>
+    <loc>https://vetiver.posit.co/get-started/index.html</loc>
+    <lastmod>2024-08-07T19:06:19.443Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/get-started/version.html</loc>
-    <lastmod>2024-08-06T19:26:25.790Z</lastmod>
+    <loc>https://vetiver.posit.co/get-started/version.html</loc>
+    <lastmod>2024-08-07T19:06:27.483Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/get-started/deploy.html</loc>
-    <lastmod>2024-08-06T19:26:41.282Z</lastmod>
+    <loc>https://vetiver.posit.co/get-started/deploy.html</loc>
+    <lastmod>2024-08-07T19:06:42.847Z</lastmod>
   </url>
   <url>
-    <loc>https://vetiver.rstudio.com/get-started/monitor.html</loc>
-    <lastmod>2024-08-06T19:26:48.942Z</lastmod>
+    <loc>https://vetiver.posit.co/get-started/monitor.html</loc>
+    <lastmod>2024-08-07T19:06:50.067Z</lastmod>
   </url>
 </urlset>

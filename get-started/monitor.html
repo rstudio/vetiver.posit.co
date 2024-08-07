@@ -101,13 +101,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="MLOps with vetiver - Monitor">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://vetiver.rstudio.com/get-started/monitor_files/figure-html/unnamed-chunk-9-1.png">
+<meta property="og:image" content="https://vetiver.posit.co/get-started/monitor_files/figure-html/unnamed-chunk-9-1.png">
 <meta property="og:site-name" content="MLOps with vetiver">
 <meta property="og:image:height" content="1152">
 <meta property="og:image:width" content="1344">
 <meta name="twitter:title" content="MLOps with vetiver - Monitor">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://vetiver.rstudio.com/get-started/monitor_files/figure-html/unnamed-chunk-9-1.png">
+<meta name="twitter:image" content="https://vetiver.posit.co/get-started/monitor_files/figure-html/unnamed-chunk-9-1.png">
 <meta name="twitter:image-height" content="1152">
 <meta name="twitter:image-width" content="1344">
 <meta name="twitter:card" content="summary_large_image">
@@ -329,7 +329,7 @@ How does my model use time?
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vetiver)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://vetiver.rstudio.com/get-started/new-cars.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-cars.csv"</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>original_cars <span class="ot">&lt;-</span> <span class="fu">slice</span>(cars, <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="ot">&lt;-</span></span>
@@ -358,33 +358,31 @@ How does my model use time?
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>cars <span class="op">=</span> pd.read_csv(<span class="st">"https://vetiver.rstudio.com/get-started/new-cars.csv"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>cars <span class="op">=</span> pd.read_csv(<span class="st">"new-cars.csv"</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>original_cars <span class="op">=</span> cars.iloc[:<span class="dv">14</span>, :].copy()</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>original_cars[<span class="st">"preds"</span>] <span class="op">=</span> v.model.predict(</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    original_cars.drop(columns<span class="op">=</span>[<span class="st">"date_obs"</span>, <span class="st">"mpg"</span>])</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  metrics.mean_squared_error, </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  metrics.r2_score]</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>td <span class="op">=</span> timedelta(weeks <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="op">=</span> vetiver.compute_metrics(</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> original_cars, </span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    date_var <span class="op">=</span> <span class="st">"date_obs"</span>, </span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    period <span class="op">=</span> td, </span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    metric_set <span class="op">=</span> metric_set, </span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    truth <span class="op">=</span> <span class="st">"mpg"</span>, </span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    estimate <span class="op">=</span> <span class="st">"preds"</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>original_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, metrics.mean_squared_error, metrics.r2_score]</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>td <span class="op">=</span> timedelta(weeks<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="op">=</span> vetiver.compute_metrics(</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>original_cars,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    date_var<span class="op">=</span><span class="st">"date_obs"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    period<span class="op">=</span>td,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    metric_set<span class="op">=</span>metric_set,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    truth<span class="op">=</span><span class="st">"mpg"</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    estimate<span class="op">=</span><span class="st">"preds"</span>,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>original_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       index  n               metric   estimate
-0 2022-03-24  7  mean_absolute_error   3.564286
-1 2022-03-24  7   mean_squared_error  14.804849
-2 2022-03-24  7             r2_score   0.226989
+0 2022-03-24  7  mean_absolute_error   3.221429
+1 2022-03-24  7   mean_squared_error  12.419460
+2 2022-03-24  7             r2_score   0.351538
 3 2022-03-31  7  mean_absolute_error   1.930228
 4 2022-03-31  7   mean_squared_error   7.125374
 5 2022-03-31  7             r2_score   0.788933</code></pre>
