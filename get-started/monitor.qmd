@@ -66,7 +66,7 @@ We can compute multiple metrics at once over a certain time aggregation.
 #| message: false
 library(vetiver)
 library(tidyverse)
-cars <- read_csv("get-started/new-cars.csv")
+cars <- read_csv("new-cars.csv")
 original_cars <- slice(cars, 1:14)
 
 original_metrics <-
@@ -86,7 +86,7 @@ import pandas as pd
 from sklearn import metrics
 from datetime import timedelta
 
-cars = pd.read_csv("get-started/new-cars.csv")
+cars = pd.read_csv("new-cars.csv")
 original_cars = cars.iloc[:14, :].copy()
 original_cars["preds"] = v.model.predict(
     original_cars.drop(columns=["date_obs", "mpg"])
