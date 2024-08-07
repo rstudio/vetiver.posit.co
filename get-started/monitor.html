@@ -241,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#plot-metrics" id="toc-plot-metrics" class="nav-link" data-scroll-target="#plot-metrics">Plot metrics</a></li>
   <li><a href="#build-a-dashboard" id="toc-build-a-dashboard" class="nav-link" data-scroll-target="#build-a-dashboard">Build a dashboard</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rstudio/vetiver.rstudio.com/edit/main/get-started/monitor.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rstudio/vetiver.rstudio.com/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/rstudio/vetiver.posit.co/edit/main/get-started/monitor.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/rstudio/vetiver.posit.co/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -329,7 +329,7 @@ How does my model use time?
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vetiver)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"new-cars.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://vetiver.posit.co/get-started/new-cars.csv"</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>original_cars <span class="ot">&lt;-</span> <span class="fu">slice</span>(cars, <span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>original_metrics <span class="ot">&lt;-</span></span>
@@ -358,7 +358,7 @@ How does my model use time?
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>cars <span class="op">=</span> pd.read_csv(<span class="st">"new-cars.csv"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>cars <span class="op">=</span> pd.read_csv(<span class="st">"https://vetiver.posit.co/get-started/new-cars.csv"</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>original_cars <span class="op">=</span> cars.iloc[:<span class="dv">14</span>, :].copy()</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>original_cars[<span class="st">"preds"</span>] <span class="op">=</span> v.model.predict(</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    original_cars.drop(columns<span class="op">=</span>[<span class="st">"date_obs"</span>, <span class="st">"mpg"</span>])</span>
@@ -380,12 +380,12 @@ How does my model use time?
 <span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>original_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       index  n               metric   estimate
-0 2022-03-24  7  mean_absolute_error   3.221429
-1 2022-03-24  7   mean_squared_error  12.419460
-2 2022-03-24  7             r2_score   0.351538
-3 2022-03-31  7  mean_absolute_error   1.930228
-4 2022-03-31  7   mean_squared_error   7.125374
-5 2022-03-31  7             r2_score   0.788933</code></pre>
+0 2022-03-24  7  mean_absolute_error   3.564286
+1 2022-03-24  7   mean_squared_error  14.804849
+2 2022-03-24  7             r2_score   0.226989
+3 2022-03-31  7  mean_absolute_error   1.844513
+4 2022-03-31  7   mean_squared_error   6.376873
+5 2022-03-31  7             r2_score   0.811105</code></pre>
 </div>
 </div>
 </div>
@@ -755,7 +755,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/rstudio/vetiver.rstudio.com">
+    <a class="nav-link" href="https://github.com/rstudio/vetiver.posit.co">
       <i class="bi bi-github" role="img" aria-label="Vetiver site GitHub">
 </i> 
     </a>
