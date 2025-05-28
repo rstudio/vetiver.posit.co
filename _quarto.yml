@@ -26,7 +26,7 @@ website:
   page-footer:
     left: |
       Proudly supported by
-      [![](https://www.rstudio.com/assets/img/posit-logo-fullcolor-TM.svg){fig-alt="Posit PBC" width=65px}](https://posit.co/)
+      [![](/images/Posit-Logos-2024_horiz-full-color.svg){fig-alt="Posit PBC" width=65px}](https://posit.co/)
     right:
       - icon: github
         href: https://github.com/rstudio/vetiver.posit.co
